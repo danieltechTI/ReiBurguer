@@ -1,18 +1,107 @@
-import { sql } from "drizzle-orm";
-import { pgTable, text, varchar } from "drizzle-orm/pg-core";
-import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
-export const users = pgTable("users", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  username: text("username").notNull().unique(),
-  password: text("password").notNull(),
+export const categories = ["aneis", "colares", "brincos", "pulseiras"] as const;
+export type Category = typeof categories[number];
+
+export const materials = ["ouro", "prata", "ouro-rose", "pedras"] as const;
+export type Material = typeof materials[number];
+
+export const categoryLabels: Record<Category, string> = {
+  aneis: "Anéis",
+  colares: "Colares",
+  brincos: "Brincos",
+  pulseiras: "Pulseiras",
+};
+
+export const materialLabels: Record<Material, string> = {
+  ouro: "Ouro",
+  prata: "Prata",
+  "ouro-rose": "Ouro Rosé",
+  pedras: "Pedras Preciosas",
+};
+
+export interface Product {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  originalPrice?: number;
+  category: Category;
+  material: Material;
+  image: string;
+  images: string[];
+  featured: boolean;
+  inStock: boolean;
+  specifications: {
+    weight?: string;
+    size?: string;
+    material?: string;
+    stone?: string;
+  };
+}
+
+export const insertProductSchema = z.object({
+  name: z.string().min(1),
+  description: z.string().min(1),
+  price: z.number().positive(),
+  originalPrice: z.number().positive().optional(),
+  category: z.enum(categories),
+  material: z.enum(materials),
+  image: z.string(),
+  images: z.array(z.string()),
+  featured: z.boolean().default(false),
+  inStock: z.boolean().default(true),
+  specifications: z.object({
+    weight: z.string().optional(),
+    size: z.string().optional(),
+    material: z.string().optional(),
+    stone: z.string().optional(),
+  }).default({}),
 });
 
-export const insertUserSchema = createInsertSchema(users).pick({
-  username: true,
-  password: true,
+export type InsertProduct = z.infer<typeof insertProductSchema>;
+
+export interface CartItem {
+  id: string;
+  productId: string;
+  quantity: number;
+  product: Product;
+}
+
+export const insertCartItemSchema = z.object({
+  productId: z.string(),
+  quantity: z.number().int().positive().default(1),
+});
+
+export type InsertCartItem = z.infer<typeof insertCartItemSchema>;
+
+export interface ContactMessage {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  message: string;
+  createdAt: string;
+}
+
+export const insertContactSchema = z.object({
+  name: z.string().min(2, "Nome deve ter pelo menos 2 caracteres"),
+  email: z.string().email("Email inválido"),
+  phone: z.string().min(10, "Telefone inválido"),
+  message: z.string().min(10, "Mensagem deve ter pelo menos 10 caracteres"),
+});
+
+export type InsertContact = z.infer<typeof insertContactSchema>;
+
+export interface User {
+  id: string;
+  username: string;
+  password: string;
+}
+
+export const insertUserSchema = z.object({
+  username: z.string().min(1),
+  password: z.string().min(1),
 });
 
 export type InsertUser = z.infer<typeof insertUserSchema>;
-export type User = typeof users.$inferSelect;
