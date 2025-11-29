@@ -86,11 +86,11 @@ export function Contact({ onSubmit, isSubmitting }: ContactProps) {
                   <div>
                     <h3 className="font-medium mb-1">Email</h3>
                     <a
-                      href="mailto:contato@lumiere.com.br"
+                      href="mailto:contato@glamgear.com.br"
                       className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                       data-testid="link-contact-email"
                     >
-                      contato@lumiere.com.br
+                      contato@glamgear.com.br
                     </a>
                   </div>
                 </div>
