@@ -4,7 +4,7 @@ import { WHATSAPP_NUMBER } from "@shared/schema";
 
 export function WhatsAppButton() {
   const handleClick = () => {
-    const message = "Olá! Gostaria de saber mais sobre os produtos Glam Gear.";
+    const message = "🎉 Olá! Bem-vindo à *Glam Gear*! 🎉\n\nQual é a sua dúvida? Estou aqui para ajudar com nossos produtos de joias, semi-joias, aço inoxidável, bijuterias e bolsas! ✨";
     window.open(
       `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`,
       "_blank"
