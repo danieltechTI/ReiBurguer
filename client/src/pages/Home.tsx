@@ -11,6 +11,7 @@ import ringImage from "@assets/generated_images/gold_ring_product_shot.png";
 import necklaceImage from "@assets/generated_images/gold_necklace_product_shot.png";
 import earringsImage from "@assets/generated_images/gold_earrings_product_shot.png";
 import braceletImage from "@assets/generated_images/gold_bracelet_product_shot.png";
+import glamGearLogo from "@assets/generated_images/glam_gear_logo.png";
 
 interface HomeProps {
   products: Product[];
@@ -18,10 +19,11 @@ interface HomeProps {
 }
 
 const categoryImages: Record<Category, string> = {
-  aneis: ringImage,
-  colares: necklaceImage,
-  brincos: earringsImage,
-  pulseiras: braceletImage,
+  joias: ringImage,
+  "semi-joias": necklaceImage,
+  "aco-inoxidavel": earringsImage,
+  biju: braceletImage,
+  bolsas: braceletImage,
 };
 
 const testimonials = [
@@ -60,8 +62,8 @@ export function Home({ products, onAddToCart }: HomeProps) {
           <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent" />
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-          <div className="max-w-xl">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex items-center justify-between gap-8">
+          <div className="max-w-xl flex-1">
             <span className="text-sm uppercase tracking-widest text-white/80 mb-4 block">
               Nova Coleção 2025
             </span>
@@ -96,6 +98,14 @@ export function Home({ products, onAddToCart }: HomeProps) {
                 </Button>
               </Link>
             </div>
+          </div>
+          <div className="hidden lg:flex flex-1 justify-center">
+            <img 
+              src={glamGearLogo} 
+              alt="Glam Gear Logo" 
+              className="max-w-xs mix-blend-lighten"
+              data-testid="img-hero-logo"
+            />
           </div>
         </div>
       </section>
