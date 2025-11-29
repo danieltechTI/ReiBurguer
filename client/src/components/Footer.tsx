@@ -17,14 +17,20 @@ export function Footer() {
               Joias, Semi-joias, Aço Inoxidável, Bijuterias e Bolsas com estilo e qualidade.
             </p>
             <div className="flex gap-3">
-              <Button
-                variant="outline"
-                size="icon"
-                className="rounded-full"
-                data-testid="button-social-instagram"
+              <a
+                href="https://www.instagram.com/glamgear5?igsh=NjdudTZueTkxcXF4"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                <Instagram className="h-4 w-4" />
-              </Button>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="rounded-full"
+                  data-testid="button-social-instagram"
+                >
+                  <Instagram className="h-4 w-4" />
+                </Button>
+              </a>
               <Button
                 variant="outline"
                 size="icon"
