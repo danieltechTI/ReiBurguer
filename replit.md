@@ -121,6 +121,7 @@ A aplicação roda na porta 5000 com `npm run dev`.
 ## Próximos Passos (Sugestões)
 - Integrar endereço e CEP no checkout
 - Calcular frete
+- **TODO**: Enviar email de boas-vindas após cadastro (usar SendGrid com SENDGRID_API_KEY secret)
 - Enviar email após pedido
 - Histórico de pedidos para clientes
 - Painel de admin
