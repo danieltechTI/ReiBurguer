@@ -190,7 +190,7 @@ export async function registerRoutes(
   });
 
   app.get("/api/auth/me", (req, res) => {
-    if (!req.session.customerId) {
+    if (!req.session || !req.session.customerId) {
       return res.status(401).json({ message: "Not authenticated" });
     }
     res.json({ customerId: req.session.customerId });
