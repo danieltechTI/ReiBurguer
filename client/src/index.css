@@ -4,40 +4,40 @@
 
 /* LIGHT MODE */
 :root {
-  --button-outline: rgba(212, 175, 55, .10);
-  --badge-outline: rgba(212, 175, 55, .05);
+  --button-outline: rgba(217, 119, 179, .10);
+  --badge-outline: rgba(217, 119, 179, .05);
   --opaque-button-border-intensity: -8;
-  --elevate-1: rgba(212, 175, 55, .03);
-  --elevate-2: rgba(212, 175, 55, .08);
-  --background: 45 100% 97%;
+  --elevate-1: rgba(217, 119, 179, .03);
+  --elevate-2: rgba(217, 119, 179, .08);
+  --background: 330 70% 96%;
   --foreground: 0 0% 9%;
-  --border: 45 89% 85%;
-  --card: 45 89% 95%;
+  --border: 330 60% 88%;
+  --card: 330 60% 93%;
   --card-foreground: 0 0% 9%;
-  --card-border: 45 89% 88%;
-  --sidebar: 45 85% 93%;
+  --card-border: 330 60% 90%;
+  --sidebar: 330 55% 91%;
   --sidebar-foreground: 0 0% 9%;
-  --sidebar-border: 45 85% 88%;
+  --sidebar-border: 330 55% 88%;
   --sidebar-primary: 45 100% 50%;
   --sidebar-primary-foreground: 45 20% 98%;
-  --sidebar-accent: 45 85% 88%;
+  --sidebar-accent: 330 60% 88%;
   --sidebar-accent-foreground: 0 0% 9%;
   --sidebar-ring: 45 100% 50%;
-  --popover: 45 85% 92%;
+  --popover: 330 60% 91%;
   --popover-foreground: 0 0% 9%;
-  --popover-border: 45 89% 88%;
+  --popover-border: 330 60% 88%;
   --primary: 45 100% 50%;
   --primary-foreground: 45 20% 98%;
-  --secondary: 45 89% 80%;
+  --secondary: 330 70% 85%;
   --secondary-foreground: 0 0% 9%;
-  --muted: 45 85% 90%;
+  --muted: 330 60% 88%;
   --muted-foreground: 0 0% 35%;
-  --accent: 45 89% 92%;
+  --accent: 330 65% 91%;
   --accent-foreground: 0 0% 9%;
   --destructive: 0 84% 45%;
   --destructive-foreground: 0 20% 98%;
   --input: 0 0% 78%;
-  --ring: 38 92% 50%;
+  --ring: 45 100% 50%;
   --chart-1: 38 92% 45%;
   --chart-2: 28 85% 48%;
   --chart-3: 18 78% 52%;
@@ -88,40 +88,40 @@
 }
 
 .dark {
-  --button-outline: rgba(212, 175, 55, .10);
-  --badge-outline: rgba(212, 175, 55, .05);
+  --button-outline: rgba(217, 119, 179, .10);
+  --badge-outline: rgba(217, 119, 179, .05);
   --opaque-button-border-intensity: 9;
-  --elevate-1: rgba(212, 175, 55, .04);
-  --elevate-2: rgba(212, 175, 55, .09);
-  --background: 45 60% 12%;
+  --elevate-1: rgba(217, 119, 179, .04);
+  --elevate-2: rgba(217, 119, 179, .09);
+  --background: 330 50% 10%;
   --foreground: 0 0% 96%;
-  --border: 45 80% 25%;
-  --card: 45 70% 15%;
+  --border: 330 60% 22%;
+  --card: 330 50% 13%;
   --card-foreground: 0 0% 96%;
-  --card-border: 45 75% 22%;
-  --sidebar: 45 65% 18%;
+  --card-border: 330 55% 20%;
+  --sidebar: 330 45% 16%;
   --sidebar-foreground: 0 0% 96%;
-  --sidebar-border: 45 70% 24%;
+  --sidebar-border: 330 50% 22%;
   --sidebar-primary: 45 100% 50%;
   --sidebar-primary-foreground: 45 20% 98%;
-  --sidebar-accent: 45 70% 24%;
+  --sidebar-accent: 330 55% 24%;
   --sidebar-accent-foreground: 0 0% 96%;
   --sidebar-ring: 45 100% 50%;
-  --popover: 45 70% 20%;
+  --popover: 330 50% 18%;
   --popover-foreground: 0 0% 96%;
-  --popover-border: 45 75% 26%;
+  --popover-border: 330 55% 24%;
   --primary: 45 100% 50%;
   --primary-foreground: 45 20% 98%;
-  --secondary: 45 70% 22%;
+  --secondary: 330 55% 20%;
   --secondary-foreground: 0 0% 96%;
-  --muted: 45 70% 20%;
+  --muted: 330 50% 18%;
   --muted-foreground: 0 0% 65%;
-  --accent: 45 75% 24%;
+  --accent: 330 55% 24%;
   --accent-foreground: 0 0% 96%;
   --destructive: 0 84% 45%;
   --destructive-foreground: 0 20% 98%;
   --input: 0 0% 28%;
-  --ring: 38 92% 50%;
+  --ring: 45 100% 50%;
   --chart-1: 38 92% 65%;
   --chart-2: 28 85% 68%;
   --chart-3: 18 78% 72%;
@@ -279,10 +279,10 @@
 
 @keyframes glow {
   0%, 100% {
-    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3), 0 0 40px rgba(212, 175, 55, 0.1);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3), 0 0 40px rgba(217, 119, 179, 0.1);
   }
   50% {
-    box-shadow: 0 0 30px rgba(212, 175, 55, 0.5), 0 0 60px rgba(212, 175, 55, 0.2);
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.5), 0 0 60px rgba(217, 119, 179, 0.2);
   }
 }
 
