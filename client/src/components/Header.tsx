@@ -13,10 +13,11 @@ interface HeaderProps {
 const navLinks = [
   { href: "/", label: "Início" },
   { href: "/colecao", label: "Coleção" },
-  { href: "/categorias/aneis", label: "Anéis" },
-  { href: "/categorias/colares", label: "Colares" },
-  { href: "/categorias/brincos", label: "Brincos" },
-  { href: "/categorias/pulseiras", label: "Pulseiras" },
+  { href: "/categorias/joias", label: "Joias" },
+  { href: "/categorias/semi-joias", label: "Semi-Joias" },
+  { href: "/categorias/aco-inoxidavel", label: "Aço Inoxidável" },
+  { href: "/categorias/biju", label: "Bijuterias" },
+  { href: "/categorias/bolsas", label: "Bolsas" },
 ];
 
 export function Header({ cartItemCount, onCartClick }: HeaderProps) {
@@ -75,7 +76,7 @@ export function Header({ cartItemCount, onCartClick }: HeaderProps) {
 
           <Link href="/" data-testid="link-logo">
             <h1 className="font-serif text-2xl md:text-3xl font-light tracking-tight text-foreground">
-              Lumière
+              Glam Gear
             </h1>
           </Link>
 

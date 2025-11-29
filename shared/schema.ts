@@ -1,23 +1,26 @@
 import { z } from "zod";
 
-export const categories = ["aneis", "colares", "brincos", "pulseiras"] as const;
+export const categories = ["joias", "semi-joias", "aco-inoxidavel", "biju", "bolsas"] as const;
 export type Category = typeof categories[number];
 
-export const materials = ["ouro", "prata", "ouro-rose", "pedras"] as const;
+export const materials = ["ouro", "prata", "aco-inoxidavel", "cristal", "couro", "tecido"] as const;
 export type Material = typeof materials[number];
 
 export const categoryLabels: Record<Category, string> = {
-  aneis: "Anéis",
-  colares: "Colares",
-  brincos: "Brincos",
-  pulseiras: "Pulseiras",
+  joias: "Joias",
+  "semi-joias": "Semi-Joias",
+  "aco-inoxidavel": "Aço Inoxidável",
+  biju: "Bijuterias",
+  bolsas: "Bolsas",
 };
 
 export const materialLabels: Record<Material, string> = {
   ouro: "Ouro",
   prata: "Prata",
-  "ouro-rose": "Ouro Rosé",
-  pedras: "Pedras Preciosas",
+  "aco-inoxidavel": "Aço Inoxidável",
+  cristal: "Cristal",
+  couro: "Couro",
+  tecido: "Tecido",
 };
 
 export interface Product {
