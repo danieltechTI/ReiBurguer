@@ -63,13 +63,14 @@ export function Header({ cartItemCount, onCartClick }: HeaderProps) {
             {navLinks.slice(0, 3).map((link) => (
               <Link key={link.href} href={link.href} data-testid={`link-nav-${link.label.toLowerCase()}`}>
                 <span
-                  className={`text-sm uppercase tracking-widest font-light transition-colors hover:text-primary ${
+                  className={`text-sm uppercase tracking-widest font-light transition-all duration-300 hover:text-primary relative group ${
                     location === link.href
                       ? "text-primary font-medium"
                       : "text-foreground/70"
                   }`}
                 >
                   {link.label}
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
                 </span>
               </Link>
             ))}
@@ -86,23 +87,24 @@ export function Header({ cartItemCount, onCartClick }: HeaderProps) {
               {navLinks.slice(3).map((link) => (
                 <Link key={link.href} href={link.href} data-testid={`link-nav-${link.label.toLowerCase()}`}>
                   <span
-                    className={`text-sm uppercase tracking-widest font-light transition-colors hover:text-primary ${
+                    className={`text-sm uppercase tracking-widest font-light transition-all duration-300 hover:text-primary relative group ${
                       location === link.href
                         ? "text-primary font-medium"
                         : "text-foreground/70"
                     }`}
                   >
                     {link.label}
+                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
                   </span>
                 </Link>
               ))}
             </nav>
 
-            <Link href="/" data-testid="link-logo-right">
+            <Link href="/" data-testid="link-logo-right" className="transition-transform duration-300 hover:scale-110">
               <img 
                 src={glamGearLogoHeader} 
                 alt="Glam Gear" 
-                className="h-16 md:h-20 w-auto"
+                className="h-16 md:h-20 w-auto animate-fadeInDown"
                 data-testid="img-header-logo"
               />
             </Link>

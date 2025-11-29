@@ -21,7 +21,7 @@ export function ProductCard({ product, onAddToCart }: ProductCardProps) {
 
   return (
     <Card
-      className="group relative overflow-visible border-0 bg-transparent shadow-none"
+      className="group relative overflow-visible border-0 bg-transparent shadow-none animate-scaleIn hover:shadow-lg transition-shadow duration-300"
       data-testid={`card-product-${product.id}`}
     >
       <div className="relative aspect-square overflow-hidden rounded-md bg-muted">
@@ -29,7 +29,7 @@ export function ProductCard({ product, onAddToCart }: ProductCardProps) {
           <img
             src={product.image}
             alt={product.name}
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
           />
         </Link>
         
@@ -50,13 +50,13 @@ export function ProductCard({ product, onAddToCart }: ProductCardProps) {
           </div>
         )}
 
-        <div className="absolute inset-x-0 bottom-0 p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <div className="flex gap-2">
+        <div className="absolute inset-x-0 bottom-0 p-3 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+          <div className="flex gap-2 animate-fadeInDown">
             <Link href={`/produto/${product.id}`} className="flex-1">
               <Button
                 variant="secondary"
                 size="sm"
-                className="w-full bg-background/90 backdrop-blur-sm"
+                className="w-full bg-background/90 backdrop-blur-sm transition-all duration-300 hover:bg-background"
                 data-testid={`button-view-${product.id}`}
               >
                 <Eye className="h-3 w-3 mr-1" />
@@ -65,7 +65,7 @@ export function ProductCard({ product, onAddToCart }: ProductCardProps) {
             </Link>
             <Button
               size="icon"
-              className="bg-primary/90 backdrop-blur-sm"
+              className="bg-primary/90 backdrop-blur-sm transition-all duration-300 hover:bg-primary"
               onClick={(e) => {
                 e.preventDefault();
                 onAddToCart(product);
@@ -82,7 +82,7 @@ export function ProductCard({ product, onAddToCart }: ProductCardProps) {
       <div className="mt-3 space-y-2">
         <Link href={`/produto/${product.id}`}>
           <h3
-            className="font-medium text-sm text-foreground group-hover:text-primary transition-colors line-clamp-2"
+            className="font-medium text-sm text-foreground group-hover:text-primary transition-all duration-300 line-clamp-2"
             data-testid={`text-product-name-${product.id}`}
           >
             {product.name}
