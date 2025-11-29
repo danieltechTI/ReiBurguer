@@ -75,19 +75,13 @@ export function Header({ cartItemCount, onCartClick }: HeaderProps) {
             ))}
           </nav>
 
-          <Link href="/" data-testid="link-logo" className="flex items-center gap-3">
-            <img 
-              src={glamGearLogoHeader} 
-              alt="Glam Gear" 
-              className="h-10 md:h-14 w-auto"
-              data-testid="img-header-logo"
-            />
+          <Link href="/" data-testid="link-logo">
             <h1 className="font-serif text-2xl md:text-3xl font-light tracking-tight text-foreground">
               Glam Gear
             </h1>
           </Link>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-4">
             <nav className="hidden md:flex items-center gap-8 mr-4">
               {navLinks.slice(3).map((link) => (
                 <Link key={link.href} href={link.href} data-testid={`link-nav-${link.label.toLowerCase()}`}>
@@ -103,6 +97,15 @@ export function Header({ cartItemCount, onCartClick }: HeaderProps) {
                 </Link>
               ))}
             </nav>
+
+            <Link href="/" data-testid="link-logo-right">
+              <img 
+                src={glamGearLogoHeader} 
+                alt="Glam Gear" 
+                className="h-16 md:h-20 w-auto"
+                data-testid="img-header-logo"
+              />
+            </Link>
 
             <Button
               variant="ghost"
