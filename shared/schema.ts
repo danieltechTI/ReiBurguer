@@ -111,3 +111,52 @@ export type InsertUser = z.infer<typeof insertUserSchema>;
 
 // WhatsApp Configuration
 export const WHATSAPP_NUMBER = "5511999999999"; // Replace with actual store number
+
+// Address and Order types
+export interface Address {
+  cep: string;
+  street: string;
+  number: string;
+  complement?: string;
+  neighborhood: string;
+  city: string;
+  state: string;
+}
+
+export interface ShippingInfo {
+  days: number;
+  value: number;
+}
+
+export interface Order {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  cpf: string;
+  address: Address;
+  shippingInfo: ShippingInfo;
+  items: CartItem[];
+  subtotal: number;
+  total: number;
+}
+
+export const insertAddressSchema = z.object({
+  cep: z.string().regex(/^\d{5}-?\d{3}$/, "CEP inválido"),
+  street: z.string().min(1, "Rua obrigatória"),
+  number: z.string().min(1, "Número obrigatório"),
+  complement: z.string().optional(),
+  neighborhood: z.string().min(1, "Bairro obrigatório"),
+  city: z.string().min(1, "Cidade obrigatória"),
+  state: z.string().length(2, "Estado inválido"),
+});
+
+export const insertOrderSchema = z.object({
+  name: z.string().min(2, "Nome deve ter pelo menos 2 caracteres"),
+  email: z.string().email("Email inválido"),
+  phone: z.string().min(10, "Telefone inválido"),
+  cpf: z.string().regex(/^\d{3}\.\d{3}\.\d{3}-?\d{2}$/, "CPF inválido"),
+  address: insertAddressSchema,
+});
+
+export type InsertOrder = z.infer<typeof insertOrderSchema>;

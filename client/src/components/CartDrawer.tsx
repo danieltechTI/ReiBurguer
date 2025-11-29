@@ -5,7 +5,7 @@ import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import type { CartItem } from "@shared/schema";
 import { WHATSAPP_NUMBER } from "@shared/schema";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 
 interface CartDrawerProps {
   open: boolean;
@@ -22,10 +22,16 @@ export function CartDrawer({
   onUpdateQuantity,
   onRemoveItem,
 }: CartDrawerProps) {
+  const [, navigate] = useLocation();
   const subtotal = items.reduce(
     (sum, item) => sum + item.product.price * item.quantity,
     0
   );
+
+  const handleCheckout = () => {
+    onClose();
+    navigate("/checkout");
+  };
 
   return (
     <Sheet open={open} onOpenChange={(isOpen) => !isOpen && onClose()}>
@@ -151,26 +157,10 @@ export function CartDrawer({
                 <Button
                   className="w-full hover-elevate"
                   size="lg"
-                  onClick={() => {
-                    const message = `Olá! Gostaria de finalizar meu pedido:\n\n${items
-                      .map(
-                        (item) =>
-                          `- ${item.product.name} (${item.quantity}x) - R$ ${(
-                            item.product.price * item.quantity
-                          ).toLocaleString("pt-BR", { minimumFractionDigits: 2 })}`
-                      )
-                      .join("\n")}\n\nTotal: R$ ${subtotal.toLocaleString("pt-BR", {
-                      minimumFractionDigits: 2,
-                    })}`;
-                    window.open(
-                      `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`,
-                      "_blank"
-                    );
-                  }}
+                  onClick={handleCheckout}
                   data-testid="button-checkout-whatsapp"
                 >
-                  <MessageCircle className="h-4 w-4 mr-2" />
-                  Finalizar via WhatsApp
+                  Finalizar Compra
                 </Button>
                 <Link href="/contato" onClick={onClose}>
                   <Button

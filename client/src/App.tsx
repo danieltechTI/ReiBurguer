@@ -16,6 +16,7 @@ import { Collection } from "@/pages/Collection";
 import { Category } from "@/pages/Category";
 import { ProductDetail } from "@/pages/ProductDetail";
 import { Contact } from "@/pages/Contact";
+import { Checkout } from "@/pages/Checkout";
 import type { Product, CartItem, InsertContact } from "@shared/schema";
 
 function AppContent() {
@@ -144,6 +145,9 @@ function AppContent() {
               onSubmit={handleContactSubmit}
               isSubmitting={contactMutation.isPending}
             />
+          </Route>
+          <Route path="/checkout">
+            <Checkout cartItems={cartItems} subtotal={cartItems.reduce((sum, item) => sum + item.product.price * item.quantity, 0)} />
           </Route>
           <Route component={NotFound} />
         </Switch>
