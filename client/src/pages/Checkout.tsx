@@ -15,13 +15,6 @@ interface CheckoutProps {
   subtotal: number;
 }
 
-const SHIPPING_RATES: Record<string, { daysPerKm: number; pricePerKm: number }> = {
-  "SP": { daysPerKm: 0.001, pricePerKm: 1 },
-  "RJ": { daysPerKm: 0.001, pricePerKm: 1.2 },
-  "MG": { daysPerKm: 0.0015, pricePerKm: 1.1 },
-  "default": { daysPerKm: 0.002, pricePerKm: 1.5 },
-};
-
 export function Checkout({ cartItems, subtotal }: CheckoutProps) {
   const { toast } = useToast();
   const [, navigate] = useLocation();
@@ -52,37 +45,53 @@ export function Checkout({ cartItems, subtotal }: CheckoutProps) {
     if (cleanCep.length === 8) {
       setLoadingCep(true);
       try {
-        const response = await fetch(`https://viacep.com.br/ws/${cleanCep}/json/`);
-        const data = await response.json();
+        // First: Get address via viaCEP
+        const addressResponse = await fetch(`https://viacep.com.br/ws/${cleanCep}/json/`);
+        const addressData = await addressResponse.json();
         
-        if (!data.erro) {
-          form.setValue("address.street", data.logradouro);
-          form.setValue("address.neighborhood", data.bairro);
-          form.setValue("address.city", data.localidade);
-          form.setValue("address.state", data.uf);
-
-          // Calculate shipping
-          const rate = SHIPPING_RATES[data.uf] || SHIPPING_RATES.default;
-          const days = Math.ceil(100 * rate.daysPerKm) + 2;
-          const value = Math.round(100 * rate.pricePerKm) / 100;
-          
-          setShippingInfo({ days, value });
-          toast({
-            title: "CEP encontrado",
-            description: `${days} dias úteis - R$ ${value.toFixed(2)}`,
-          });
-        } else {
+        if (addressData.erro) {
           toast({
             title: "CEP não encontrado",
             description: "Verifique e tente novamente",
             variant: "destructive",
           });
+          setLoadingCep(false);
+          return;
+        }
+
+        form.setValue("address.street", addressData.logradouro);
+        form.setValue("address.neighborhood", addressData.bairro);
+        form.setValue("address.city", addressData.localidade);
+        form.setValue("address.state", addressData.uf);
+
+        // Second: Calculate shipping via our API (uses Correios)
+        const shippingResponse = await fetch("/api/shipping/calculate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ cep: cleanCep })
+        });
+
+        const shippingData = await shippingResponse.json();
+        
+        if (shippingData.shippingOptions && shippingData.shippingOptions.length > 0) {
+          // Use PAC option by default (cheaper)
+          const pacOption = shippingData.shippingOptions.find((opt: any) => opt.service === "PAC") || shippingData.shippingOptions[0];
+          setShippingInfo({ days: pacOption.days, value: pacOption.value });
+          toast({
+            title: "Frete calculado",
+            description: `${pacOption.service} - ${pacOption.days} dias úteis - R$ ${pacOption.value.toFixed(2)}`,
+          });
+        } else {
+          throw new Error("No shipping options available");
         }
       } catch (error) {
         toast({
-          title: "Erro ao buscar CEP",
+          title: "Erro ao calcular frete",
+          description: "Usando frete padrão",
           variant: "destructive",
         });
+        // Fallback to default shipping
+        setShippingInfo({ days: 7, value: 25 });
       } finally {
         setLoadingCep(false);
       }

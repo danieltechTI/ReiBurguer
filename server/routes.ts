@@ -196,5 +196,125 @@ export async function registerRoutes(
     res.json({ customerId: req.session.customerId });
   });
 
+  // Shipping calculation via Correios API
+  app.post("/api/shipping/calculate", async (req, res) => {
+    try {
+      const { cep } = req.body;
+      if (!cep || typeof cep !== "string") {
+        return res.status(400).json({ message: "CEP is required" });
+      }
+
+      const apiKey = process.env.CORREIOS_API_KEY;
+      if (!apiKey) {
+        return res.status(500).json({ message: "Shipping service not configured" });
+      }
+
+      const cleanCep = cep.replace(/\D/g, "");
+      if (cleanCep.length !== 8) {
+        return res.status(400).json({ message: "Invalid CEP format" });
+      }
+
+      // Default origin CEP (São Paulo - Glam Gear)
+      const originCep = "01310100";
+      
+      // Default weight and dimensions for jewelry/accessories (in grams and cm)
+      // Typical jewelry: 50-100g, small package
+      const weight = 500; // 500g default
+      const length = 15; // cm
+      const width = 10; // cm
+      const height = 5; // cm
+      const diameter = 0;
+
+      try {
+        // Calling Correios API
+        const correiosapiUrl = "https://api.correios.com.br/public/v2/shipping";
+        
+        const payload = {
+          token: apiKey,
+          plpReturn: false,
+          mcu: "g",
+          requestId: `glam-${Date.now()}`,
+          shippingServices: [
+            {
+              serviceCode: "04162", // SEDEX Contrato
+              itemValue: 0
+            },
+            {
+              serviceCode: "02626", // PAC Contrato
+              itemValue: 0
+            }
+          ],
+          shipmentInfo: {
+            originPostalCode: originCep,
+            destinationPostalCode: cleanCep,
+            weight: weight,
+            itemCode: 2,
+            receiverCountryCode: "BR",
+            originCountryCode: "BR"
+          }
+        };
+
+        const response = await fetch(correiosapiUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${apiKey}`
+          },
+          body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+          // Fallback to simplified calculation if API fails
+          const state = cleanCep.substring(0, 2);
+          const baseRates: Record<string, { sedex: number; pac: number; days: number }> = {
+            "01": { sedex: 35, pac: 18, days: 5 }, // SP
+            "20": { sedex: 45, pac: 22, days: 7 }, // RJ
+            "30": { sedex: 40, pac: 20, days: 6 }, // MG
+          };
+
+          const rate = baseRates[state] || { sedex: 60, pac: 30, days: 10 };
+          
+          return res.json({
+            shippingOptions: [
+              { service: "SEDEX", value: rate.sedex, days: 2, serviceCode: "04162" },
+              { service: "PAC", value: rate.pac, days: rate.days, serviceCode: "02626" }
+            ]
+          });
+        }
+
+        const data = await response.json();
+        
+        // Parse Correios response
+        const shippingOptions = data.shippingServices?.map((service: any) => ({
+          service: service.serviceCode === "04162" ? "SEDEX" : "PAC",
+          value: parseFloat(service.value) || 0,
+          days: service.deliveryTime || (service.serviceCode === "04162" ? 2 : 7),
+          serviceCode: service.serviceCode
+        })) || [];
+
+        res.json({ shippingOptions });
+      } catch (apiError) {
+        // Fallback: return simple static rates
+        const state = cleanCep.substring(0, 2);
+        const baseRates: Record<string, { sedex: number; pac: number; days: number }> = {
+          "01": { sedex: 35, pac: 18, days: 5 }, // SP
+          "20": { sedex: 45, pac: 22, days: 7 }, // RJ
+          "30": { sedex: 40, pac: 20, days: 6 }, // MG
+        };
+
+        const rate = baseRates[state] || { sedex: 60, pac: 30, days: 10 };
+        
+        res.json({
+          shippingOptions: [
+            { service: "SEDEX", value: rate.sedex, days: 2, serviceCode: "04162" },
+            { service: "PAC", value: rate.pac, days: rate.days, serviceCode: "02626" }
+          ]
+        });
+      }
+    } catch (error) {
+      res.status(500).json({ message: "Error calculating shipping" });
+    }
+  });
+
   return httpServer;
 }
