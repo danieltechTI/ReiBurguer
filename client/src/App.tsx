@@ -6,6 +6,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
+import { AuthProvider } from "@/lib/authContext";
 import NotFound from "@/pages/not-found";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -17,6 +18,8 @@ import { Category } from "@/pages/Category";
 import { ProductDetail } from "@/pages/ProductDetail";
 import { Contact } from "@/pages/Contact";
 import { Checkout } from "@/pages/Checkout";
+import { Login } from "@/pages/Login";
+import { Register } from "@/pages/Register";
 import type { Product, CartItem, InsertContact } from "@shared/schema";
 
 function AppContent() {
@@ -149,6 +152,12 @@ function AppContent() {
           <Route path="/checkout">
             <Checkout cartItems={cartItems} subtotal={cartItems.reduce((sum, item) => sum + item.product.price * item.quantity, 0)} />
           </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/registro">
+            <Register />
+          </Route>
           <Route component={NotFound} />
         </Switch>
       </main>
@@ -172,8 +181,10 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <Toaster />
-        <AppContent />
+        <AuthProvider>
+          <Toaster />
+          <AppContent />
+        </AuthProvider>
       </TooltipProvider>
     </QueryClientProvider>
   );

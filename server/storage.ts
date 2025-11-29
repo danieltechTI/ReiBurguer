@@ -1,5 +1,5 @@
 import { randomUUID } from "crypto";
-import type { Product, CartItem, ContactMessage, InsertCartItem, InsertContact } from "@shared/schema";
+import type { Product, CartItem, ContactMessage, InsertCartItem, InsertContact, Customer } from "@shared/schema";
 
 export interface IStorage {
   getProducts(): Promise<Product[]>;
@@ -14,6 +14,9 @@ export interface IStorage {
   clearCart(): Promise<void>;
   
   createContactMessage(message: InsertContact): Promise<ContactMessage>;
+  
+  createCustomer(email: string, passwordHash: string, name: string): Promise<Customer>;
+  getCustomerByEmail(email: string): Promise<Customer | undefined>;
 }
 
 const initialProducts: Product[] = [
@@ -234,11 +237,13 @@ export class MemStorage implements IStorage {
   private products: Map<string, Product>;
   private cartItems: Map<string, CartItem>;
   private contactMessages: Map<string, ContactMessage>;
+  private customers: Map<string, Customer>;
 
   constructor() {
     this.products = new Map();
     this.cartItems = new Map();
     this.contactMessages = new Map();
+    this.customers = new Map();
 
     initialProducts.forEach((product) => {
       this.products.set(product.id, product);
@@ -324,6 +329,27 @@ export class MemStorage implements IStorage {
     };
     this.contactMessages.set(id, contactMessage);
     return contactMessage;
+  }
+
+  async createCustomer(email: string, passwordHash: string, name: string): Promise<Customer> {
+    const existing = Array.from(this.customers.values()).find(c => c.email === email);
+    if (existing) {
+      throw new Error("Email already registered");
+    }
+    
+    const id = randomUUID();
+    const customer: Customer = {
+      id,
+      email,
+      passwordHash,
+      name,
+    };
+    this.customers.set(id, customer);
+    return customer;
+  }
+
+  async getCustomerByEmail(email: string): Promise<Customer | undefined> {
+    return Array.from(this.customers.values()).find(c => c.email === email);
   }
 }
 

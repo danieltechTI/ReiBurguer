@@ -109,6 +109,29 @@ export const insertUserSchema = z.object({
 
 export type InsertUser = z.infer<typeof insertUserSchema>;
 
+// Customer Authentication
+export interface Customer {
+  id: string;
+  email: string;
+  passwordHash: string;
+  name: string;
+  phone?: string;
+}
+
+export const registerSchema = z.object({
+  email: z.string().email("Email inválido"),
+  password: z.string().min(6, "Senha deve ter no mínimo 6 caracteres"),
+  name: z.string().min(2, "Nome deve ter no mínimo 2 caracteres"),
+});
+
+export const loginSchema = z.object({
+  email: z.string().email("Email inválido"),
+  password: z.string().min(1, "Senha obrigatória"),
+});
+
+export type RegisterData = z.infer<typeof registerSchema>;
+export type LoginData = z.infer<typeof loginSchema>;
+
 // WhatsApp Configuration
 export const WHATSAPP_NUMBER = "5533987062406"; // Replace with actual store number
 

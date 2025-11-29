@@ -1,9 +1,18 @@
-import type { Express } from "express";
+import type { Express, Request } from "express";
 import { createServer, type Server } from "http";
 import express from "express";
 import path from "path";
 import { storage } from "./storage";
-import { insertCartItemSchema, insertContactSchema } from "@shared/schema";
+import { insertCartItemSchema, insertContactSchema, registerSchema, loginSchema } from "@shared/schema";
+import crypto from "crypto";
+
+declare global {
+  namespace Express {
+    interface Session {
+      customerId?: string;
+    }
+  }
+}
 
 export async function registerRoutes(
   httpServer: Server,
@@ -117,6 +126,74 @@ export async function registerRoutes(
     } catch (error) {
       res.status(500).json({ message: "Error sending message" });
     }
+  });
+
+  // Auth routes
+  app.post("/api/auth/register", async (req, res) => {
+    try {
+      const parsed = registerSchema.safeParse(req.body);
+      if (!parsed.success) {
+        return res.status(400).json({ 
+          message: "Invalid registration data",
+          errors: parsed.error.flatten().fieldErrors 
+        });
+      }
+
+      const passwordHash = crypto.createHash("sha256").update(parsed.data.password).digest("hex");
+      
+      try {
+        const customer = await storage.createCustomer(parsed.data.email, passwordHash, parsed.data.name);
+        req.session.customerId = customer.id;
+        res.status(201).json({ id: customer.id, email: customer.email, name: customer.name });
+      } catch (error) {
+        if (error instanceof Error && error.message === "Email already registered") {
+          return res.status(409).json({ message: "Email already registered" });
+        }
+        throw error;
+      }
+    } catch (error) {
+      res.status(500).json({ message: "Error registering" });
+    }
+  });
+
+  app.post("/api/auth/login", async (req, res) => {
+    try {
+      const parsed = loginSchema.safeParse(req.body);
+      if (!parsed.success) {
+        return res.status(400).json({ 
+          message: "Invalid login data",
+          errors: parsed.error.flatten().fieldErrors 
+        });
+      }
+
+      const customer = await storage.getCustomerByEmail(parsed.data.email);
+      if (!customer) {
+        return res.status(401).json({ message: "Email or password incorrect" });
+      }
+
+      const passwordHash = crypto.createHash("sha256").update(parsed.data.password).digest("hex");
+      if (passwordHash !== customer.passwordHash) {
+        return res.status(401).json({ message: "Email or password incorrect" });
+      }
+
+      req.session.customerId = customer.id;
+      res.json({ id: customer.id, email: customer.email, name: customer.name });
+    } catch (error) {
+      res.status(500).json({ message: "Error logging in" });
+    }
+  });
+
+  app.post("/api/auth/logout", (req, res) => {
+    req.session.destroy(() => {
+      res.json({ message: "Logged out" });
+    });
+  });
+
+  app.get("/api/auth/me", (req, res) => {
+    if (!req.session.customerId) {
+      return res.status(401).json({ message: "Not authenticated" });
+    }
+    res.json({ customerId: req.session.customerId });
   });
 
   return httpServer;
