@@ -4,6 +4,7 @@ import { ShoppingBag, Menu, X, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Badge } from "@/components/ui/badge";
+import glamGearLogoHeader from "@assets/generated_images/glam_gear_logo_header.png";
 
 interface HeaderProps {
   cartItemCount: number;
@@ -74,7 +75,13 @@ export function Header({ cartItemCount, onCartClick }: HeaderProps) {
             ))}
           </nav>
 
-          <Link href="/" data-testid="link-logo">
+          <Link href="/" data-testid="link-logo" className="flex items-center gap-3">
+            <img 
+              src={glamGearLogoHeader} 
+              alt="Glam Gear" 
+              className="h-10 md:h-14 w-auto"
+              data-testid="img-header-logo"
+            />
             <h1 className="font-serif text-2xl md:text-3xl font-light tracking-tight text-foreground">
               Glam Gear
             </h1>
