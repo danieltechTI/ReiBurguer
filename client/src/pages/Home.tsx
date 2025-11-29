@@ -1,145 +1,96 @@
 import { Link } from "wouter";
-import { ArrowRight, Truck, Shield, RefreshCw, Star } from "lucide-react";
+import { ArrowRight, Truck, Lock, CreditCard, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ProductCard } from "@/components/ProductCard";
 import type { Product } from "@shared/schema";
 import { categoryLabels, type Category } from "@shared/schema";
 
-import heroImage from "@assets/generated_images/hero_jewelry_model_image.png";
-import ringImage from "@assets/generated_images/gold_ring_product_shot.png";
-import necklaceImage from "@assets/generated_images/gold_necklace_product_shot.png";
-import earringsImage from "@assets/generated_images/gold_earrings_product_shot.png";
-import braceletImage from "@assets/generated_images/gold_bracelet_product_shot.png";
-import glamGearLogo from "@assets/generated_images/glam_gear_logo.png";
-
 interface HomeProps {
   products: Product[];
   onAddToCart: (product: Product) => void;
 }
 
-const categoryImages: Record<Category, string> = {
-  joias: ringImage,
-  "semi-joias": necklaceImage,
-  "aco-inoxidavel": earringsImage,
-  biju: braceletImage,
-  bolsas: braceletImage,
+const categoryIcons: Record<Category, string> = {
+  joias: "💎",
+  "semi-joias": "✨",
+  "aco-inoxidavel": "🔗",
+  biju: "💍",
+  bolsas: "👜",
 };
 
-const testimonials = [
-  {
-    id: 1,
-    name: "Ana Carolina",
-    text: "Qualidade impecável! As joias são ainda mais bonitas pessoalmente. Atendimento excepcional.",
-    rating: 5,
-  },
-  {
-    id: 2,
-    name: "Maria Fernanda",
-    text: "Comprei um colar para presente e superou todas as expectativas. Embalagem linda e entrega rápida.",
-    rating: 5,
-  },
-  {
-    id: 3,
-    name: "Juliana Santos",
-    text: "Peças delicadas e sofisticadas. Já é minha loja favorita de joias online.",
-    rating: 5,
-  },
-];
-
 export function Home({ products, onAddToCart }: HomeProps) {
-  const featuredProducts = products.filter((p) => p.featured).slice(0, 4);
+  const featuredProducts = products.filter((p) => p.featured).slice(0, 8);
+  const mostViewed = products.slice(0, 8);
 
   return (
-    <div className="min-h-screen">
-      <section className="relative h-[85vh] flex items-center">
-        <div className="absolute inset-0">
-          <img
-            src={heroImage}
-            alt="Joias exclusivas Lumière"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent" />
+    <div className="min-h-screen pt-20 md:pt-24">
+      {/* Hero simples */}
+      <section className="bg-gradient-to-br from-background via-background to-muted/30 py-12 md:py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="font-serif text-4xl md:text-5xl font-light mb-4">
+            Glam Gear
+          </h1>
+          <p className="text-muted-foreground max-w-2xl mx-auto mb-8">
+            Joias, Semi-joias, Aço Inoxidável, Bijuterias e Bolsas com estilo e qualidade
+          </p>
+          <Link href="/colecao">
+            <Button size="lg" data-testid="button-hero-collection">
+              Explorar Coleção
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </Link>
         </div>
+      </section>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex items-center justify-between gap-8">
-          <div className="max-w-xl flex-1">
-            <span className="text-sm uppercase tracking-widest text-white/80 mb-4 block">
-              Nova Coleção 2025
-            </span>
-            <h1 className="font-serif text-5xl md:text-7xl font-light text-white tracking-tight mb-6">
-              Brilhe com
-              <br />
-              <span className="italic">Elegância</span>
-            </h1>
-            <p className="text-lg text-white/90 leading-relaxed mb-8 max-w-md">
-              Descubra nossa coleção exclusiva de joias e semi joias, 
-              criadas para realçar sua beleza natural.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <Link href="/colecao">
-                <Button
-                  size="lg"
-                  className="bg-white/90 text-foreground backdrop-blur-sm border border-white/20"
-                  data-testid="button-hero-collection"
-                >
-                  Ver Coleção
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </Link>
-              <Link href="/contato">
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="border-white/40 text-white bg-white/10 backdrop-blur-sm"
-                  data-testid="button-hero-contact"
-                >
-                  Fale Conosco
-                </Button>
-              </Link>
+      {/* Benefícios */}
+      <section className="bg-card py-8 md:py-12 border-b border-border">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+            <div className="text-center">
+              <CreditCard className="h-8 w-8 mx-auto mb-3 text-primary" />
+              <h3 className="font-medium text-sm md:text-base mb-1">Parcelamento</h3>
+              <p className="text-xs md:text-sm text-muted-foreground">Até 5x sem juros</p>
             </div>
-          </div>
-          <div className="hidden lg:flex flex-1 justify-center">
-            <img 
-              src={glamGearLogo} 
-              alt="Glam Gear Logo" 
-              className="max-w-xs mix-blend-lighten"
-              data-testid="img-hero-logo"
-            />
+            <div className="text-center">
+              <Truck className="h-8 w-8 mx-auto mb-3 text-primary" />
+              <h3 className="font-medium text-sm md:text-base mb-1">Envio Rápido</h3>
+              <p className="text-xs md:text-sm text-muted-foreground">Para todo Brasil</p>
+            </div>
+            <div className="text-center">
+              <Lock className="h-8 w-8 mx-auto mb-3 text-primary" />
+              <h3 className="font-medium text-sm md:text-base mb-1">Segurança</h3>
+              <p className="text-xs md:text-sm text-muted-foreground">100% confiável</p>
+            </div>
+            <div className="text-center">
+              <Phone className="h-8 w-8 mx-auto mb-3 text-primary" />
+              <h3 className="font-medium text-sm md:text-base mb-1">Atendimento</h3>
+              <p className="text-xs md:text-sm text-muted-foreground">Via WhatsApp</p>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="py-16 md:py-24 bg-background">
+      {/* Categorias em grid compacto */}
+      <section className="py-12 md:py-16 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="font-serif text-3xl md:text-4xl font-light mb-4">
-              Explore por Categoria
-            </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Encontre a peça perfeita para cada momento especial
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+          <h2 className="font-serif text-2xl md:text-3xl font-light mb-8">
+            Categorias
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-4">
             {(Object.keys(categoryLabels) as Category[]).map((category) => (
               <Link
                 key={category}
                 href={`/categorias/${category}`}
                 data-testid={`link-category-${category}`}
               >
-                <Card className="group relative aspect-square overflow-hidden border-0 hover-elevate">
-                  <img
-                    src={categoryImages[category]}
-                    alt={categoryLabels[category]}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                  <div className="absolute inset-x-0 bottom-0 p-4 md:p-6">
-                    <h3 className="font-serif text-xl md:text-2xl font-light text-white">
-                      {categoryLabels[category]}
-                    </h3>
-                  </div>
+                <Card className="p-4 text-center hover-elevate cursor-pointer h-full flex flex-col items-center justify-center">
+                  <span className="text-3xl md:text-4xl mb-2">
+                    {categoryIcons[category]}
+                  </span>
+                  <p className="text-sm md:text-base font-medium">
+                    {categoryLabels[category]}
+                  </p>
                 </Card>
               </Link>
             ))}
@@ -147,139 +98,88 @@ export function Home({ products, onAddToCart }: HomeProps) {
         </div>
       </section>
 
-      <section className="py-16 md:py-24 bg-card">
+      {/* NEW IN */}
+      <section className="py-12 md:py-16 bg-muted/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-12">
-            <div>
-              <h2 className="font-serif text-3xl md:text-4xl font-light mb-2">
-                Destaques
-              </h2>
-              <p className="text-muted-foreground">
-                Peças mais amadas pelos nossos clientes
-              </p>
-            </div>
+          <div className="flex items-center justify-between mb-8">
+            <h2 className="font-serif text-2xl md:text-3xl font-light">
+              NOVIDADES
+            </h2>
             <Link href="/colecao">
-              <Button variant="outline" data-testid="button-view-all">
+              <Button variant="outline" size="sm" data-testid="button-see-all-new">
                 Ver Todos
-                <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Link>
           </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-            {featuredProducts.map((product) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                onAddToCart={onAddToCart}
-              />
-            ))}
-          </div>
+          
+          {featuredProducts.length > 0 ? (
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {featuredProducts.map((product) => (
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  onAddToCart={onAddToCart}
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-8 text-muted-foreground">
+              Carregando produtos...
+            </div>
+          )}
         </div>
       </section>
 
-      <section className="py-16 md:py-24 bg-background">
+      {/* MAIS VISTOS */}
+      <section className="py-12 md:py-16 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Card className="p-8 text-center border-0 bg-card">
-              <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
-                <Truck className="h-6 w-6 text-primary" />
-              </div>
-              <h3 className="font-serif text-lg font-medium mb-2">
-                Frete Grátis
-              </h3>
-              <p className="text-sm text-muted-foreground">
-                Em compras acima de R$ 299
-              </p>
-            </Card>
-
-            <Card className="p-8 text-center border-0 bg-card">
-              <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
-                <Shield className="h-6 w-6 text-primary" />
-              </div>
-              <h3 className="font-serif text-lg font-medium mb-2">
-                Compra Segura
-              </h3>
-              <p className="text-sm text-muted-foreground">
-                Pagamento 100% protegido
-              </p>
-            </Card>
-
-            <Card className="p-8 text-center border-0 bg-card">
-              <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
-                <RefreshCw className="h-6 w-6 text-primary" />
-              </div>
-              <h3 className="font-serif text-lg font-medium mb-2">
-                Troca Fácil
-              </h3>
-              <p className="text-sm text-muted-foreground">
-                30 dias para trocar ou devolver
-              </p>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-16 md:py-24 bg-card">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="font-serif text-3xl md:text-4xl font-light mb-4">
-              O Que Dizem Nossas Clientes
+          <div className="flex items-center justify-between mb-8">
+            <h2 className="font-serif text-2xl md:text-3xl font-light">
+              MAIS VISTOS
             </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              A satisfação de quem escolhe Lumière
-            </p>
+            <Link href="/colecao">
+              <Button variant="outline" size="sm" data-testid="button-see-all-viewed">
+                Ver Todos
+              </Button>
+            </Link>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {testimonials.map((testimonial) => (
-              <Card
-                key={testimonial.id}
-                className="p-6 border-0 bg-background"
-                data-testid={`card-testimonial-${testimonial.id}`}
-              >
-                <div className="flex gap-1 mb-4">
-                  {Array.from({ length: testimonial.rating }).map((_, i) => (
-                    <Star
-                      key={i}
-                      className="h-4 w-4 fill-primary text-primary"
-                    />
-                  ))}
-                </div>
-                <p className="text-muted-foreground italic mb-4 leading-relaxed">
-                  "{testimonial.text}"
-                </p>
-                <p className="font-medium text-sm">{testimonial.name}</p>
-              </Card>
-            ))}
-          </div>
+          
+          {mostViewed.length > 0 ? (
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {mostViewed.map((product) => (
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  onAddToCart={onAddToCart}
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-8 text-muted-foreground">
+              Carregando produtos...
+            </div>
+          )}
         </div>
       </section>
 
-      <section className="py-16 md:py-24 bg-primary text-primary-foreground">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      {/* CTA Final */}
+      <section className="py-12 md:py-16 bg-card border-t border-border">
+        <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="font-serif text-3xl md:text-4xl font-light mb-4">
-            Receba Novidades Exclusivas
+            Tem dúvidas?
           </h2>
-          <p className="text-primary-foreground/80 max-w-2xl mx-auto mb-8">
-            Seja a primeira a saber sobre novas coleções e ofertas especiais
+          <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
+            Entre em contato conosco pelo WhatsApp e nossa equipe estará pronta para ajudar!
           </p>
-          <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-            <input
-              type="email"
-              placeholder="Seu melhor email"
-              className="flex-1 px-4 py-3 rounded-md bg-white/10 backdrop-blur-sm border border-white/20 text-white placeholder:text-white/60 focus:outline-none focus:ring-2 focus:ring-white/40"
-              data-testid="input-newsletter"
-            />
-            <Button
-              variant="secondary"
-              size="lg"
-              className="bg-white text-primary"
-              data-testid="button-newsletter"
-            >
-              Inscrever-se
+          <a
+            href="https://wa.me/5511999999999?text=Olá%2C%20estou%20navegando%20em%20sua%20loja%20e%20gostaria%20de%20um%20atendimento%21"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Button size="lg" data-testid="button-hero-whatsapp">
+              Fale Conosco
             </Button>
-          </div>
+          </a>
         </div>
       </section>
     </div>

@@ -12,10 +12,9 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           <div className="space-y-4">
-            <h3 className="font-serif text-2xl font-light">Lumière</h3>
+            <h3 className="font-serif text-2xl font-light">Glam Gear</h3>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Joias e semi joias exclusivas que celebram a beleza feminina com
-              elegância e sofisticação.
+              Joias, Semi-joias, Aço Inoxidável, Bijuterias e Bolsas com estilo e qualidade.
             </p>
             <div className="flex gap-3">
               <Button
@@ -42,24 +41,29 @@ export function Footer() {
               Categorias
             </h4>
             <nav className="flex flex-col gap-2">
-              <Link href="/categorias/aneis" data-testid="link-footer-aneis">
+              <Link href="/categorias/joias" data-testid="link-footer-joias">
                 <span className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Anéis
+                  Joias
                 </span>
               </Link>
-              <Link href="/categorias/colares" data-testid="link-footer-colares">
+              <Link href="/categorias/semi-joias" data-testid="link-footer-semi-joias">
                 <span className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Colares
+                  Semi-Joias
                 </span>
               </Link>
-              <Link href="/categorias/brincos" data-testid="link-footer-brincos">
+              <Link href="/categorias/aco-inoxidavel" data-testid="link-footer-aco">
                 <span className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Brincos
+                  Aço Inoxidável
                 </span>
               </Link>
-              <Link href="/categorias/pulseiras" data-testid="link-footer-pulseiras">
+              <Link href="/categorias/biju" data-testid="link-footer-biju">
                 <span className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Pulseiras
+                  Bijuterias
+                </span>
+              </Link>
+              <Link href="/categorias/bolsas" data-testid="link-footer-bolsas">
+                <span className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  Bolsas
                 </span>
               </Link>
             </nav>
@@ -71,6 +75,16 @@ export function Footer() {
             </h4>
             <div className="flex flex-col gap-3">
               <a
+                href="https://wa.me/5511999999999?text=Olá%2C%20estou%20navegando%20em%20sua%20loja%20e%20gostaria%20de%20um%20atendimento%21"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                data-testid="link-whatsapp"
+              >
+                <MessageCircle className="h-4 w-4" />
+                WhatsApp: (11) 99999-9999
+              </a>
+              <a
                 href="tel:+5511999999999"
                 className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
                 data-testid="link-phone"
@@ -79,21 +93,13 @@ export function Footer() {
                 (11) 99999-9999
               </a>
               <a
-                href="mailto:contato@lumiere.com.br"
+                href="mailto:contato@glamgear.com.br"
                 className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
                 data-testid="link-email"
               >
                 <Mail className="h-4 w-4" />
-                contato@lumiere.com.br
+                contato@glamgear.com.br
               </a>
-              <div className="flex items-start gap-2 text-sm text-muted-foreground">
-                <MapPin className="h-4 w-4 mt-0.5" />
-                <span>
-                  Rua das Joias, 123
-                  <br />
-                  São Paulo - SP
-                </span>
-              </div>
             </div>
           </div>
 

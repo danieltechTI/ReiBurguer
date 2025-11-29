@@ -16,6 +16,9 @@ export function ProductCard({ product, onAddToCart }: ProductCardProps) {
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
     : 0;
 
+  const pixPrice = Math.round(product.price * 0.95); // 5% desconto no Pix
+  const installmentPrice = Math.round(product.price / 5 * 100) / 100;
+
   return (
     <Card
       className="group relative overflow-visible border-0 bg-transparent shadow-none"
@@ -47,27 +50,17 @@ export function ProductCard({ product, onAddToCart }: ProductCardProps) {
           </div>
         )}
 
-        <div className="absolute top-3 right-3 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <Button
-            variant="secondary"
-            size="icon"
-            className="h-9 w-9 rounded-full bg-background/90 backdrop-blur-sm"
-            data-testid={`button-wishlist-${product.id}`}
-          >
-            <Heart className="h-4 w-4" />
-          </Button>
-        </div>
-
-        <div className="absolute inset-x-0 bottom-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <div className="absolute inset-x-0 bottom-0 p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           <div className="flex gap-2">
             <Link href={`/produto/${product.id}`} className="flex-1">
               <Button
                 variant="secondary"
+                size="sm"
                 className="w-full bg-background/90 backdrop-blur-sm"
                 data-testid={`button-view-${product.id}`}
               >
-                <Eye className="h-4 w-4 mr-2" />
-                Ver Detalhes
+                <Eye className="h-3 w-3 mr-1" />
+                Ver
               </Button>
             </Link>
             <Button
@@ -86,35 +79,47 @@ export function ProductCard({ product, onAddToCart }: ProductCardProps) {
         </div>
       </div>
 
-      <div className="mt-4 space-y-1">
-        <div className="flex items-center gap-2">
-          <Badge variant="outline" className="text-xs font-normal tracking-wide">
-            {materialLabels[product.material]}
-          </Badge>
-        </div>
-        
+      <div className="mt-3 space-y-2">
         <Link href={`/produto/${product.id}`}>
           <h3
-            className="font-serif text-lg font-normal text-foreground group-hover:text-primary transition-colors"
+            className="font-medium text-sm text-foreground group-hover:text-primary transition-colors line-clamp-2"
             data-testid={`text-product-name-${product.id}`}
           >
             {product.name}
           </h3>
         </Link>
         
-        <div className="flex items-center gap-2">
-          <span
-            className="text-lg font-light tracking-wide text-foreground"
-            data-testid={`text-product-price-${product.id}`}
-          >
-            R$ {product.price.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
-          </span>
-          {product.originalPrice && (
-            <span className="text-sm text-muted-foreground line-through">
-              R$ {product.originalPrice.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
+        {/* Preços */}
+        <div className="space-y-1">
+          <div className="flex items-baseline gap-2">
+            <span
+              className="text-base font-semibold text-foreground"
+              data-testid={`text-product-price-${product.id}`}
+            >
+              R$ {product.price.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
             </span>
-          )}
+            {product.originalPrice && (
+              <span className="text-xs text-muted-foreground line-through">
+                R$ {product.originalPrice.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
+              </span>
+            )}
+          </div>
+          
+          {/* Desconto Pix */}
+          <p className="text-xs text-primary font-medium">
+            R$ {pixPrice.toLocaleString("pt-BR", { minimumFractionDigits: 2 })} à vista no Pix
+          </p>
+          
+          {/* Parcelamento */}
+          <p className="text-xs text-muted-foreground">
+            ou 5x de R$ {installmentPrice.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
+          </p>
         </div>
+
+        {/* Material Badge */}
+        <Badge variant="outline" className="text-xs font-normal w-fit">
+          {materialLabels[product.material]}
+        </Badge>
       </div>
     </Card>
   );
