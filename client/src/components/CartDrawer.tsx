@@ -1,9 +1,10 @@
-import { Minus, Plus, Trash2, ShoppingBag, X } from "lucide-react";
+import { Minus, Plus, Trash2, ShoppingBag, X, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetFooter } from "@/components/ui/sheet";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import type { CartItem } from "@shared/schema";
+import { WHATSAPP_NUMBER } from "@shared/schema";
 import { Link } from "wouter";
 
 interface CartDrawerProps {
@@ -148,7 +149,7 @@ export function CartDrawer({
               </div>
               <div className="space-y-2">
                 <Button
-                  className="w-full"
+                  className="w-full hover-elevate"
                   size="lg"
                   onClick={() => {
                     const message = `Olá! Gostaria de finalizar meu pedido:\n\n${items
@@ -162,12 +163,13 @@ export function CartDrawer({
                       minimumFractionDigits: 2,
                     })}`;
                     window.open(
-                      `https://wa.me/5511999999999?text=${encodeURIComponent(message)}`,
+                      `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`,
                       "_blank"
                     );
                   }}
                   data-testid="button-checkout-whatsapp"
                 >
+                  <MessageCircle className="h-4 w-4 mr-2" />
                   Finalizar via WhatsApp
                 </Button>
                 <Link href="/contato" onClick={onClose}>
