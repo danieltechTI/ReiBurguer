@@ -109,6 +109,55 @@ export function Checkout({ cartItems, subtotal }: CheckoutProps) {
     }
 
     const total = subtotal + shippingInfo.value;
+    
+    // Generate and download PDF invoice
+    try {
+      const invoiceData = {
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        cpf: data.cpf,
+        address: data.address,
+        items: cartItems,
+        subtotal,
+        shippingValue: shippingInfo.value,
+        shippingDays: shippingInfo.days,
+        total
+      };
+
+      const response = await fetch("/api/orders/invoice", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ orderData: invoiceData })
+      });
+
+      if (response.ok) {
+        // Get the blob and download
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `recibo-pedido-${Date.now()}.pdf`;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+
+        toast({
+          title: "Sucesso!",
+          description: "Recibo do pedido baixado com sucesso!",
+        });
+      }
+    } catch (error) {
+      console.error("Error generating invoice:", error);
+      toast({
+        title: "Aviso",
+        description: "Não foi possível gerar o PDF, mas seu pedido será enviado via WhatsApp",
+        variant: "destructive",
+      });
+    }
+
+    // Send to WhatsApp
     const message = `✨ *Bem-vindo à Glam Gear!* ✨\n\nOlá ${data.name}, seu pedido chegou!\n\n*RESUMO DO PEDIDO*\n\n*Cliente:*\n${data.name}\nEmail: ${data.email}\nTelefone: ${data.phone}\nCPF: ${data.cpf}\n\n*Endereço de Entrega:*\n${data.address.street}, ${data.address.number}${data.address.complement ? ` - ${data.address.complement}` : ""}\n${data.address.neighborhood}, ${data.address.city} - ${data.address.state}\nCEP: ${data.address.cep}\n\n*Produtos:*\n${cartItems.map(item => `- ${item.product.name} (${item.quantity}x) - R$ ${(item.product.price * item.quantity).toLocaleString("pt-BR", { minimumFractionDigits: 2 })}`).join("\n")}\n\n*Cálculo:*\nSubtotal: R$ ${subtotal.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}\nFrete (${shippingInfo.days} dias): R$ ${shippingInfo.value.toFixed(2)}\n\n*TOTAL: R$ ${total.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}*\n\nObrigado por escolher Glam Gear! 💎`;
 
     window.open(

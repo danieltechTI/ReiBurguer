@@ -5,6 +5,7 @@ import path from "path";
 import { storage } from "./storage";
 import { insertCartItemSchema, insertContactSchema, registerSchema, loginSchema } from "@shared/schema";
 import crypto from "crypto";
+import PDFDocument from "pdfkit";
 
 declare global {
   namespace Express {
@@ -194,6 +195,113 @@ export async function registerRoutes(
       return res.status(401).json({ message: "Not authenticated" });
     }
     res.json({ customerId: req.session.customerId });
+  });
+
+  // Generate invoice PDF
+  app.post("/api/orders/invoice", async (req, res) => {
+    try {
+      const { orderData } = req.body;
+      if (!orderData) {
+        return res.status(400).json({ message: "Order data is required" });
+      }
+
+      const doc = new PDFDocument({ margin: 50 });
+      
+      // Set response headers for PDF download
+      res.setHeader("Content-Type", "application/pdf");
+      res.setHeader("Content-Disposition", `attachment; filename="invoice-${Date.now()}.pdf"`);
+      
+      // Pipe PDF to response
+      doc.pipe(res);
+
+      // Header
+      doc.fontSize(24).font("Helvetica-Bold").text("GLAM GEAR", { align: "center" });
+      doc.fontSize(10).text("Joias, Semi-Joias e Acessórios Exclusivos", { align: "center" });
+      doc.fontSize(9).text("Whatsapp: (33) 98706-2406", { align: "center" });
+      doc.text("Instagram: @glamgear5", { align: "center" });
+      
+      doc.moveTo(50, doc.y + 5).lineTo(550, doc.y).stroke();
+      doc.moveDown(1);
+
+      // Title
+      doc.fontSize(16).font("Helvetica-Bold").text("RECIBO DE PEDIDO", { align: "center" });
+      doc.moveDown(0.5);
+
+      // Customer Info
+      doc.fontSize(10).font("Helvetica-Bold").text("DADOS DO CLIENTE");
+      doc.font("Helvetica").fontSize(9);
+      doc.text(`Nome: ${orderData.name}`);
+      doc.text(`Email: ${orderData.email}`);
+      doc.text(`Telefone: ${orderData.phone}`);
+      doc.text(`CPF: ${orderData.cpf}`);
+      doc.moveDown(0.5);
+
+      // Address Info
+      doc.fontSize(10).font("Helvetica-Bold").text("ENDEREÇO DE ENTREGA");
+      doc.font("Helvetica").fontSize(9);
+      doc.text(`${orderData.address.street}, ${orderData.address.number}`);
+      if (orderData.address.complement) {
+        doc.text(orderData.address.complement);
+      }
+      doc.text(`${orderData.address.neighborhood}, ${orderData.address.city} - ${orderData.address.state}`);
+      doc.text(`CEP: ${orderData.address.cep}`);
+      doc.moveDown(0.5);
+
+      // Products
+      doc.fontSize(10).font("Helvetica-Bold").text("PRODUTOS PEDIDOS");
+      doc.moveTo(50, doc.y + 3).lineTo(550, doc.y + 3).stroke();
+      doc.moveDown(0.5);
+      
+      doc.font("Helvetica-Bold").fontSize(9);
+      doc.text("Produto", 50, doc.y, { width: 280 });
+      doc.text("Qtd", 330, doc.y - 12, { width: 50, align: "center" });
+      doc.text("Valor Unit.", 380, doc.y - 12, { width: 80, align: "right" });
+      doc.text("Total", 460, doc.y - 12, { width: 90, align: "right" });
+      doc.moveDown(0.5);
+      
+      doc.moveTo(50, doc.y).lineTo(550, doc.y).stroke();
+      doc.moveDown(0.5);
+
+      doc.font("Helvetica").fontSize(8);
+      orderData.items.forEach((item: any) => {
+        const totalPrice = (item.product.price * item.quantity).toLocaleString("pt-BR", { minimumFractionDigits: 2 });
+        const unitPrice = item.product.price.toLocaleString("pt-BR", { minimumFractionDigits: 2 });
+        
+        doc.text(item.product.name, 50, doc.y, { width: 280 });
+        doc.text(item.quantity.toString(), 330, doc.y - 12, { width: 50, align: "center" });
+        doc.text(`R$ ${unitPrice}`, 380, doc.y - 12, { width: 80, align: "right" });
+        doc.text(`R$ ${totalPrice}`, 460, doc.y - 12, { width: 90, align: "right" });
+        doc.moveDown(1);
+      });
+
+      doc.moveTo(50, doc.y).lineTo(550, doc.y).stroke();
+      doc.moveDown(0.5);
+
+      // Totals
+      const subtotal = orderData.subtotal.toLocaleString("pt-BR", { minimumFractionDigits: 2 });
+      const freight = orderData.shippingValue.toFixed(2);
+      const total = orderData.total.toLocaleString("pt-BR", { minimumFractionDigits: 2 });
+
+      doc.fontSize(10).font("Helvetica");
+      doc.text(`Subtotal: R$ ${subtotal}`, 350);
+      doc.text(`Frete (${orderData.shippingDays} dias): R$ ${freight}`, 350);
+      
+      doc.font("Helvetica-Bold").fontSize(12);
+      doc.text(`TOTAL: R$ ${total}`, 350, doc.y + 5);
+
+      doc.moveDown(2);
+      doc.moveTo(50, doc.y).lineTo(550, doc.y).stroke();
+      doc.moveDown(1);
+
+      // Footer
+      doc.fontSize(9).font("Helvetica").text("Obrigado por escolher Glam Gear!", { align: "center" });
+      doc.text("Data: " + new Date().toLocaleDateString("pt-BR"), { align: "center" });
+      doc.fontSize(8).text("Este é um recibo de pedido. A entrega será confirmada via WhatsApp.", { align: "center" });
+
+      doc.end();
+    } catch (error) {
+      res.status(500).json({ message: "Error generating invoice" });
+    }
   });
 
   // Shipping calculation via Correios API
