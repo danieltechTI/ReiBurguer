@@ -118,6 +118,12 @@ A aplicação roda na porta 5000 com `npm run dev`.
 - ✅ Session management com express-session
 - ✅ Armazenamento de customers em memória
 
+## Configurações da Loja
+- **Endereço**: Rua Décima Segunda, 200 - Governador Valadares, MG
+- **CEP**: 35052090
+- **WhatsApp**: (33) 98706-2406
+- **Instagram**: @glamgear5
+
 ## Próximos Passos (Sugestões)
 - Integrar endereço e CEP no checkout
 - Calcular frete

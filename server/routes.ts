@@ -432,8 +432,8 @@ export async function registerRoutes(
         return res.status(400).json({ message: "Invalid CEP format" });
       }
 
-      // Default origin CEP (São Paulo - Glam Gear)
-      const originCep = "01310100";
+      // Default origin CEP (Governador Valadares - Glam Gear)
+      const originCep = "35052090";
       
       // Default weight and dimensions for jewelry/accessories (in grams and cm)
       // Typical jewelry: 50-100g, small package
