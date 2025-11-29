@@ -7,6 +7,75 @@ import { insertCartItemSchema, insertContactSchema, registerSchema, loginSchema 
 import crypto from "crypto";
 import PDFDocument from "pdfkit";
 
+// Function to generate welcome PDF as buffer
+async function generateWelcomePDF(customerName: string): Promise<Buffer> {
+  return new Promise((resolve, reject) => {
+    const doc = new PDFDocument({ margin: 50 });
+    const chunks: Buffer[] = [];
+
+    doc.on("data", chunk => chunks.push(chunk));
+    doc.on("end", () => resolve(Buffer.concat(chunks)));
+    doc.on("error", reject);
+
+    // Header
+    doc.fontSize(24).font("Helvetica-Bold").text("GLAM GEAR", { align: "center" });
+    doc.fontSize(10).text("Joias, Semi-Joias e Acessórios Exclusivos", { align: "center" });
+    doc.fontSize(9).text("Whatsapp: (33) 98706-2406", { align: "center" });
+    doc.text("Instagram: @glamgear5", { align: "center" });
+    
+    doc.moveTo(50, doc.y + 5).lineTo(550, doc.y).stroke();
+    doc.moveDown(2);
+
+    // Title
+    doc.fontSize(18).font("Helvetica-Bold").text("BEM-VINDO!", { align: "center" });
+    doc.fontSize(14).text("à Glam Gear", { align: "center" });
+    doc.moveDown(1);
+
+    // Welcome message
+    doc.fontSize(11).font("Helvetica");
+    doc.text(`Olá ${customerName},`, { align: "center" });
+    doc.moveDown(0.5);
+    doc.text("Obrigado por se cadastrar na Glam Gear! 🎉", { align: "center" });
+    doc.moveDown(1);
+
+    // Content
+    doc.fontSize(10).font("Helvetica-Bold").text("O QUE VOCÊ VAI ENCONTRAR:");
+    doc.font("Helvetica").fontSize(9);
+    doc.text("✨ Joias exclusivas em ouro, prata e pedras preciosas", { indent: 20 });
+    doc.text("✨ Semi-joias com design sofisticado", { indent: 20 });
+    doc.text("✨ Peças em aço inoxidável hipoalergênicas", { indent: 20 });
+    doc.text("✨ Bijuterias trendy e acessíveis", { indent: 20 });
+    doc.text("✨ Bolsas em couro legítimo", { indent: 20 });
+    doc.moveDown(1);
+
+    // Call to action
+    doc.fontSize(11).font("Helvetica-Bold").text("PRÓXIMOS PASSOS:", { align: "center" });
+    doc.font("Helvetica").fontSize(9);
+    doc.moveDown(0.5);
+    doc.text("1. Explore nossa coleção completa", { align: "center" });
+    doc.text("2. Adicione seus produtos favoritos ao carrinho", { align: "center" });
+    doc.text("3. Finalize sua compra com segurança", { align: "center" });
+    doc.text("4. Receba suas peças com frete dos Correios", { align: "center" });
+    doc.moveDown(2);
+
+    // Contact
+    doc.fontSize(10).font("Helvetica-Bold").text("ENTRE EM CONTATO:");
+    doc.font("Helvetica").fontSize(9);
+    doc.text("WhatsApp: (33) 98706-2406", { indent: 20 });
+    doc.text("Instagram: @glamgear5", { indent: 20 });
+    doc.moveDown(2);
+
+    // Footer
+    doc.moveTo(50, doc.y).lineTo(550, doc.y).stroke();
+    doc.moveDown(1);
+    doc.fontSize(9).text("Com carinho,", { align: "center" });
+    doc.fontSize(11).font("Helvetica-Bold").text("GLAM GEAR", { align: "center" });
+    doc.fontSize(8).font("Helvetica").text("Luxo acessível para você", { align: "center" });
+
+    doc.end();
+  });
+}
+
 declare global {
   namespace Express {
     interface Session {
@@ -145,6 +214,47 @@ export async function registerRoutes(
       try {
         const customer = await storage.createCustomer(parsed.data.email, passwordHash, parsed.data.name);
         req.session.customerId = customer.id;
+
+        // Send welcome email with PDF
+        try {
+          const pdfBuffer = await generateWelcomePDF(parsed.data.name);
+          const base64Pdf = pdfBuffer.toString("base64");
+
+          const resendApiKey = process.env.RESEND_API_KEY;
+          if (resendApiKey) {
+            await fetch("https://api.resend.com/emails", {
+              method: "POST",
+              headers: {
+                "Authorization": `Bearer ${resendApiKey}`,
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                from: "Glam Gear <noreply@glamgear.com.br>",
+                to: parsed.data.email,
+                subject: `Bem-vindo à Glam Gear, ${parsed.data.name}! 🎉`,
+                html: `
+                  <h1>Bem-vindo à Glam Gear!</h1>
+                  <p>Olá ${parsed.data.name},</p>
+                  <p>Obrigado por se cadastrar na Glam Gear! Você agora tem acesso a nossa coleção exclusiva de joias, semi-joias, aço inoxidável, bijuterias e bolsas.</p>
+                  <p>Em anexo, você encontra um recibo de boas-vindas com mais informações sobre nossa loja.</p>
+                  <p><strong>Entre em contato:</strong></p>
+                  <p>WhatsApp: (33) 98706-2406<br>Instagram: @glamgear5</p>
+                  <p>Com carinho,<br><strong>GLAM GEAR</strong></p>
+                `,
+                attachments: [
+                  {
+                    filename: "bem-vindo-glam-gear.pdf",
+                    content: base64Pdf
+                  }
+                ]
+              })
+            });
+          }
+        } catch (emailError) {
+          console.error("Error sending welcome email:", emailError);
+          // Don't fail registration if email fails
+        }
+
         res.status(201).json({ id: customer.id, email: customer.email, name: customer.name });
       } catch (error) {
         if (error instanceof Error && error.message === "Email already registered") {
