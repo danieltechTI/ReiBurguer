@@ -110,7 +110,7 @@ export const insertUserSchema = z.object({
 export type InsertUser = z.infer<typeof insertUserSchema>;
 
 // WhatsApp Configuration
-export const WHATSAPP_NUMBER = "5531987062406"; // Replace with actual store number
+export const WHATSAPP_NUMBER = "5533987062406"; // Replace with actual store number
 
 // Address and Order types
 export interface Address {
