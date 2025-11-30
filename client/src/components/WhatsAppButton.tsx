@@ -4,7 +4,7 @@ import { WHATSAPP_NUMBER } from "@shared/schema";
 
 export function WhatsAppButton() {
   const handleClick = () => {
-    const message = "Olá! Bem-vindo à ReiBurguer! Gostaria de fazer um pedido ou tirar uma dúvida?";
+    const message = "Olá! Bem-vindo à ReiBurguer! Gostaria de acompanhar um pedido ou tirar uma dúvida?";
     window.open(
       `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`,
       "_blank"
