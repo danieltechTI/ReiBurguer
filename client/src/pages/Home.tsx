@@ -33,7 +33,7 @@ export function Home({ products, onAddToCart }: HomeProps) {
         <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/90 to-primary/5"></div>
         <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_20%_50%,hsl(0_100%_45%),transparent_50%)] animate-vibrant-pulse"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="font-serif text-5xl md:text-6xl font-light mb-4 animate-bounce-in text-transparent bg-clip-text bg-gradient-to-r from-primary via-red-600 to-primary drop-shadow-2xl">
+          <h1 className="font-serif text-5xl md:text-6xl font-light mb-4 animate-bounce-in text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary drop-shadow-2xl">
             ReiBurguer
           </h1>
           <p className="text-foreground/90 max-w-2xl mx-auto mb-8 text-lg animate-slideInRight">
