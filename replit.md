@@ -44,7 +44,7 @@ Hamburgueria completa com sistema de pedidos online para PICKUP. Clientes montam
 - ✅ **Order Management**: Contador sequencial (00001-99999), status tracking
 - ✅ **Contact**: Formulário de contato
 - ✅ **Email**: Boas-vindas com PDF ao registrar
-- ⏳ **Admin Panel**: Gerenciar pedidos (não pronto ainda)
+- ✅ **Admin Panel**: Painel de gerenciamento de pedidos com notificação sonora em tempo real
 
 ## Categorias de Produtos
 1. **Hambúrgueres** - Clássico, Bacon Premium, Frango, Vegetariano
@@ -67,11 +67,16 @@ Hamburgueria completa com sistema de pedidos online para PICKUP. Clientes montam
 - `DELETE /api/cart/:id` - Remover item
 - `DELETE /api/cart` - Limpar carrinho
 
-### Pedidos (NOVO)
-- `POST /api/orders/checkout` - Criar pedido (requer autenticação)
+### Pedidos
+- `POST /api/orders/checkout` - Criar pedido (aceita guest checkout)
   - Body: `{ customerName, customerPhone, paymentMethod?, notes? }`
   - Return: `{ id, orderNumber, total, status, whatsappLink, message }`
 - `GET /api/orders/:orderNumber` - Buscar pedido por número
+
+### Admin (NOVO)
+- `GET /api/admin/orders` - Listar todos os pedidos
+- `PATCH /api/admin/orders/:orderId` - Atualizar status do pedido
+  - Body: `{ status }` (confirmado → preparando → pronto → finalizado)
 
 ### Autenticação
 - `POST /api/auth/register` - Registrar novo cliente
@@ -135,10 +140,14 @@ A aplicação roda na porta 5000 com `npm run dev`.
 - ✅ Cores: vermelho/amarelo/marrom
 - ✅ Sistema de autenticação completo
 - ✅ Email de boas-vindas com PDF
-- ✅ **[NOVO]** Modelo de Order com contador sequencial (00001-99999)
-- ✅ **[NOVO]** Endpoint /api/orders/checkout para criar pedidos
-- ✅ **[NOVO]** Geração automática de link WhatsApp com mensagem do pedido
-- ✅ **[NOVO]** Página de Checkout (PICKUP) com forma de pagamento
+- ✅ Modelo de Order com contador sequencial (00001-99999)
+- ✅ Endpoint /api/orders/checkout para criar pedidos
+- ✅ Geração automática de link WhatsApp com mensagem do pedido
+- ✅ Página de Checkout (PICKUP) com forma de pagamento
+- ✅ **[NOVO]** Admin Panel em /admin com lista de pedidos em tempo real
+- ✅ **[NOVO]** Notificação popup com som sonoro ao chegar novo pedido
+- ✅ **[NOVO]** Botões para aceitar (→ preparando) ou rejeitar pedido
+- ✅ **[NOVO]** Som toca repetidamente a cada 2 segundos até aceitar/rejeitar
 
 ## Configurações da Loja
 - **Nome**: ReiBurguer
@@ -147,9 +156,17 @@ A aplicação roda na porta 5000 com `npm run dev`.
 - **Instagram**: @glamgear5
 - **Horário**: Segunda a Domingo, 11h-22h (sugestão)
 
+## Fluxo do Admin Panel
+1. Loja abre /admin para gerenciar pedidos
+2. Quando cliente cria pedido online, popup aparece automaticamente
+3. Som sonoro toca repetidamente a cada 2 segundos
+4. Admin clica "Aceitar Pedido" → status muda para "preparando"
+5. Admin clica novamente para "pronto" quando pedido está pronto
+6. Depois "finalizado" quando cliente retira
+
 ## Próximos Passos Sugeridos
-- Adicionar admin panel para gerenciar pedidos
 - Implementar automação de 3 mensagens WhatsApp (confirmado → preparando → pronto)
 - Adicionar histórico de pedidos para clientes
 - Implementar sistema de horário de funcionamento
 - Enviar email após pedido confirmado
+- Adicionar filtro de datas/horas no admin panel
