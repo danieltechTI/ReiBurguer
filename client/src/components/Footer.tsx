@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { Instagram, Facebook, Mail, Phone, MapPin, Send, Settings } from "lucide-react";
+import { Instagram, Facebook, Mail, Phone, MapPin, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
@@ -95,7 +95,7 @@ export function Footer() {
                 className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
                 data-testid="link-whatsapp"
               >
-                <Send className="h-4 w-4" />
+                <img width="16" height="16" src="https://img.icons8.com/material/24/whatsapp--v1.png" alt="whatsapp" />
                 WhatsApp: +55 31 99347-1856
               </a>
               <a
@@ -172,7 +172,7 @@ export function Footer() {
           size="lg"
           className="rounded-full h-14 w-14 shadow-lg bg-green-500 hover:bg-green-600"
         >
-          <Send className="h-6 w-6" />
+          <img width="24" height="24" src="https://img.icons8.com/material/24/whatsapp--v1.png" alt="whatsapp" />
         </Button>
       </a>
     </footer>

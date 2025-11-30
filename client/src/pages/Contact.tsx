@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Phone, Mail, MapPin, Clock, Send } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, Send } from "lucide-react"; // Send used for submit button
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -132,7 +132,7 @@ export function Contact({ onSubmit, isSubmitting }: ContactProps) {
             <Card className="p-6 border-0 bg-green-500/10">
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0">
-                  <Send className="h-6 w-6 text-white" />
+                  <img width="24" height="24" src="https://img.icons8.com/material/24/ffffff/whatsapp--v1.png" alt="whatsapp" />
                 </div>
                 <div className="flex-1">
                   <h3 className="font-medium mb-1">WhatsApp</h3>
@@ -145,7 +145,7 @@ export function Contact({ onSubmit, isSubmitting }: ContactProps) {
                     rel="noopener noreferrer"
                   >
                     <Button className="bg-green-500 hover:bg-green-600" data-testid="button-whatsapp">
-                      <Send className="h-4 w-4 mr-2" />
+                      <img width="16" height="16" src="https://img.icons8.com/material/24/ffffff/whatsapp--v1.png" alt="whatsapp" className="mr-2" />
                       Falar no WhatsApp
                     </Button>
                   </a>
