@@ -119,7 +119,7 @@ export function Header({ cartItemCount, onCartClick }: HeaderProps) {
           </nav>
 
           <Link href="/" data-testid="link-logo">
-            <h1 className="font-serif text-2xl md:text-3xl font-light tracking-tight text-primary animate-red-glow drop-shadow-lg">
+            <h1 className="font-serif text-2xl md:text-3xl font-light tracking-tight text-primary">
               ReiBurguer
             </h1>
           </Link>
