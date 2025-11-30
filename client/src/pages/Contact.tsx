@@ -72,7 +72,7 @@ export function Contact({ onSubmit, isSubmitting }: ContactProps) {
                       className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                       data-testid="link-contact-phone"
                     >
-                      (33) 98706-2406
+                      +55 31 99503-0612
                     </a>
                   </div>
                 </div>

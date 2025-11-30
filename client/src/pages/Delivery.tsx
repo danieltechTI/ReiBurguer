@@ -47,7 +47,7 @@ export function Delivery() {
               </div>
               <div>
                 <h3 className="font-semibold text-lg mb-2">Entre em Contato</h3>
-                <p className="text-muted-foreground">WhatsApp: (33) 98706-2406</p>
+                <p className="text-muted-foreground">WhatsApp: +55 31 99503-0612</p>
               </div>
             </div>
           </Card>

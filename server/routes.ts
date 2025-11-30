@@ -28,9 +28,9 @@ async function generateWelcomePDF(customerName: string): Promise<Buffer> {
     doc.on("error", reject);
 
     // Header
-    doc.fontSize(24).font("Helvetica-Bold").text("GLAM GEAR", { align: "center" });
-    doc.fontSize(10).text("Joias, Semi-Joias e Acessórios Exclusivos", { align: "center" });
-    doc.fontSize(9).text("Whatsapp: (33) 98706-2406", { align: "center" });
+    doc.fontSize(24).font("Helvetica-Bold").text("ReiBurguer", { align: "center" });
+    doc.fontSize(10).text("Hambúrgueres, Bebidas e Acompanhamentos", { align: "center" });
+    doc.fontSize(9).text("WhatsApp: +55 31 99503-0612", { align: "center" });
     doc.text("Instagram: @glamgear5", { align: "center" });
     
     doc.moveTo(50, doc.y + 5).lineTo(550, doc.y).stroke();
@@ -45,33 +45,33 @@ async function generateWelcomePDF(customerName: string): Promise<Buffer> {
     doc.fontSize(11).font("Helvetica");
     doc.text(`Olá ${customerName},`, { align: "center" });
     doc.moveDown(0.5);
-    doc.text("Obrigado por se cadastrar na Glam Gear! 🎉", { align: "center" });
+    doc.text("Obrigado por se cadastrar na ReiBurguer!", { align: "center" });
     doc.moveDown(1);
 
     // Content
     doc.fontSize(10).font("Helvetica-Bold").text("O QUE VOCÊ VAI ENCONTRAR:");
     doc.font("Helvetica").fontSize(9);
-    doc.text("✨ Joias exclusivas em ouro, prata e pedras preciosas", { indent: 20 });
-    doc.text("✨ Semi-joias com design sofisticado", { indent: 20 });
-    doc.text("✨ Peças em aço inoxidável hipoalergênicas", { indent: 20 });
-    doc.text("✨ Bijuterias trendy e acessíveis", { indent: 20 });
-    doc.text("✨ Bolsas em couro legítimo", { indent: 20 });
+    doc.text("🍔 Hambúrgueres suculentos feitos com ingredientes frescos", { indent: 20 });
+    doc.text("🥤 Bebidas refrescantes para acompanhar", { indent: 20 });
+    doc.text("🍟 Acompanhamentos crocantes e deliciosos", { indent: 20 });
+    doc.text("🍦 Sobremesas irresistíveis", { indent: 20 });
+    doc.text("🎁 Combos especiais com os melhores preços", { indent: 20 });
     doc.moveDown(1);
 
     // Call to action
     doc.fontSize(11).font("Helvetica-Bold").text("PRÓXIMOS PASSOS:", { align: "center" });
     doc.font("Helvetica").fontSize(9);
     doc.moveDown(0.5);
-    doc.text("1. Explore nossa coleção completa", { align: "center" });
-    doc.text("2. Adicione seus produtos favoritos ao carrinho", { align: "center" });
-    doc.text("3. Finalize sua compra com segurança", { align: "center" });
-    doc.text("4. Receba suas peças com frete dos Correios", { align: "center" });
+    doc.text("1. Explore nosso cardápio completo", { align: "center" });
+    doc.text("2. Adicione seus hambúrgueres favoritos ao carrinho", { align: "center" });
+    doc.text("3. Finalize seu pedido", { align: "center" });
+    doc.text("4. Retire na loja em Rua Antonio Giarola, 30", { align: "center" });
     doc.moveDown(2);
 
     // Contact
     doc.fontSize(10).font("Helvetica-Bold").text("ENTRE EM CONTATO:");
     doc.font("Helvetica").fontSize(9);
-    doc.text("WhatsApp: (33) 98706-2406", { indent: 20 });
+    doc.text("WhatsApp: +55 31 99503-0612", { indent: 20 });
     doc.text("Instagram: @glamgear5", { indent: 20 });
     doc.moveDown(2);
 
@@ -79,8 +79,8 @@ async function generateWelcomePDF(customerName: string): Promise<Buffer> {
     doc.moveTo(50, doc.y).lineTo(550, doc.y).stroke();
     doc.moveDown(1);
     doc.fontSize(9).text("Com carinho,", { align: "center" });
-    doc.fontSize(11).font("Helvetica-Bold").text("GLAM GEAR", { align: "center" });
-    doc.fontSize(8).font("Helvetica").text("Luxo acessível para você", { align: "center" });
+    doc.fontSize(11).font("Helvetica-Bold").text("ReiBurguer", { align: "center" });
+    doc.fontSize(8).font("Helvetica").text("Os melhores hambúrgueres da região", { align: "center" });
 
     doc.end();
   });
