@@ -1,16 +1,38 @@
+import { MapPin, Phone } from "lucide-react";
+import { Button } from "@/components/ui/button";
+
 export function Map() {
   return (
-    <div className="w-full rounded-lg overflow-hidden border border-border shadow-md" style={{ height: '300px', minHeight: '300px' }}>
-      <iframe
-        title="Mapa ReiBurguer"
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d120112.14656933805!2d-44.14118145664065!3d-19.818591999999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xa68f5f3902ba81%3A0x27221b4ff5ba171a!2sRei%20burguer%20c%C3%A9u%20azul!5e0!3m2!1spt-BR!2sbr!4v1764503195735!5m2!1spt-BR!2sbr"
-        width="100%"
-        height="100%"
-        style={{ border: 0, display: 'block' }}
-        allowFullScreen={true}
-        loading="lazy"
-        referrerPolicy="no-referrer-when-downgrade"
-      />
+    <div className="w-full rounded-lg overflow-hidden border border-border shadow-md bg-card p-6">
+      <div className="space-y-4">
+        <div className="flex items-center gap-3">
+          <MapPin className="h-5 w-5 text-primary flex-shrink-0" />
+          <div>
+            <h3 className="font-medium text-foreground">Endereço</h3>
+            <p className="text-sm text-muted-foreground">Rua Antonio Giarola, 30 - Céu Azul</p>
+            <p className="text-xs text-muted-foreground">Governador Valadares, MG</p>
+          </div>
+        </div>
+        
+        <div className="flex items-center gap-3">
+          <Phone className="h-5 w-5 text-primary flex-shrink-0" />
+          <div>
+            <h3 className="font-medium text-foreground">Contato</h3>
+            <p className="text-sm text-muted-foreground">+55 31 99347-1856</p>
+          </div>
+        </div>
+
+        <a
+          href="https://maps.google.com/?q=Rua+Antonio+Giarola+30+Governador+Valadares+MG"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-block mt-2"
+        >
+          <Button variant="default" size="sm">
+            Abrir no Google Maps
+          </Button>
+        </a>
+      </div>
     </div>
   );
 }
