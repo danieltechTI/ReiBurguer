@@ -28,12 +28,12 @@ export function Home({ products, onAddToCart }: HomeProps) {
     <div className="min-h-screen pt-20 md:pt-24">
       {/* Hero with Background */}
       <section 
-        className="relative py-20 md:py-32 overflow-hidden bg-gradient-to-br from-primary/30 via-background to-secondary/15 border-b-2 border-primary/20"
+        className="relative py-20 md:py-32 overflow-hidden bg-gradient-to-br from-primary/40 via-background to-primary/5 border-b-2 border-primary/40"
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/90 to-primary/5"></div>
-        <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_20%_50%,hsl(0_100%_45%),transparent_50%)] animate-vibrant-pulse"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/90 to-primary/10"></div>
+        <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_20%_50%,hsl(0_100%_52%),transparent_50%)] animate-vibrant-pulse"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="font-serif text-5xl md:text-6xl font-light mb-4 animate-bounce-in text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary drop-shadow-2xl">
+          <h1 className="font-serif text-5xl md:text-6xl font-light mb-4 animate-bounce-in text-primary drop-shadow-2xl">
             ReiBurguer
           </h1>
           <p className="text-foreground/90 max-w-2xl mx-auto mb-8 text-lg animate-slideInRight">
@@ -85,7 +85,7 @@ export function Home({ products, onAddToCart }: HomeProps) {
       </section>
 
       {/* Categorias em grid compacto */}
-      <section className="py-12 md:py-16 bg-gradient-to-b from-background to-muted/20">
+      <section className="py-12 md:py-16 bg-gradient-to-b from-background to-primary/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="font-serif text-2xl md:text-3xl font-light mb-8 animate-slideInLeft">
             Cardápio
@@ -117,7 +117,7 @@ export function Home({ products, onAddToCart }: HomeProps) {
       </section>
 
       {/* DESTAQUES - VÍDEOS VIRAIS */}
-      <section className="py-12 md:py-16 relative overflow-hidden bg-gradient-to-r from-primary/5 via-transparent to-secondary/5">
+      <section className="py-12 md:py-16 relative overflow-hidden bg-gradient-to-r from-primary/10 via-background to-primary/5">
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="font-serif text-2xl md:text-3xl font-light animate-slideInLeft text-foreground drop-shadow mb-8">
             DESTAQUES DO DIA
@@ -193,7 +193,7 @@ export function Home({ products, onAddToCart }: HomeProps) {
       </section>
 
       {/* MAIS VENDIDOS */}
-      <section className="py-12 md:py-16 bg-gradient-to-b from-background to-muted/20">
+      <section className="py-12 md:py-16 bg-gradient-to-b from-background to-primary/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between mb-8">
             <h2 className="font-serif text-2xl md:text-3xl font-light animate-slideInLeft">
@@ -226,7 +226,7 @@ export function Home({ products, onAddToCart }: HomeProps) {
       </section>
 
       {/* CTA Final */}
-      <section className="py-12 md:py-16 bg-gradient-to-r from-primary/10 to-primary/5 border-t border-border">
+      <section className="py-12 md:py-16 bg-gradient-to-r from-primary/15 to-primary/5 border-t-2 border-primary/20">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="font-serif text-3xl md:text-4xl font-light mb-4 animate-slideInLeft">
             Tem dúvidas?
