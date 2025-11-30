@@ -89,7 +89,7 @@ export function Footer() {
             </h4>
             <div className="flex flex-col gap-3">
               <a
-                href="https://wa.me/5533987062406?text=Olá%2C%20estou%20navegando%20no%20cardápio%20da%20ReiBurguer%20e%20gostaria%20de%20fazer%20um%20pedido%21"
+                href="https://wa.me/31995030612?text=Olá%2C%20estou%20navegando%20no%20cardápio%20da%20ReiBurguer%20e%20gostaria%20de%20fazer%20um%20pedido%21"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
@@ -99,7 +99,7 @@ export function Footer() {
                 WhatsApp: (33) 98706-2406
               </a>
               <a
-                href="tel:+5533987062406"
+                href="tel:+31995030612"
                 className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
                 data-testid="link-phone"
               >
@@ -159,7 +159,7 @@ export function Footer() {
       </div>
 
       <a
-        href="https://wa.me/5533987062406"
+        href="https://wa.me/31995030612"
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-6 right-6 z-50"

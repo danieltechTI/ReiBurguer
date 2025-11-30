@@ -602,7 +602,7 @@ ${notes ? `Observações: ${notes}\n` : ''}
 Você receberá em breve uma confirmação!`;
 
       // Generate WhatsApp link (user will need to click to send)
-      const whatsappPhone = "5533987062406"; // ReiBurguer WhatsApp
+      const whatsappPhone = "31995030612"; // ReiBurguer WhatsApp
       const whatsappLink = `https://wa.me/${whatsappPhone}?text=${encodeURIComponent(whatsappMessage)}`;
 
       res.status(201).json({

@@ -134,7 +134,7 @@ export type RegisterData = z.infer<typeof registerSchema>;
 export type LoginData = z.infer<typeof loginSchema>;
 
 // WhatsApp Configuration
-export const WHATSAPP_NUMBER = "5533987062406"; // Replace with actual store number
+export const WHATSAPP_NUMBER = "31995030612"; // ReiBurguer WhatsApp
 
 // Address and Order types
 export interface Address {
