@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useLocation } from "wouter";
@@ -37,6 +37,11 @@ export function Checkout({ cartItems, subtotal }: CheckoutProps) {
     whatsappLink: string;
     message: string;
   } | null>(null);
+
+  // Scroll para o topo quando a página carrega
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const form = useForm<CheckoutFormData>({
     resolver: zodResolver(checkoutSchema),
