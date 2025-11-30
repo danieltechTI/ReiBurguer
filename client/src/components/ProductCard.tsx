@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import type { Product } from "@shared/schema";
-import { materialLabels } from "@shared/schema";
+import { ingredientLabels } from "@shared/schema";
 
 interface ProductCardProps {
   product: Product;
@@ -116,9 +116,9 @@ export function ProductCard({ product, onAddToCart }: ProductCardProps) {
           </p>
         </div>
 
-        {/* Material Badge */}
+        {/* Ingredientes Badge */}
         <Badge variant="outline" className="text-xs font-normal w-fit">
-          {materialLabels[product.material]}
+          {ingredientLabels[product.ingredient]}
         </Badge>
       </div>
     </Card>

@@ -6,15 +6,15 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/co
 import { Separator } from "@/components/ui/separator";
 import { SlidersHorizontal, X } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { categories, materials, categoryLabels, materialLabels, type Category, type Material } from "@shared/schema";
+import { categories, ingredients, categoryLabels, ingredientLabels, type Category, type Ingredient } from "@shared/schema";
 
 interface ProductFiltersProps {
   selectedCategories: Category[];
-  selectedMaterials: Material[];
+  selectedMaterials: Ingredient[];
   priceRange: [number, number];
   maxPrice: number;
   onCategoryChange: (category: Category) => void;
-  onMaterialChange: (material: Material) => void;
+  onMaterialChange: (material: Ingredient) => void;
   onPriceChange: (range: [number, number]) => void;
   onClearFilters: () => void;
 }
@@ -65,10 +65,10 @@ export function ProductFilters({
 
       <div className="space-y-4">
         <h4 className="text-sm uppercase tracking-widest font-medium">
-          Material
+          Ingredientes
         </h4>
         <div className="space-y-3">
-          {materials.map((material) => (
+          {ingredients.map((material) => (
             <div key={material} className="flex items-center space-x-2">
               <Checkbox
                 id={`material-${material}`}
@@ -80,7 +80,7 @@ export function ProductFilters({
                 htmlFor={`material-${material}`}
                 className="text-sm font-normal cursor-pointer"
               >
-                {materialLabels[material]}
+                {ingredientLabels[material]}
               </Label>
             </div>
           ))}

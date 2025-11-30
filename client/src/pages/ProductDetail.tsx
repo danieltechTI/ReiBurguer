@@ -8,7 +8,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { ProductCard } from "@/components/ProductCard";
 import type { Product } from "@shared/schema";
-import { categoryLabels, materialLabels } from "@shared/schema";
+import { categoryLabels, ingredientLabels } from "@shared/schema";
 
 interface ProductDetailProps {
   products: Product[];
@@ -128,7 +128,7 @@ export function ProductDetail({ products, isLoading, onAddToCart }: ProductDetai
                   {categoryLabels[product.category]}
                 </Badge>
                 <Badge variant="outline" className="font-normal">
-                  {materialLabels[product.material]}
+                  {ingredientLabels[product.ingredient]}
                 </Badge>
                 {discount > 0 && (
                   <Badge className="bg-destructive text-destructive-foreground">
@@ -250,16 +250,16 @@ export function ProductDetail({ products, isLoading, onAddToCart }: ProductDetai
                           <dd>{product.specifications.size}</dd>
                         </div>
                       )}
-                      {product.specifications.material && (
+                      {product.specifications.ingredients && (
                         <div className="flex justify-between text-sm">
-                          <dt className="text-muted-foreground">Material</dt>
-                          <dd>{product.specifications.material}</dd>
+                          <dt className="text-muted-foreground">Ingredientes</dt>
+                          <dd>{product.specifications.ingredients}</dd>
                         </div>
                       )}
-                      {product.specifications.stone && (
+                      {product.specifications.allergen && (
                         <div className="flex justify-between text-sm">
-                          <dt className="text-muted-foreground">Pedra</dt>
-                          <dd>{product.specifications.stone}</dd>
+                          <dt className="text-muted-foreground">Alérgenos</dt>
+                          <dd>{product.specifications.allergen}</dd>
                         </div>
                       )}
                     </dl>
@@ -272,9 +272,9 @@ export function ProductDetail({ products, isLoading, onAddToCart }: ProductDetai
                 </AccordionTrigger>
                 <AccordionContent>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    Para manter o brilho da sua joia, evite o contato com água, 
-                    perfumes e produtos químicos. Guarde-a em local seco e 
-                    separada de outras peças para evitar arranhões.
+                    Aproveite logo seus hambúrgueres e bebidas fresquinhas! 
+                    Se for for levar para casa, mantenha em embalagem térmica. 
+                    Melhor consumir no máximo 2 horas após o recebimento.
                   </p>
                 </AccordionContent>
               </AccordionItem>
@@ -284,9 +284,9 @@ export function ProductDetail({ products, isLoading, onAddToCart }: ProductDetai
                 </AccordionTrigger>
                 <AccordionContent>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    Frete grátis para todo o Brasil em compras acima de R$ 299. 
-                    Prazo de entrega de 3 a 7 dias úteis. Embalagem especial para 
-                    presente disponível.
+                    Entregamos em Governador Valadares e região. 
+                    Frete calculado automaticamente baseado no seu CEP. 
+                    Entrega rápida via Correios (SEDEX e PAC disponível).
                   </p>
                 </AccordionContent>
               </AccordionItem>

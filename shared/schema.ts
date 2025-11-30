@@ -1,26 +1,27 @@
 import { z } from "zod";
 
-export const categories = ["joias", "semi-joias", "aco-inoxidavel", "biju", "bolsas"] as const;
+export const categories = ["hamburguer", "bebidas", "acompanhamentos", "sobremesas", "combos"] as const;
 export type Category = typeof categories[number];
 
-export const materials = ["ouro", "prata", "aco-inoxidavel", "cristal", "couro", "tecido"] as const;
-export type Material = typeof materials[number];
+export const ingredients = ["carne", "frango", "vegetariano", "queijo", "bacon", "alface", "tomate"] as const;
+export type Ingredient = typeof ingredients[number];
 
 export const categoryLabels: Record<Category, string> = {
-  joias: "Joias",
-  "semi-joias": "Semi-Joias",
-  "aco-inoxidavel": "Aço Inoxidável",
-  biju: "Bijuterias",
-  bolsas: "Bolsas",
+  hamburguer: "Hambúrgueres",
+  bebidas: "Bebidas",
+  acompanhamentos: "Acompanhamentos",
+  sobremesas: "Sobremesas",
+  combos: "Combos",
 };
 
-export const materialLabels: Record<Material, string> = {
-  ouro: "Ouro",
-  prata: "Prata",
-  "aco-inoxidavel": "Aço Inoxidável",
-  cristal: "Cristal",
-  couro: "Couro",
-  tecido: "Tecido",
+export const ingredientLabels: Record<Ingredient, string> = {
+  carne: "Carne",
+  frango: "Frango",
+  vegetariano: "Vegetariano",
+  queijo: "Queijo",
+  bacon: "Bacon",
+  alface: "Alface",
+  tomate: "Tomate",
 };
 
 export interface Product {
@@ -30,7 +31,7 @@ export interface Product {
   price: number;
   originalPrice?: number;
   category: Category;
-  material: Material;
+  ingredient: Ingredient;
   image: string;
   images: string[];
   featured: boolean;
@@ -38,8 +39,8 @@ export interface Product {
   specifications: {
     weight?: string;
     size?: string;
-    material?: string;
-    stone?: string;
+    ingredients?: string;
+    allergen?: string;
   };
 }
 
@@ -49,7 +50,7 @@ export const insertProductSchema = z.object({
   price: z.number().positive(),
   originalPrice: z.number().positive().optional(),
   category: z.enum(categories),
-  material: z.enum(materials),
+  ingredient: z.enum(ingredients),
   image: z.string(),
   images: z.array(z.string()),
   featured: z.boolean().default(false),
@@ -57,8 +58,8 @@ export const insertProductSchema = z.object({
   specifications: z.object({
     weight: z.string().optional(),
     size: z.string().optional(),
-    material: z.string().optional(),
-    stone: z.string().optional(),
+    ingredients: z.string().optional(),
+    allergen: z.string().optional(),
   }).default({}),
 });
 

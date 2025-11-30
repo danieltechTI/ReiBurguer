@@ -1,7 +1,7 @@
-# Glam Gear - E-commerce de Acessórios e Bolsas
+# ReiBurguer - Hamburgueria Online
 
 ## Overview
-Loja online elegante para venda de Joias, Semi-joias, Aço inoxidável, Bijuterias e Bolsas. Sistema completo de pedido onde o cliente monta seu carrinho e finaliza a compra via WhatsApp, escolhendo a forma de pagamento com a loja.
+Hamburgueria completa com sistema de pedidos online. Clientes montam seu pedido com hambúrgueres, bebidas, acompanhamentos e combos, finalizando a compra via WhatsApp e escolhendo a forma de pagamento com a loja.
 
 ## Tech Stack
 - **Frontend**: React + TypeScript + Vite
@@ -30,8 +30,8 @@ Loja online elegante para venda de Joias, Semi-joias, Aço inoxidável, Bijuteri
 │   │   │   ├── ProductDetail.tsx
 │   │   │   ├── Contact.tsx
 │   │   │   ├── Checkout.tsx
-│   │   │   ├── Login.tsx (Novo)
-│   │   │   ├── Register.tsx (Novo)
+│   │   │   ├── Login.tsx
+│   │   │   ├── Register.tsx
 │   │   │   └── not-found.tsx
 │   │   ├── App.tsx       # Main app com rotas auth
 │   │   └── index.css     # Global styles
@@ -48,20 +48,22 @@ Loja online elegante para venda de Joias, Semi-joias, Aço inoxidável, Bijuteri
 ## Features
 - **Homepage**: Hero section, categorias em grid, produtos em destaque
 - **Collection Page**: Catálogo completo com filtros e ordenação
-- **Category Pages**: Produtos filtrados por categoria (Joias, Semi-joias, Aço inoxidável, Bijuterias, Bolsas)
-- **Product Detail**: Galeria de imagens, especificações, adicionar ao carrinho
+- **Category Pages**: Produtos filtrados por categoria (Hambúrgueres, Bebidas, Acompanhamentos, Sobremesas, Combos)
+- **Product Detail**: Galeria de imagens, ingredientes, descrição, adicionar ao carrinho
 - **Shopping Cart**: Carrinho slide-out com controle de quantidade
 - **Authentication**: ✅ Sistema de registro e login para clientes
-- **WhatsApp Checkout**: Finalizar compra via WhatsApp com pedido, valor final e opções de pagamento
+- **WhatsApp Checkout**: Finalizar pedido via WhatsApp com items, valor final e opções de pagamento
 - **Contact**: Formulário de contato para atendimento
 - **WhatsApp**: Botão flutuante para contato rápido
+- **Email**: Boas-vindas automática com PDF ao registrar
+- **Frete**: Cálculo de frete dos Correios
 
 ## Categorias de Produtos
-1. **Joias** - Peças em ouro, prata e pedras preciosas
-2. **Semi-joias** - Acessórios banhados e cristais
-3. **Aço Inoxidável** - Peças resistentes e hipoalergênicas
-4. **Bijuterias** - Acessórios fashion acessíveis
-5. **Bolsas** - Bolsas em couro e tecido
+1. **Hambúrgueres** - Clássico, Bacon Premium, Frango, Vegetariano
+2. **Bebidas** - Refrigerantes, Milk Shakes, Bebidas diversas
+3. **Acompanhamentos** - Batata Frita, Anéis de Cebola, etc
+4. **Sobremesas** - Sorvetes, Sundaes, Doces
+5. **Combos** - Promoções com hambúrguer + bebida + acompanhamento
 
 ## API Endpoints
 
@@ -80,7 +82,7 @@ Loja online elegante para venda de Joias, Semi-joias, Aço inoxidável, Bijuteri
 ### Contato
 - `POST /api/contact` - Enviar mensagem de contato
 
-### Autenticação (Novo)
+### Autenticação
 - `POST /api/auth/register` - Registrar novo cliente
 - `POST /api/auth/login` - Login de cliente
 - `POST /api/auth/logout` - Logout de cliente
@@ -88,7 +90,7 @@ Loja online elegante para venda de Joias, Semi-joias, Aço inoxidável, Bijuteri
 
 ## Fluxo de Compra
 1. Cliente se registra ou faz login
-2. Navega pelos produtos e categorias
+2. Navega pelos hambúrgueres e categorias
 3. Adiciona itens ao carrinho
 4. Abre o carrinho via ícone ou botão
 5. Clica em "Finalizar via WhatsApp"
@@ -96,7 +98,7 @@ Loja online elegante para venda de Joias, Semi-joias, Aço inoxidável, Bijuteri
 7. Mensagem inclui: items, quantidades, valor total
 8. Loja confirma o pedido e propõe formas de pagamento
 
-## Autenticação (Novo)
+## Autenticação
 - **Registro**: Página em `/registro` com formulário de criação de conta
 - **Login**: Página em `/login` com formulário de autenticação
 - **Header**: Botões "Entrar" e "Registrar" visíveis quando não autenticado
@@ -111,23 +113,24 @@ Você pode se registrar com qualquer email e senha (mínimo 6 caracteres).
 A aplicação roda na porta 5000 com `npm run dev`.
 
 ## Recent Updates
-- ✅ Sistema de autenticação completo (registro, login, logout)
-- ✅ Pages de Login e Register
-- ✅ Header com botões de autenticação
-- ✅ AuthContext para gerenciar estado de autenticação
-- ✅ Session management com express-session
-- ✅ Armazenamento de customers em memória
+- ✅ Transformado de Glam Gear para ReiBurguer
+- ✅ Categorias alteradas para Hambúrgueres, Bebidas, Acompanhamentos, Sobremesas, Combos
+- ✅ Produtos atualizados para menu de hamburgueria
+- ✅ Cores alteradas para vermelho/amarelo/marrom (identidade ReiBurguer)
+- ✅ Sistema de autenticação completo
+- ✅ Email de boas-vindas com PDF
+- ✅ Frete dos Correios integrado
 
 ## Configurações da Loja
+- **Nome**: ReiBurguer
 - **Endereço**: Rua Décima Segunda, 200 - Governador Valadares, MG
 - **CEP**: 35052090
 - **WhatsApp**: (33) 98706-2406
-- **Instagram**: @glamgear5
+- **Instagram**: @reiBurguer
 
 ## Próximos Passos (Sugestões)
-- Integrar endereço e CEP no checkout
-- Calcular frete
-- **TODO**: Enviar email de boas-vindas após cadastro (usar SendGrid com SENDGRID_API_KEY secret)
+- Adicionar mais hambúrgueres e bebidas
+- Configurar horário de funcionamento
 - Enviar email após pedido
 - Histórico de pedidos para clientes
-- Painel de admin
+- Painel de admin para gerenciar pedidos

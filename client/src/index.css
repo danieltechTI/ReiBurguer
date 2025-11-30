@@ -2,47 +2,47 @@
 @tailwind components;
 @tailwind utilities;
 
-/* LIGHT MODE */
+/* LIGHT MODE - ReiBurguer Colors (Red, Yellow, Brown) */
 :root {
-  --button-outline: rgba(217, 119, 179, .10);
-  --badge-outline: rgba(217, 119, 179, .05);
+  --button-outline: rgba(220, 53, 23, .10);
+  --badge-outline: rgba(220, 53, 23, .05);
   --opaque-button-border-intensity: -8;
-  --elevate-1: rgba(217, 119, 179, .03);
-  --elevate-2: rgba(217, 119, 179, .08);
-  --background: 330 70% 96%;
+  --elevate-1: rgba(220, 53, 23, .03);
+  --elevate-2: rgba(220, 53, 23, .08);
+  --background: 15 90% 96%;
   --foreground: 0 0% 9%;
-  --border: 330 60% 88%;
-  --card: 330 60% 93%;
+  --border: 15 85% 88%;
+  --card: 15 85% 93%;
   --card-foreground: 0 0% 9%;
-  --card-border: 330 60% 90%;
-  --sidebar: 330 55% 91%;
+  --card-border: 15 80% 90%;
+  --sidebar: 15 80% 91%;
   --sidebar-foreground: 0 0% 9%;
-  --sidebar-border: 330 55% 88%;
+  --sidebar-border: 15 75% 88%;
   --sidebar-primary: 45 100% 50%;
   --sidebar-primary-foreground: 45 20% 98%;
-  --sidebar-accent: 330 60% 88%;
+  --sidebar-accent: 15 85% 88%;
   --sidebar-accent-foreground: 0 0% 9%;
   --sidebar-ring: 45 100% 50%;
-  --popover: 330 60% 91%;
+  --popover: 15 85% 91%;
   --popover-foreground: 0 0% 9%;
-  --popover-border: 330 60% 88%;
-  --primary: 45 100% 50%;
-  --primary-foreground: 45 20% 98%;
-  --secondary: 330 70% 85%;
+  --popover-border: 15 80% 88%;
+  --primary: 15 100% 50%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 38 92% 50%;
   --secondary-foreground: 0 0% 9%;
-  --muted: 330 60% 88%;
+  --muted: 15 85% 88%;
   --muted-foreground: 0 0% 35%;
-  --accent: 330 65% 91%;
+  --accent: 15 90% 91%;
   --accent-foreground: 0 0% 9%;
   --destructive: 0 84% 45%;
   --destructive-foreground: 0 20% 98%;
   --input: 0 0% 78%;
   --ring: 45 100% 50%;
-  --chart-1: 38 92% 45%;
-  --chart-2: 28 85% 48%;
-  --chart-3: 18 78% 52%;
-  --chart-4: 200 65% 42%;
-  --chart-5: 280 60% 45%;
+  --chart-1: 15 100% 50%;
+  --chart-2: 38 92% 50%;
+  --chart-3: 25 80% 55%;
+  --chart-4: 40 100% 45%;
+  --chart-5: 20 90% 45%;
   --font-sans: Inter, sans-serif;
   --font-serif: Cormorant Garamond, Georgia, serif;
   --font-mono: Menlo, monospace;
@@ -88,45 +88,45 @@
 }
 
 .dark {
-  --button-outline: rgba(217, 119, 179, .10);
-  --badge-outline: rgba(217, 119, 179, .05);
+  --button-outline: rgba(220, 53, 23, .10);
+  --badge-outline: rgba(220, 53, 23, .05);
   --opaque-button-border-intensity: 9;
-  --elevate-1: rgba(217, 119, 179, .04);
-  --elevate-2: rgba(217, 119, 179, .09);
-  --background: 330 50% 10%;
+  --elevate-1: rgba(220, 53, 23, .04);
+  --elevate-2: rgba(220, 53, 23, .09);
+  --background: 15 60% 10%;
   --foreground: 0 0% 96%;
-  --border: 330 60% 22%;
-  --card: 330 50% 13%;
+  --border: 15 75% 22%;
+  --card: 15 60% 13%;
   --card-foreground: 0 0% 96%;
-  --card-border: 330 55% 20%;
-  --sidebar: 330 45% 16%;
+  --card-border: 15 70% 20%;
+  --sidebar: 15 50% 16%;
   --sidebar-foreground: 0 0% 96%;
-  --sidebar-border: 330 50% 22%;
+  --sidebar-border: 15 65% 22%;
   --sidebar-primary: 45 100% 50%;
   --sidebar-primary-foreground: 45 20% 98%;
-  --sidebar-accent: 330 55% 24%;
+  --sidebar-accent: 15 70% 24%;
   --sidebar-accent-foreground: 0 0% 96%;
   --sidebar-ring: 45 100% 50%;
-  --popover: 330 50% 18%;
+  --popover: 15 60% 18%;
   --popover-foreground: 0 0% 96%;
-  --popover-border: 330 55% 24%;
-  --primary: 45 100% 50%;
-  --primary-foreground: 45 20% 98%;
-  --secondary: 330 55% 20%;
-  --secondary-foreground: 0 0% 96%;
-  --muted: 330 50% 18%;
+  --popover-border: 15 65% 24%;
+  --primary: 15 100% 50%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 38 92% 55%;
+  --secondary-foreground: 0 0% 9%;
+  --muted: 15 60% 18%;
   --muted-foreground: 0 0% 65%;
-  --accent: 330 55% 24%;
+  --accent: 15 65% 24%;
   --accent-foreground: 0 0% 96%;
   --destructive: 0 84% 45%;
   --destructive-foreground: 0 20% 98%;
   --input: 0 0% 28%;
   --ring: 45 100% 50%;
-  --chart-1: 38 92% 65%;
-  --chart-2: 28 85% 68%;
-  --chart-3: 18 78% 72%;
-  --chart-4: 200 75% 62%;
-  --chart-5: 280 70% 65%;
+  --chart-1: 15 100% 60%;
+  --chart-2: 38 92% 65%;
+  --chart-3: 25 80% 65%;
+  --chart-4: 40 100% 60%;
+  --chart-5: 20 90% 60%;
   --shadow-2xs: 0px 2px 0px 0px hsl(0 0% 0% / 0.00);
   --shadow-xs: 0px 2px 0px 0px hsl(0 0% 0% / 0.00);
   --shadow-sm: 0px 2px 0px 0px hsl(0 0% 0% / 0.00), 0px 1px 2px -1px hsl(0 0% 0% / 0.00);
@@ -279,10 +279,10 @@
 
 @keyframes glow {
   0%, 100% {
-    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3), 0 0 40px rgba(217, 119, 179, 0.1);
+    box-shadow: 0 0 20px rgba(255, 193, 7, 0.3), 0 0 40px rgba(220, 53, 23, 0.1);
   }
   50% {
-    box-shadow: 0 0 30px rgba(212, 175, 55, 0.5), 0 0 60px rgba(217, 119, 179, 0.2);
+    box-shadow: 0 0 30px rgba(255, 193, 7, 0.5), 0 0 60px rgba(220, 53, 23, 0.2);
   }
 }
 

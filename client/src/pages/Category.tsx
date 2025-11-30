@@ -8,8 +8,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Separator } from "@/components/ui/separator";
-import type { Product, Category as CategoryType, Material } from "@shared/schema";
-import { categoryLabels, materials, materialLabels } from "@shared/schema";
+import type { Product, Category as CategoryType, Ingredient } from "@shared/schema";
+import { categoryLabels, ingredients, ingredientLabels } from "@shared/schema";
 
 import ringImage from "@assets/generated_images/gold_ring_product_shot.png";
 import necklaceImage from "@assets/generated_images/gold_necklace_product_shot.png";
@@ -25,21 +25,25 @@ interface CategoryProps {
 type SortOption = "featured" | "price-asc" | "price-desc" | "name";
 
 const categoryBanners: Record<CategoryType, { image: string; description: string }> = {
-  aneis: {
+  hamburguer: {
     image: ringImage,
-    description: "Anéis elegantes para todos os momentos. Do clássico ao contemporâneo.",
+    description: "Hambúrgueres deliciosos e suculentos feitos com ingredientes premium.",
   },
-  colares: {
+  bebidas: {
     image: necklaceImage,
-    description: "Colares delicados e sofisticados que realçam sua beleza natural.",
+    description: "Bebidas refrescantes e deliciosas para acompanhar seu pedido.",
   },
-  brincos: {
+  acompanhamentos: {
     image: earringsImage,
-    description: "Brincos que emolduram seu rosto com brilho e elegância.",
+    description: "Acompanhamentos crocantes e saborosos para completar sua refeição.",
   },
-  pulseiras: {
+  sobremesas: {
     image: braceletImage,
-    description: "Pulseiras que adornam seus pulsos com charme e distinção.",
+    description: "Sobremesas doces e deliciosas para finalizar com chave de ouro.",
+  },
+  combos: {
+    image: braceletImage,
+    description: "Combos incríveis com as melhores combinações da ReiBurguer.",
   },
 };
 
@@ -47,7 +51,7 @@ export function Category({ products, isLoading, onAddToCart }: CategoryProps) {
   const params = useParams<{ category: string }>();
   const category = params.category as CategoryType;
   
-  const [selectedMaterials, setSelectedMaterials] = useState<Material[]>([]);
+  const [selectedMaterials, setSelectedMaterials] = useState<Ingredient[]>([]);
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 5000]);
   const [sortBy, setSortBy] = useState<SortOption>("featured");
 
@@ -64,7 +68,7 @@ export function Category({ products, isLoading, onAddToCart }: CategoryProps) {
     let result = [...categoryProducts];
 
     if (selectedMaterials.length > 0) {
-      result = result.filter((p) => selectedMaterials.includes(p.material));
+      result = result.filter((p) => selectedMaterials.includes(p.ingredient));
     }
 
     result = result.filter(
@@ -89,7 +93,7 @@ export function Category({ products, isLoading, onAddToCart }: CategoryProps) {
     return result;
   }, [categoryProducts, selectedMaterials, priceRange, sortBy]);
 
-  const handleMaterialChange = (material: Material) => {
+  const handleMaterialChange = (material: Ingredient) => {
     setSelectedMaterials((prev) =>
       prev.includes(material)
         ? prev.filter((m) => m !== material)
@@ -133,10 +137,10 @@ export function Category({ products, isLoading, onAddToCart }: CategoryProps) {
             <div className="sticky top-24 space-y-6">
               <div className="space-y-4">
                 <h4 className="text-sm uppercase tracking-widest font-medium">
-                  Material
+                  Ingredientes
                 </h4>
                 <div className="space-y-3">
-                  {materials.map((material) => (
+                  {ingredients.map((material) => (
                     <div key={material} className="flex items-center space-x-2">
                       <Checkbox
                         id={`cat-material-${material}`}
@@ -148,7 +152,7 @@ export function Category({ products, isLoading, onAddToCart }: CategoryProps) {
                         htmlFor={`cat-material-${material}`}
                         className="text-sm font-normal cursor-pointer"
                       >
-                        {materialLabels[material]}
+                        {ingredientLabels[material]}
                       </Label>
                     </div>
                   ))}
@@ -193,7 +197,7 @@ export function Category({ products, isLoading, onAddToCart }: CategoryProps) {
                     className="cursor-pointer"
                     onClick={() => handleMaterialChange(material)}
                   >
-                    {materialLabels[material]} ×
+                    {ingredientLabels[material]} ×
                   </Badge>
                 ))}
               </div>
