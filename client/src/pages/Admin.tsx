@@ -274,19 +274,22 @@ export function Admin() {
           </Button>
         </div>
 
-        {/* Dashboard Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-          <Card className="p-6 bg-gradient-to-br from-primary/10 to-primary/5">
-            <p className="text-sm text-secondary mb-2">Faturamento Total</p>
-            <p className="text-3xl font-bold text-primary">R$ {totalRevenue.toFixed(2)}</p>
+        {/* Dashboard Stats - Premium */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+          <Card className="p-8 bg-gradient-to-br from-primary/20 via-primary/10 to-transparent border-primary/30 hover-elevate">
+            <p className="text-sm font-medium text-muted-foreground mb-2 uppercase tracking-wide">Faturamento Total</p>
+            <p className="text-4xl font-bold text-primary">R$ {totalRevenue.toFixed(2)}</p>
+            <p className="text-xs text-muted-foreground mt-3">{acceptedOrders.length} pedidos aceitos</p>
           </Card>
-          <Card className="p-6 bg-gradient-to-br from-blue-500/10 to-blue-500/5">
-            <p className="text-sm text-secondary mb-2">Total de Pedidos</p>
-            <p className="text-3xl font-bold text-blue-600">{totalOrders}</p>
+          <Card className="p-8 bg-gradient-to-br from-blue-500/20 via-blue-500/10 to-transparent border-blue-500/30 hover-elevate">
+            <p className="text-sm font-medium text-muted-foreground mb-2 uppercase tracking-wide">Total de Pedidos</p>
+            <p className="text-4xl font-bold text-blue-600">{totalOrders}</p>
+            <p className="text-xs text-muted-foreground mt-3">{pendingOrders.length} pendentes</p>
           </Card>
-          <Card className="p-6 bg-gradient-to-br from-green-500/10 to-green-500/5">
-            <p className="text-sm text-secondary mb-2">Pedidos Finalizados</p>
-            <p className="text-3xl font-bold text-green-600">{completedOrders}</p>
+          <Card className="p-8 bg-gradient-to-br from-green-500/20 via-green-500/10 to-transparent border-green-500/30 hover-elevate">
+            <p className="text-sm font-medium text-muted-foreground mb-2 uppercase tracking-wide">Finalizados</p>
+            <p className="text-4xl font-bold text-green-600">{completedOrders}</p>
+            <p className="text-xs text-muted-foreground mt-3">{Math.round((completedOrders / totalOrders) * 100) || 0}% taxa de conclusão</p>
           </Card>
         </div>
 

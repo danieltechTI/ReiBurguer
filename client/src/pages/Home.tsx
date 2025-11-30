@@ -26,9 +26,9 @@ export function Home({ products, onAddToCart }: HomeProps) {
 
   return (
     <div>
-      {/* Hero with Background Image */}
+      {/* Hero Section - Premium */}
       <div 
-        className="w-full h-screen pt-20 flex items-center justify-center"
+        className="w-full min-h-screen pt-20 pb-12 flex items-center justify-center relative overflow-hidden"
         style={{
           backgroundImage: "url('/hero-background.png')",
           backgroundSize: 'cover',
@@ -36,53 +36,59 @@ export function Home({ products, onAddToCart }: HomeProps) {
           backgroundRepeat: 'no-repeat',
         }}
       >
-        <div className="text-center px-4">
-          <h1 className="font-serif text-5xl md:text-6xl font-light mb-4 text-white drop-shadow-lg">
+        {/* Gradient Overlay for better text readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/30"></div>
+        
+        <div className="relative z-10 text-center px-4 max-w-3xl">
+          <div className="mb-4 inline-block px-4 py-2 rounded-full bg-primary/20 backdrop-blur-sm border border-primary/30">
+            <span className="text-primary font-medium text-sm">A Melhor Hamburgueria da Região</span>
+          </div>
+          <h1 className="font-serif text-6xl md:text-7xl font-light mb-6 text-white drop-shadow-2xl tracking-tight">
             ReiBurguer
           </h1>
-          <p className="text-white/90 max-w-2xl mx-auto mb-8 text-base md:text-lg drop-shadow">
-            Hambúrgueres deliciosos, bebidas refrescantes e muito sabor!
+          <p className="text-white/95 max-w-2xl mx-auto mb-10 text-lg md:text-xl drop-shadow-lg leading-relaxed">
+            Hambúrgueres artesanais, bebidas geladas e muito sabor. Purgua feita com amor em cada detalhe!
           </p>
           <Link href="/colecao">
-            <Button size="lg" className="hover-elevate bg-primary text-primary-foreground" data-testid="button-hero-collection">
-              Ver Cardápio
-              <ArrowRight className="ml-2 h-4 w-4" />
+            <Button size="lg" className="hover-elevate bg-primary text-primary-foreground font-semibold gap-2 px-8 py-6 text-base" data-testid="button-hero-collection">
+              Explorar Cardápio
+              <ArrowRight className="w-5 h-5" />
             </Button>
           </Link>
         </div>
       </div>
 
-      {/* Benefícios */}
-      <section className="bg-white py-12 md:py-16 border-b border-border">
+      {/* Benefícios - Premium Layout */}
+      <section className="bg-white py-16 md:py-20 border-b border-border">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
-            <div className="text-center p-4">
-              <div className="inline-block p-3 rounded-full bg-primary/10 mb-3">
-                <CreditCard className="h-6 w-6 text-primary" />
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-10">
+            <div className="text-center flex flex-col items-center">
+              <div className="inline-block p-4 rounded-full bg-primary/15 mb-4 hover-elevate">
+                <CreditCard className="h-7 w-7 text-primary" />
               </div>
-              <h3 className="font-medium text-sm md:text-base mb-1 text-foreground">Fácil de Pedir</h3>
-              <p className="text-xs md:text-sm text-muted-foreground">Pelo WhatsApp</p>
+              <h3 className="font-semibold text-base md:text-lg mb-2 text-foreground">Fácil de Pedir</h3>
+              <p className="text-sm text-muted-foreground">Pelo WhatsApp</p>
             </div>
-            <div className="text-center p-4">
-              <div className="inline-block p-3 rounded-full bg-primary/10 mb-3">
-                <MapPin className="h-6 w-6 text-primary" />
+            <div className="text-center flex flex-col items-center">
+              <div className="inline-block p-4 rounded-full bg-primary/15 mb-4 hover-elevate">
+                <MapPin className="h-7 w-7 text-primary" />
               </div>
-              <h3 className="font-medium text-sm md:text-base mb-1 text-foreground">Retirada na Loja</h3>
-              <p className="text-xs md:text-sm text-muted-foreground">Rua Antonio Giarola, 30</p>
+              <h3 className="font-semibold text-base md:text-lg mb-2 text-foreground">Retirada Rápida</h3>
+              <p className="text-sm text-muted-foreground">Rua Antonio Giarola, 30</p>
             </div>
-            <div className="text-center p-4">
-              <div className="inline-block p-3 rounded-full bg-primary/10 mb-3">
-                <Lock className="h-6 w-6 text-primary" />
+            <div className="text-center flex flex-col items-center">
+              <div className="inline-block p-4 rounded-full bg-primary/15 mb-4 hover-elevate">
+                <Lock className="h-7 w-7 text-primary" />
               </div>
-              <h3 className="font-medium text-sm md:text-base mb-1 text-foreground">Qualidade</h3>
-              <p className="text-xs md:text-sm text-muted-foreground">Ingredientes frescos</p>
+              <h3 className="font-semibold text-base md:text-lg mb-2 text-foreground">Premium</h3>
+              <p className="text-sm text-muted-foreground">Ingredientes selecionados</p>
             </div>
-            <div className="text-center p-4">
-              <div className="inline-block p-3 rounded-full bg-primary/10 mb-3">
-                <Phone className="h-6 w-6 text-primary" />
+            <div className="text-center flex flex-col items-center">
+              <div className="inline-block p-4 rounded-full bg-primary/15 mb-4 hover-elevate">
+                <Phone className="h-7 w-7 text-primary" />
               </div>
-              <h3 className="font-medium text-sm md:text-base mb-1 text-foreground">Atendimento</h3>
-              <p className="text-xs md:text-sm text-muted-foreground">Via WhatsApp</p>
+              <h3 className="font-semibold text-base md:text-lg mb-2 text-foreground">Suporte 24/7</h3>
+              <p className="text-sm text-muted-foreground">Via WhatsApp</p>
             </div>
           </div>
         </div>
