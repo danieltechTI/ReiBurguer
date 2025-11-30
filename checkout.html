@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - ReiBurguer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1><a href="index.html" style="text-decoration: none; color: var(--primary);">🍔 ReiBurguer</a></h1>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="checkout">
+        <div class="container">
+            <h1>Finalizar Pedido</h1>
+            <div class="checkout-grid">
+                <div class="checkout-form">
+                    <h2>Seus Dados</h2>
+                    <form id="checkoutForm">
+                        <input type="text" id="nome" placeholder="Nome Completo" required>
+                        <input type="tel" id="telefone" placeholder="Telefone (com DDD)" required>
+                        <select id="pagamento" required>
+                            <option value="">Selecione a Forma de Pagamento</option>
+                            <option value="dinheiro">Dinheiro</option>
+                            <option value="cartao">Cartão de Crédito</option>
+                            <option value="pix">PIX</option>
+                        </select>
+                        <textarea id="observacoes" placeholder="Observações (opcional)" rows="4"></textarea>
+                        <button type="submit" class="btn-primary">Confirmar Pedido</button>
+                    </form>
+                </div>
+                <div class="checkout-resumo">
+                    <h2>Resumo do Pedido</h2>
+                    <div id="resumo-itens"></div>
+                    <div class="resumo-total">
+                        <strong>Total: R$ <span id="resumo-total">0.00</span></strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 ReiBurguer. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <style>
+        .checkout {
+            padding: 40px 20px;
+            min-height: 60vh;
+        }
+
+        .checkout h1 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--dark);
+        }
+
+        .checkout-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .checkout-form form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .checkout-form input,
+        .checkout-form select,
+        .checkout-form textarea {
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .resumo-total {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: var(--light);
+            border-radius: 5px;
+            font-size: 18px;
+        }
+
+        .resumo-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        @media (max-width: 768px) {
+            .checkout-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <script src="app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            renderizarResumo();
+            
+            document.getElementById('checkoutForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                finalizarPedido();
+            });
+        });
+
+        function renderizarResumo() {
+            const resumoItens = document.getElementById('resumo-itens');
+            const resumoTotal = document.getElementById('resumo-total');
+
+            if (carrinho.itens.length === 0) {
+                window.location.href = 'catalogo.html';
+                return;
+            }
+
+            resumoItens.innerHTML = carrinho.itens.map(item => `
+                <div class="resumo-item">
+                    <span>${item.emoji} ${item.nome} x${item.quantidade}</span>
+                    <span>R$ ${(item.preco * item.quantidade).toFixed(2)}</span>
+                </div>
+            `).join('');
+
+            resumoTotal.textContent = carrinho.getTotal().toFixed(2);
+        }
+
+        function finalizarPedido() {
+            const nome = document.getElementById('nome').value;
+            const telefone = document.getElementById('telefone').value;
+            const pagamento = document.getElementById('pagamento').value;
+            const observacoes = document.getElementById('observacoes').value;
+
+            // Gerar número de pedido
+            const numeroPedido = String(Math.floor(Math.random() * 99999) + 1).padStart(5, '0');
+
+            // Salvar pedido
+            const pedidos = JSON.parse(localStorage.getItem('pedidos')) || [];
+            const pedido = {
+                numero: numeroPedido,
+                data: new Date().toLocaleString('pt-BR'),
+                cliente: nome,
+                telefone: telefone,
+                itens: carrinho.itens,
+                total: carrinho.getTotal(),
+                pagamento: pagamento,
+                observacoes: observacoes,
+                status: 'confirmado'
+            };
+            pedidos.push(pedido);
+            localStorage.setItem('pedidos', JSON.stringify(pedidos));
+
+            // Gerar link WhatsApp
+            const whatsappNumber = '5531993471856';
+            const mensagem = `Olá! Gostaria de confirmar o pedido #${numeroPedido}\n\n${carrinho.itens.map(i => `${i.emoji} ${i.nome} x${i.quantidade}`).join('\n')}\n\nTotal: R$ ${carrinho.getTotal().toFixed(2)}\nForma de Pagamento: ${pagamento}`;
+            const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(mensagem)}`;
+
+            // Limpar carrinho
+            carrinho.limpar();
+
+            // Redirecionar para WhatsApp
+            alert(`Pedido #${numeroPedido} criado com sucesso!\n\nVocê será redirecionado para o WhatsApp para confirmar.`);
+            window.open(whatsappLink, '_blank');
+            
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>

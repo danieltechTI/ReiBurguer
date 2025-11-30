@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReiBurguer - Hamburgueria Online</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>🍔 ReiBurguer</h1>
+                </div>
+                <nav class="nav">
+                    <a href="index.html" class="nav-link active">Home</a>
+                    <a href="catalogo.html" class="nav-link">Cardápio</a>
+                    <a href="contato.html" class="nav-link">Contato</a>
+                </nav>
+                <div class="header-right">
+                    <button class="btn-cart" onclick="abrirCarrinho()">
+                        🛒 Carrinho (<span id="cart-count">0</span>)
+                    </button>
+                    <div id="user-menu" class="user-menu">
+                        <button class="btn-auth" onclick="abrirLoginModal()">Entrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Bem-vindo ao ReiBurguer</h1>
+            <p>Os melhores hambúrgueres da região, feitos com amor e ingredientes frescos</p>
+            <button class="btn-primary" onclick="window.location.href='catalogo.html'">Ver Cardápio</button>
+        </div>
+    </section>
+
+    <!-- CATEGORIAS -->
+    <section class="categories">
+        <div class="container">
+            <h2>Categorias</h2>
+            <div class="grid">
+                <a href="catalogo.html?categoria=hamburgueres" class="category-card">
+                    <h3>🍔 Hambúrgueres</h3>
+                    <p>Nossos suculentos hambúrgueres</p>
+                </a>
+                <a href="catalogo.html?categoria=bebidas" class="category-card">
+                    <h3>🥤 Bebidas</h3>
+                    <p>Refrescos gelados</p>
+                </a>
+                <a href="catalogo.html?categoria=acompanhamentos" class="category-card">
+                    <h3>🍟 Acompanhamentos</h3>
+                    <p>Batatas, anéis e mais</p>
+                </a>
+                <a href="catalogo.html?categoria=sobremesas" class="category-card">
+                    <h3>🍨 Sobremesas</h3>
+                    <p>Doces para finalizar</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- DESTAQUES -->
+    <section class="destaques">
+        <div class="container">
+            <h2>Destaques do Dia</h2>
+            <div class="grid" id="destaques-grid">
+                <!-- Produtos aparecem aqui via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <h4>ReiBurguer</h4>
+                    <p>A melhor hamburgueria de Belo Horizonte</p>
+                </div>
+                <div>
+                    <h4>Contato</h4>
+                    <p>📍 R. Antônio Giarola, 30 - Céu Azul<p>
+                    <p>📞 +55 31 99347-1856</p>
+                </div>
+                <div>
+                    <h4>Redes Sociais</h4>
+                    <p>📱 <a href="https://instagram.com/glamgear5" target="_blank">@glamgear5</a></p>
+                </div>
+            </div>
+            <hr>
+            <p class="footer-bottom">&copy; 2024 ReiBurguer. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- MODAL CARRINHO -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="fecharCarrinho()">&times;</span>
+            <h2>Seu Carrinho</h2>
+            <div id="cart-items"></div>
+            <div class="cart-total">
+                <strong>Total: R$ <span id="cart-total">0.00</span></strong>
+            </div>
+            <button class="btn-primary" onclick="irParaCheckout()">Finalizar Compra</button>
+        </div>
+    </div>
+
+    <!-- MODAL LOGIN -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="fecharLoginModal()">&times;</span>
+            <h2>Login</h2>
+            <form id="loginForm">
+                <input type="email" placeholder="Email" required>
+                <input type="password" placeholder="Senha" required>
+                <button type="submit" class="btn-primary">Entrar</button>
+            </form>
+            <p>Não tem conta? <a href="#" onclick="abrirRegistroModal()">Registre-se</a></p>
+        </div>
+    </div>
+
+    <!-- MODAL REGISTRO -->
+    <div id="registroModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="fecharRegistroModal()">&times;</span>
+            <h2>Registrar</h2>
+            <form id="registroForm">
+                <input type="email" placeholder="Email" required>
+                <input type="password" placeholder="Senha (min 6 caracteres)" required>
+                <button type="submit" class="btn-primary">Registrar</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

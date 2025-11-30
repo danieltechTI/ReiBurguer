@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cardápio - ReiBurguer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1><a href="index.html" style="text-decoration: none; color: var(--primary);">🍔 ReiBurguer</a></h1>
+                </div>
+                <nav class="nav">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="catalogo.html" class="nav-link active">Cardápio</a>
+                    <a href="contato.html" class="nav-link">Contato</a>
+                </nav>
+                <div class="header-right">
+                    <button class="btn-cart" onclick="abrirCarrinho()">
+                        🛒 Carrinho (<span id="cart-count">0</span>)
+                    </button>
+                    <div id="user-menu" class="user-menu"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- FILTROS -->
+    <section class="filtros">
+        <div class="container">
+            <h1>Nosso Cardápio</h1>
+            <div class="filter-buttons">
+                <button class="filter-btn active" onclick="filtrar('todos')">Todos</button>
+                <button class="filter-btn" onclick="filtrar('hamburgueres')">Hambúrgueres</button>
+                <button class="filter-btn" onclick="filtrar('bebidas')">Bebidas</button>
+                <button class="filter-btn" onclick="filtrar('acompanhamentos')">Acompanhamentos</button>
+                <button class="filter-btn" onclick="filtrar('sobremesas')">Sobremesas</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUTOS -->
+    <section class="produtos">
+        <div class="container">
+            <div class="grid" id="produtos-grid">
+                <!-- Produtos aparecem aqui via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- MODAL CARRINHO -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="fecharCarrinho()">&times;</span>
+            <h2>Seu Carrinho</h2>
+            <div id="cart-items"></div>
+            <div class="cart-total">
+                <strong>Total: R$ <span id="cart-total">0.00</span></strong>
+            </div>
+            <button class="btn-primary" onclick="irParaCheckout()">Finalizar Compra</button>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 ReiBurguer. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <style>
+        .filtros {
+            padding: 40px 20px;
+            background-color: var(--light);
+        }
+
+        .filtros h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--dark);
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            border: 2px solid var(--border);
+            background-color: white;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .produtos {
+            padding: 40px 20px;
+        }
+    </style>
+
+    <script src="app.js"></script>
+    <script>
+        let filtroAtual = 'todos';
+
+        function filtrar(categoria) {
+            filtroAtual = categoria;
+            
+            // Atualizar botões
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Renderizar produtos
+            renderizarProdutos();
+        }
+
+        function renderizarProdutos() {
+            const grid = document.getElementById('produtos-grid');
+            const produtos = filtroAtual === 'todos' 
+                ? PRODUTOS 
+                : PRODUTOS.filter(p => p.categoria === filtroAtual);
+
+            grid.innerHTML = produtos.map(produto => `
+                <div class="product-card">
+                    <div class="product-image">${produto.emoji}</div>
+                    <div class="product-info">
+                        <div class="product-name">${produto.nome}</div>
+                        <div class="product-desc">${produto.descricao}</div>
+                        <div class="product-price">R$ ${produto.preco.toFixed(2)}</div>
+                        <button class="btn-add-cart" onclick="carrinho.adicionar({id: ${produto.id}, nome: '${produto.nome}', preco: ${produto.preco}, emoji: '${produto.emoji}'})">
+                            Adicionar
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            atualizarCarrinho();
+            atualizarMenuUsuario();
+            renderizarProdutos();
+        });
+    </script>
+</body>
+</html>

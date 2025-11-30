@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contato - ReiBurguer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1><a href="index.html" style="text-decoration: none; color: var(--primary);">🍔 ReiBurguer</a></h1>
+                </div>
+                <nav class="nav">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="catalogo.html" class="nav-link">Cardápio</a>
+                    <a href="contato.html" class="nav-link active">Contato</a>
+                </nav>
+                <div class="header-right">
+                    <button class="btn-cart" onclick="abrirCarrinho()">🛒 Carrinho (<span id="cart-count">0</span>)</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="contato">
+        <div class="container">
+            <h1>Entre em Contato</h1>
+            
+            <div class="contato-grid">
+                <div class="contato-form">
+                    <h2>Envie sua Mensagem</h2>
+                    <form id="contatoForm">
+                        <input type="text" id="nome-contato" placeholder="Seu Nome" required>
+                        <input type="email" id="email-contato" placeholder="Seu Email" required>
+                        <input type="tel" id="telefone-contato" placeholder="Seu Telefone" required>
+                        <textarea id="mensagem-contato" placeholder="Sua Mensagem" rows="6" required></textarea>
+                        <button type="submit" class="btn-primary">Enviar Mensagem</button>
+                    </form>
+                </div>
+
+                <div class="contato-info">
+                    <h2>Informações</h2>
+                    <div class="info-item">
+                        <h3>📍 Endereço</h3>
+                        <p>R. Antônio Giarola, 30 - Céu Azul<br>Belo Horizonte - MG<br>31580-200</p>
+                    </div>
+                    <div class="info-item">
+                        <h3>📱 WhatsApp</h3>
+                        <p><a href="https://wa.me/5531993471856" target="_blank">+55 31 99347-1856</a></p>
+                    </div>
+                    <div class="info-item">
+                        <h3>📧 Email</h3>
+                        <p>contato@reiburguer.com</p>
+                    </div>
+                    <div class="info-item">
+                        <h3>🕐 Horário</h3>
+                        <p>Segunda a Domingo<br>11h - 22h</p>
+                    </div>
+                    <div class="info-item">
+                        <h3>📱 Instagram</h3>
+                        <p><a href="https://instagram.com/glamgear5" target="_blank">@glamgear5</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="fecharCarrinho()">&times;</span>
+            <h2>Seu Carrinho</h2>
+            <div id="cart-items"></div>
+            <div class="cart-total">
+                <strong>Total: R$ <span id="cart-total">0.00</span></strong>
+            </div>
+            <button class="btn-primary" onclick="irParaCheckout()">Finalizar Compra</button>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 ReiBurguer. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <style>
+        .contato {
+            padding: 40px 20px;
+            min-height: 70vh;
+        }
+
+        .contato h1 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--dark);
+        }
+
+        .contato-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .contato-form form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .contato-form input,
+        .contato-form textarea {
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            font-size: 16px;
+            font-family: inherit;
+        }
+
+        .info-item {
+            margin-bottom: 30px;
+        }
+
+        .info-item h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .info-item a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .info-item a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .contato-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <script src="app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            atualizarCarrinho();
+            atualizarMenuUsuario();
+
+            document.getElementById('contatoForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                enviarMensagem();
+            });
+        });
+
+        function enviarMensagem() {
+            const nome = document.getElementById('nome-contato').value;
+            const email = document.getElementById('email-contato').value;
+            const telefone = document.getElementById('telefone-contato').value;
+            const mensagem = document.getElementById('mensagem-contato').value;
+
+            // Salvar mensagem
+            const mensagens = JSON.parse(localStorage.getItem('mensagens-contato')) || [];
+            mensagens.push({
+                data: new Date().toLocaleString('pt-BR'),
+                nome,
+                email,
+                telefone,
+                mensagem
+            });
+            localStorage.setItem('mensagens-contato', JSON.stringify(mensagens));
+
+            alert('Mensagem enviada com sucesso! Em breve entraremos em contato.');
+            document.getElementById('contatoForm').reset();
+        }
+    </script>
+</body>
+</html>
