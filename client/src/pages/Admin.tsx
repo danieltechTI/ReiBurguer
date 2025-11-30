@@ -16,28 +16,51 @@ import { apiRequest } from "@/lib/queryClient";
 import { queryClient } from "@/lib/queryClient";
 import type { Order } from "@shared/schema";
 
-// Generate a beep sound
-function playNotificationSound() {
-  const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
-  const oscillator = audioContext.createOscillator();
-  const gainNode = audioContext.createGain();
-  
-  oscillator.connect(gainNode);
-  gainNode.connect(audioContext.destination);
-  
-  oscillator.frequency.value = 800;
-  oscillator.type = "sine";
-  
-  gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-  gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
-  
-  oscillator.start(audioContext.currentTime);
-  oscillator.stop(audioContext.currentTime + 0.5);
-}
-
 export function Admin() {
   const [newOrderNotification, setNewOrderNotification] = useState<Order | null>(null);
   const lastOrderCountRef = useRef<number>(0);
+  const audioIntervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Play continuous notification sound
+  function startNotificationSound() {
+    // Stop any existing interval
+    if (audioIntervalRef.current) {
+      clearInterval(audioIntervalRef.current);
+    }
+
+    const playBeep = () => {
+      try {
+        const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        oscillator.frequency.value = 800;
+        oscillator.type = "sine";
+        
+        gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+        
+        oscillator.start(audioContext.currentTime);
+        oscillator.stop(audioContext.currentTime + 0.3);
+      } catch (e) {
+        console.error("Error playing sound:", e);
+      }
+    };
+
+    // Play immediately and then every 2 seconds
+    playBeep();
+    audioIntervalRef.current = setInterval(playBeep, 2000);
+  }
+
+  function stopNotificationSound() {
+    if (audioIntervalRef.current) {
+      clearInterval(audioIntervalRef.current);
+      audioIntervalRef.current = null;
+    }
+  }
 
   const { data: orders = [], isLoading } = useQuery<Order[]>({
     queryKey: ["/api/admin/orders"],
@@ -52,11 +75,18 @@ export function Admin() {
       if (newOrders.length > 0) {
         const newestOrder = newOrders[newOrders.length - 1];
         setNewOrderNotification(newestOrder);
-        playNotificationSound();
+        startNotificationSound();
       }
     }
     lastOrderCountRef.current = orders.length;
   }, [orders]);
+
+  // Clean up sound on unmount
+  useEffect(() => {
+    return () => {
+      stopNotificationSound();
+    };
+  }, []);
 
   const updateStatusMutation = useMutation({
     mutationFn: async ({ orderId, status }: { orderId: string; status: string }) => {
@@ -102,6 +132,7 @@ export function Admin() {
   }
 
   const handleAcceptOrder = () => {
+    stopNotificationSound();
     if (newOrderNotification) {
       // Accept the order by moving to "preparando" status
       updateStatusMutation.mutate({
@@ -113,6 +144,7 @@ export function Admin() {
   };
 
   const handleRejectOrder = () => {
+    stopNotificationSound();
     setNewOrderNotification(null);
   };
 
