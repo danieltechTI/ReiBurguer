@@ -165,7 +165,7 @@ export function Home({ products, onAddToCart }: HomeProps) {
             Entre em contato conosco pelo WhatsApp e nossa equipe estará pronta para ajudar!
           </p>
           <a
-            href="https://wa.me/5531993471856?text=Olá%2C%20estou%20navegando%20no%20cardápio%20da%20ReiBurguer%20e%20gostaria%20de%20fazer%20um%20pedido%21"
+            href="https://wa.me/5531993471856?text=Olá%21%20Seja%20bem-vindo%28a%29%20ao%20ReiBurguer%20%F0%9F%91%91%0A%0AEstamos%20muito%20felizes%20com%20o%20seu%20contato%21%20%F0%9F%8E%89%0A%0AVocê%20mencionou%20que%20está%20navegando%20no%20nosso%20cardápio%20%F0%9F%93%9C%20e%20gostaria%20de%20fazer%20um%20pedido%20%F0%9F%8D%94%0A%0APara%20agilizar%2C%20responda%20com%20a%20opção%20desejada%3A%0A%0A%F0%9F%91%89%20Ver%20o%20Cardápio%20novamente%3A%20https%3A%2F%2Freiburguer.com%2Fcolecao%0A%0A%F0%9F%92%B0%20Fazer%20um%20Pedido%2FFalar%20com%20um%20atendente%3A%20%28Será%20direcionado%20para%20o%20atendente%29%0A%0A%F0%9F%93%8D%20Consultar%20nosso%20horário%20de%20funcionamento%2Fendereço%3A%20Rua%20Antonio%20Giarola%2C%2030%0A%0AAguardamos%20seu%20pedido%21%20%F0%9F%9A%80%20%28Tempo%20médio%20de%20resposta%3A%201%20minuto%29"
             target="_blank"
             rel="noopener noreferrer"
           >
