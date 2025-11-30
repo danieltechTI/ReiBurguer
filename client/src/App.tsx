@@ -12,7 +12,6 @@ import NotFound from "@/pages/not-found";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { CartDrawer } from "@/components/CartDrawer";
-import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { Home } from "@/pages/Home";
 import { Collection } from "@/pages/Collection";
 import { Category } from "@/pages/Category";
@@ -182,8 +181,6 @@ function AppContent() {
         onUpdateQuantity={handleUpdateQuantity}
         onRemoveItem={handleRemoveItem}
       />
-
-      <WhatsAppButton />
     </div>
   );
 }
