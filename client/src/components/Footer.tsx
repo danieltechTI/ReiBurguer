@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Map } from "./Map";
-import whatsappIcon from "@assets/icons8-whatsapp-96_1764516128170.png";
+import whatsappIcon from "@assets/image_1764516346577.png";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
