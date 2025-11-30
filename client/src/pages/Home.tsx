@@ -28,14 +28,18 @@ export function Home({ products, onAddToCart }: HomeProps) {
     <div className="min-h-screen pt-20 md:pt-24">
       {/* Hero with Background Image */}
       <section 
-        className="relative py-20 md:py-32 overflow-hidden"
+        className="relative overflow-hidden w-full"
         style={{
           backgroundImage: 'url(/hero-background.png)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
+          minHeight: '400px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
         }}
       >
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-20">
           <h1 className="font-serif text-5xl md:text-6xl font-light mb-4 text-white drop-shadow-lg">
             ReiBurguer
           </h1>
