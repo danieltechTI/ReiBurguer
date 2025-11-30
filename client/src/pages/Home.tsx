@@ -86,8 +86,8 @@ export function Home({ products, onAddToCart }: HomeProps) {
               <div className="inline-block p-4 rounded-full bg-primary/15 mb-4 hover-elevate">
                 <Phone className="h-7 w-7 text-primary" />
               </div>
-              <h3 className="font-semibold text-base md:text-lg mb-2 text-foreground">Suporte 24/7</h3>
-              <p className="text-sm text-muted-foreground">Via WhatsApp</p>
+              <h3 className="font-semibold text-base md:text-lg mb-2 text-foreground">Suporte via WhatsApp</h3>
+              <p className="text-sm text-muted-foreground">Rápido e fácil</p>
             </div>
           </div>
         </div>
