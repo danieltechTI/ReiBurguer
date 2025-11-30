@@ -5,9 +5,6 @@ import { Card } from "@/components/ui/card";
 import { ProductCard } from "@/components/ProductCard";
 import type { Product } from "@shared/schema";
 import { categoryLabels, type Category } from "@shared/schema";
-import luxuryJewelry from "@assets/generated_images/luxury_jewelry_flat_lay_background.png";
-import womenJewelry from "@assets/generated_images/women's_jewelry_collection_aesthetic.png";
-import stainlessSteelJewelry from "@assets/generated_images/stainless_steel_jewelry_modern.png";
 
 interface HomeProps {
   products: Product[];
@@ -15,11 +12,11 @@ interface HomeProps {
 }
 
 const categoryIcons: Record<Category, string> = {
-  joias: "💎",
-  "semi-joias": "✨",
-  "aco-inoxidavel": "🔗",
-  biju: "💍",
-  bolsas: "👜",
+  hamburguer: "🍔",
+  bebidas: "🥤",
+  acompanhamentos: "🍟",
+  sobremesas: "🍰",
+  combos: "🎁",
 };
 
 export function Home({ products, onAddToCart }: HomeProps) {
@@ -30,24 +27,19 @@ export function Home({ products, onAddToCart }: HomeProps) {
     <div className="min-h-screen pt-20 md:pt-24">
       {/* Hero with Background */}
       <section 
-        className="relative py-20 md:py-32 overflow-hidden"
-        style={{
-          backgroundImage: `url(${luxuryJewelry})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center"
-        }}
+        className="relative py-20 md:py-32 overflow-hidden bg-gradient-to-br from-primary/20 via-background to-secondary/10"
       >
         <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/85 to-background/90"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="font-serif text-5xl md:text-6xl font-light mb-4 animate-slideInLeft text-foreground drop-shadow-lg">
-            Glam Gear
+            ReiBurguer
           </h1>
           <p className="text-foreground/90 max-w-2xl mx-auto mb-8 text-lg animate-slideInRight">
-            Joias, Semi-joias, Aço Inoxidável, Bijuterias e Bolsas com estilo e qualidade
+            Hambúrgueres deliciosos, bebidas refrescantes e muito sabor!
           </p>
           <Link href="/colecao">
             <Button size="lg" className="animate-float hover-elevate" data-testid="button-hero-collection">
-              Explorar Coleção
+              Ver Cardápio
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </Link>
@@ -62,22 +54,22 @@ export function Home({ products, onAddToCart }: HomeProps) {
               <div className="inline-block p-3 rounded-full bg-primary/10 mb-3">
                 <CreditCard className="h-8 w-8 text-primary" />
               </div>
-              <h3 className="font-medium text-sm md:text-base mb-1">Parcelamento</h3>
-              <p className="text-xs md:text-sm text-muted-foreground">Até 5x sem juros</p>
+              <h3 className="font-medium text-sm md:text-base mb-1">Fácil de Pedir</h3>
+              <p className="text-xs md:text-sm text-muted-foreground">Pelo WhatsApp</p>
             </div>
             <div className="text-center p-4 rounded-lg hover:bg-background/50 transition-all duration-300 animate-rotateIn" style={{ animationDelay: "0.1s" }}>
               <div className="inline-block p-3 rounded-full bg-primary/10 mb-3">
                 <Truck className="h-8 w-8 text-primary" />
               </div>
-              <h3 className="font-medium text-sm md:text-base mb-1">Envio Rápido</h3>
-              <p className="text-xs md:text-sm text-muted-foreground">Para todo Brasil</p>
+              <h3 className="font-medium text-sm md:text-base mb-1">Entrega Rápida</h3>
+              <p className="text-xs md:text-sm text-muted-foreground">Em Governador Valadares</p>
             </div>
             <div className="text-center p-4 rounded-lg hover:bg-background/50 transition-all duration-300 animate-rotateIn" style={{ animationDelay: "0.2s" }}>
               <div className="inline-block p-3 rounded-full bg-primary/10 mb-3">
                 <Lock className="h-8 w-8 text-primary" />
               </div>
-              <h3 className="font-medium text-sm md:text-base mb-1">Segurança</h3>
-              <p className="text-xs md:text-sm text-muted-foreground">100% confiável</p>
+              <h3 className="font-medium text-sm md:text-base mb-1">Qualidade</h3>
+              <p className="text-xs md:text-sm text-muted-foreground">Ingredientes frescos</p>
             </div>
             <div className="text-center p-4 rounded-lg hover:bg-background/50 transition-all duration-300 animate-rotateIn" style={{ animationDelay: "0.3s" }}>
               <div className="inline-block p-3 rounded-full bg-primary/10 mb-3">
@@ -94,7 +86,7 @@ export function Home({ products, onAddToCart }: HomeProps) {
       <section className="py-12 md:py-16 bg-gradient-to-b from-background to-muted/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="font-serif text-2xl md:text-3xl font-light mb-8 animate-slideInLeft">
-            Categorias
+            Cardápio
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-4">
             {(Object.keys(categoryLabels) as Category[]).map((category, idx) => (
@@ -122,21 +114,12 @@ export function Home({ products, onAddToCart }: HomeProps) {
         </div>
       </section>
 
-      {/* NEW IN */}
-      <section 
-        className="py-12 md:py-16 relative overflow-hidden"
-        style={{
-          backgroundImage: `url(${womenJewelry})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundAttachment: "fixed"
-        }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-b from-background/90 via-background/70 to-background/90"></div>
+      {/* DESTAQUES */}
+      <section className="py-12 md:py-16 relative overflow-hidden bg-gradient-to-r from-primary/5 via-transparent to-secondary/5">
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between mb-8">
             <h2 className="font-serif text-2xl md:text-3xl font-light animate-slideInLeft text-foreground drop-shadow">
-              NOVIDADES
+              DESTAQUES DO DIA
             </h2>
             <Link href="/colecao">
               <Button variant="outline" size="sm" className="animate-float" data-testid="button-see-all-new">
@@ -164,12 +147,12 @@ export function Home({ products, onAddToCart }: HomeProps) {
         </div>
       </section>
 
-      {/* MAIS VISTOS */}
+      {/* MAIS VENDIDOS */}
       <section className="py-12 md:py-16 bg-gradient-to-b from-background to-muted/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between mb-8">
             <h2 className="font-serif text-2xl md:text-3xl font-light animate-slideInLeft">
-              MAIS VISTOS
+              MAIS VENDIDOS
             </h2>
             <Link href="/colecao">
               <Button variant="outline" size="sm" className="animate-float" data-testid="button-see-all-viewed">
@@ -207,12 +190,12 @@ export function Home({ products, onAddToCart }: HomeProps) {
             Entre em contato conosco pelo WhatsApp e nossa equipe estará pronta para ajudar!
           </p>
           <a
-            href="https://wa.me/5511999999999?text=Olá%2C%20estou%20navegando%20em%20sua%20loja%20e%20gostaria%20de%20um%20atendimento%21"
+            href="https://wa.me/5533987062406?text=Olá%2C%20estou%20navegando%20no%20cardápio%20da%20ReiBurguer%20e%20gostaria%20de%20fazer%20um%20pedido%21"
             target="_blank"
             rel="noopener noreferrer"
           >
             <Button size="lg" className="animate-glow" data-testid="button-hero-whatsapp">
-              Fale Conosco
+              Pedir Agora
             </Button>
           </a>
         </div>

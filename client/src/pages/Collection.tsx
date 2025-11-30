@@ -3,7 +3,7 @@ import { ProductCard } from "@/components/ProductCard";
 import { ProductFilters } from "@/components/ProductFilters";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
-import type { Product, Category, Material } from "@shared/schema";
+import type { Product, Category, Ingredient } from "@shared/schema";
 
 interface CollectionProps {
   products: Product[];
@@ -15,7 +15,7 @@ type SortOption = "featured" | "price-asc" | "price-desc" | "name";
 
 export function Collection({ products, isLoading, onAddToCart }: CollectionProps) {
   const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
-  const [selectedMaterials, setSelectedMaterials] = useState<Material[]>([]);
+  const [selectedIngredients, setSelectedIngredients] = useState<Ingredient[]>([]);
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 5000]);
   const [sortBy, setSortBy] = useState<SortOption>("featured");
 
@@ -31,8 +31,8 @@ export function Collection({ products, isLoading, onAddToCart }: CollectionProps
       result = result.filter((p) => selectedCategories.includes(p.category));
     }
 
-    if (selectedMaterials.length > 0) {
-      result = result.filter((p) => selectedMaterials.includes(p.material));
+    if (selectedIngredients.length > 0) {
+      result = result.filter((p) => selectedIngredients.includes(p.ingredient));
     }
 
     result = result.filter(
@@ -55,7 +55,7 @@ export function Collection({ products, isLoading, onAddToCart }: CollectionProps
     }
 
     return result;
-  }, [products, selectedCategories, selectedMaterials, priceRange, sortBy]);
+  }, [products, selectedCategories, selectedIngredients, priceRange, sortBy]);
 
   const handleCategoryChange = (category: Category) => {
     setSelectedCategories((prev) =>
@@ -65,17 +65,17 @@ export function Collection({ products, isLoading, onAddToCart }: CollectionProps
     );
   };
 
-  const handleMaterialChange = (material: Material) => {
-    setSelectedMaterials((prev) =>
-      prev.includes(material)
-        ? prev.filter((m) => m !== material)
-        : [...prev, material]
+  const handleIngredientChange = (ingredient: Ingredient) => {
+    setSelectedIngredients((prev) =>
+      prev.includes(ingredient)
+        ? prev.filter((m) => m !== ingredient)
+        : [...prev, ingredient]
     );
   };
 
   const handleClearFilters = () => {
     setSelectedCategories([]);
-    setSelectedMaterials([]);
+    setSelectedIngredients([]);
     setPriceRange([0, maxPrice]);
   };
 
@@ -84,22 +84,21 @@ export function Collection({ products, isLoading, onAddToCart }: CollectionProps
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="py-8 md:py-12">
           <h1 className="font-serif text-4xl md:text-5xl font-light mb-4">
-            Nossa Coleção
+            Nosso Cardápio
           </h1>
           <p className="text-muted-foreground max-w-2xl">
-            Explore nossa seleção completa de joias e semi joias, 
-            criadas com materiais nobres e design exclusivo.
+            Explore todos os nossos deliciosos hambúrgueres, bebidas e acompanhamentos feitos com ingredientes frescos e de qualidade!
           </p>
         </div>
 
         <div className="flex flex-col lg:flex-row gap-8">
           <ProductFilters
             selectedCategories={selectedCategories}
-            selectedMaterials={selectedMaterials}
+            selectedMaterials={selectedIngredients}
             priceRange={priceRange}
             maxPrice={maxPrice}
             onCategoryChange={handleCategoryChange}
-            onMaterialChange={handleMaterialChange}
+            onMaterialChange={handleIngredientChange}
             onPriceChange={setPriceRange}
             onClearFilters={handleClearFilters}
           />

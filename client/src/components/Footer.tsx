@@ -12,13 +12,13 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           <div className="space-y-4">
-            <h3 className="font-serif text-2xl font-light">Glam Gear</h3>
+            <h3 className="font-serif text-2xl font-light">ReiBurguer 🍔</h3>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Joias, Semi-joias, Aço Inoxidável, Bijuterias e Bolsas com estilo e qualidade.
+              Hambúrgueres deliciosos, bebidas refrescantes e acompanhamentos crocantes feitos com ingredientes frescos e de qualidade!
             </p>
             <div className="flex gap-3">
               <a
-                href="https://www.instagram.com/glamgear5?igsh=NjdudTZueTkxcXF4"
+                href="https://www.instagram.com/reiBurguer"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -44,32 +44,32 @@ export function Footer() {
 
           <div className="space-y-4">
             <h4 className="text-sm uppercase tracking-widest font-medium">
-              Categorias
+              Cardápio
             </h4>
             <nav className="flex flex-col gap-2">
-              <Link href="/categorias/joias" data-testid="link-footer-joias">
+              <Link href="/categorias/hamburguer" data-testid="link-footer-hamburgueres">
                 <span className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Joias
+                  Hambúrgueres
                 </span>
               </Link>
-              <Link href="/categorias/semi-joias" data-testid="link-footer-semi-joias">
+              <Link href="/categorias/bebidas" data-testid="link-footer-bebidas">
                 <span className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Semi-Joias
+                  Bebidas
                 </span>
               </Link>
-              <Link href="/categorias/aco-inoxidavel" data-testid="link-footer-aco">
+              <Link href="/categorias/acompanhamentos" data-testid="link-footer-acompanhamentos">
                 <span className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Aço Inoxidável
+                  Acompanhamentos
                 </span>
               </Link>
-              <Link href="/categorias/biju" data-testid="link-footer-biju">
+              <Link href="/categorias/sobremesas" data-testid="link-footer-sobremesas">
                 <span className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Bijuterias
+                  Sobremesas
                 </span>
               </Link>
-              <Link href="/categorias/bolsas" data-testid="link-footer-bolsas">
+              <Link href="/categorias/combos" data-testid="link-footer-combos">
                 <span className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Bolsas
+                  Combos
                 </span>
               </Link>
             </nav>
@@ -81,7 +81,7 @@ export function Footer() {
             </h4>
             <div className="flex flex-col gap-3">
               <a
-                href="https://wa.me/5533987062406?text=Olá%2C%20estou%20navegando%20em%20sua%20loja%20e%20gostaria%20de%20um%20atendimento%21"
+                href="https://wa.me/5533987062406?text=Olá%2C%20estou%20navegando%20no%20cardápio%20da%20ReiBurguer%20e%20gostaria%20de%20fazer%20um%20pedido%21"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
@@ -98,14 +98,10 @@ export function Footer() {
                 <Phone className="h-4 w-4" />
                 (33) 98706-2406
               </a>
-              <a
-                href="mailto:contato@glamgear.com.br"
-                className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-                data-testid="link-email"
-              >
-                <Mail className="h-4 w-4" />
-                contato@glamgear.com.br
-              </a>
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <MapPin className="h-4 w-4" />
+                Governador Valadares, MG
+              </div>
             </div>
           </div>
 
@@ -134,7 +130,7 @@ export function Footer() {
 
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm text-muted-foreground">
-            {currentYear} Lumière Joias. Todos os direitos reservados.
+            {currentYear} ReiBurguer. Todos os direitos reservados.
           </p>
           <div className="flex items-center gap-4">
             <Link href="/termos" data-testid="link-terms">

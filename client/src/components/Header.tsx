@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/lib/authContext";
-import glamGearLogoHeader from "@assets/generated_images/glam_gear_logo_header.png";
 
 interface HeaderProps {
   cartItemCount: number;
@@ -14,12 +13,12 @@ interface HeaderProps {
 
 const navLinks = [
   { href: "/", label: "Início" },
-  { href: "/colecao", label: "Coleção" },
-  { href: "/categorias/joias", label: "Joias" },
-  { href: "/categorias/semi-joias", label: "Semi-Joias" },
-  { href: "/categorias/aco-inoxidavel", label: "Aço Inoxidável" },
-  { href: "/categorias/biju", label: "Bijuterias" },
-  { href: "/categorias/bolsas", label: "Bolsas" },
+  { href: "/colecao", label: "Cardápio" },
+  { href: "/categorias/hamburguer", label: "Hambúrgueres" },
+  { href: "/categorias/bebidas", label: "Bebidas" },
+  { href: "/categorias/acompanhamentos", label: "Acompanhamentos" },
+  { href: "/categorias/sobremesas", label: "Sobremesas" },
+  { href: "/categorias/combos", label: "Combos" },
 ];
 
 export function Header({ cartItemCount, onCartClick }: HeaderProps) {
@@ -123,7 +122,7 @@ export function Header({ cartItemCount, onCartClick }: HeaderProps) {
 
           <Link href="/" data-testid="link-logo">
             <h1 className="font-serif text-2xl md:text-3xl font-light tracking-tight text-foreground">
-              Glam Gear
+              ReiBurguer 🍔
             </h1>
           </Link>
 
@@ -144,15 +143,6 @@ export function Header({ cartItemCount, onCartClick }: HeaderProps) {
                 </Link>
               ))}
             </nav>
-
-            <Link href="/" data-testid="link-logo-right" className="transition-transform duration-300 hover:scale-110">
-              <img 
-                src={glamGearLogoHeader} 
-                alt="Glam Gear" 
-                className="h-16 md:h-20 w-auto animate-fadeInDown"
-                data-testid="img-header-logo"
-              />
-            </Link>
 
             {customer && (
               <div className="hidden md:flex items-center gap-2 text-sm font-light">
