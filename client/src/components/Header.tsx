@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/lib/authContext";
+import logoUrl from "@assets/Gemini_Generated_Image_hm3t66hm3t66hm3t_1764511817843.png";
 
 interface HeaderProps {
   cartItemCount: number;
@@ -123,7 +124,8 @@ export function Header({ cartItemCount, onCartClick, hideNav = false }: HeaderPr
             </div>
           )}
 
-          <Link href="/" data-testid="link-logo">
+          <Link href="/" data-testid="link-logo" className="flex items-center gap-3">
+            {hideNav && <img src={logoUrl} alt="ReiBurguer Logo" className="h-12 w-12 md:h-14 md:w-14 rounded-full" />}
             <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground" style={{ fontFamily: "'Space Mono', monospace", letterSpacing: '-0.02em' }}>
               ReiBurguer
             </h1>
