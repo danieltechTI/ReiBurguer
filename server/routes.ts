@@ -5,7 +5,17 @@ import path from "path";
 import { storage } from "./storage";
 import { insertCartItemSchema, insertContactSchema, registerSchema, loginSchema } from "@shared/schema";
 import crypto from "crypto";
+// @ts-ignore - pdfkit types not available
 import PDFDocument from "pdfkit";
+import type { SessionData } from "express-session";
+
+declare global {
+  namespace Express {
+    interface SessionData {
+      customerId?: string;
+    }
+  }
+}
 
 // Function to generate welcome PDF as buffer
 async function generateWelcomePDF(customerName: string): Promise<Buffer> {
@@ -13,7 +23,7 @@ async function generateWelcomePDF(customerName: string): Promise<Buffer> {
     const doc = new PDFDocument({ margin: 50 });
     const chunks: Buffer[] = [];
 
-    doc.on("data", chunk => chunks.push(chunk));
+    doc.on("data", (chunk: Buffer) => chunks.push(chunk));
     doc.on("end", () => resolve(Buffer.concat(chunks)));
     doc.on("error", reject);
 
@@ -213,7 +223,7 @@ export async function registerRoutes(
       
       try {
         const customer = await storage.createCustomer(parsed.data.email, passwordHash, parsed.data.name);
-        req.session.customerId = customer.id;
+        (req.session as any).customerId = customer.id;
 
         // Send welcome email with PDF
         try {
@@ -287,7 +297,7 @@ export async function registerRoutes(
         return res.status(401).json({ message: "Email or password incorrect" });
       }
 
-      req.session.customerId = customer.id;
+      (req.session as any).customerId = customer.id;
       res.json({ id: customer.id, email: customer.email, name: customer.name });
     } catch (error) {
       res.status(500).json({ message: "Error logging in" });
@@ -301,10 +311,10 @@ export async function registerRoutes(
   });
 
   app.get("/api/auth/me", (req, res) => {
-    if (!req.session || !req.session.customerId) {
+    if (!req.session || !(req.session as any).customerId) {
       return res.status(401).json({ message: "Not authenticated" });
     }
-    res.json({ customerId: req.session.customerId });
+    res.json({ customerId: (req.session as any).customerId });
   });
 
   // Generate invoice PDF
