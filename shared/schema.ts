@@ -184,3 +184,38 @@ export const insertOrderSchema = z.object({
 });
 
 export type InsertOrder = z.infer<typeof insertOrderSchema>;
+
+// Order types for ReiBurguer (Pickup only)
+export type OrderStatus = "confirmado" | "preparando" | "pronto" | "finalizado";
+
+export interface Order {
+  id: string;
+  orderNumber: string; // Format: 00001, 00002, ..., 99999 (sequential)
+  customerId: string;
+  customerName: string;
+  customerPhone: string;
+  items: CartItem[];
+  subtotal: number;
+  shippingCost: number;
+  total: number;
+  status: OrderStatus;
+  paymentMethod?: string; // "dinheiro", "cartao", "pix", etc.
+  notes?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export const insertOrderSchema = z.object({
+  customerId: z.string().min(1, "Cliente inválido"),
+  customerName: z.string().min(2, "Nome deve ter pelo menos 2 caracteres"),
+  customerPhone: z.string().min(10, "Telefone inválido"),
+  items: z.array(z.object({
+    productId: z.string(),
+    quantity: z.number().int().positive(),
+  })).min(1, "Pedido deve ter pelo menos 1 item"),
+  total: z.number().positive(),
+  paymentMethod: z.enum(["dinheiro", "cartao", "pix"]).optional(),
+  notes: z.string().optional(),
+});
+
+export type InsertOrderData = z.infer<typeof insertOrderSchema>;
