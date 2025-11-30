@@ -57,37 +57,70 @@ export function Home({ products, onAddToCart }: HomeProps) {
         </div>
       </div>
 
-      {/* Benefícios - Premium Layout */}
+      {/* Benefícios - Premium Layout com Animações */}
       <section className="bg-white py-16 md:py-20 border-b border-border">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-10">
-            <div className="text-center flex flex-col items-center">
-              <div className="inline-block p-4 rounded-full bg-primary/15 mb-4 hover-elevate">
-                <CreditCard className="h-7 w-7 text-primary" />
+            {/* Fácil de Pedir - Com Bandeiras de Pagamento */}
+            <div className="text-center flex flex-col items-center group cursor-pointer">
+              <div className="inline-block p-4 rounded-full bg-primary/15 mb-4 transition-all duration-300 group-hover:bg-primary/25 group-hover:scale-110">
+                <CreditCard className="h-7 w-7 text-primary transition-transform duration-300 group-hover:rotate-12" />
               </div>
               <h3 className="font-semibold text-base md:text-lg mb-2 text-foreground">Fácil de Pedir</h3>
-              <p className="text-sm text-muted-foreground">Pelo WhatsApp</p>
-            </div>
-            <div className="text-center flex flex-col items-center">
-              <div className="inline-block p-4 rounded-full bg-primary/15 mb-4 hover-elevate">
-                <MapPin className="h-7 w-7 text-primary" />
+              <p className="text-sm text-muted-foreground transition-opacity duration-300 group-hover:opacity-0">Pelo WhatsApp</p>
+              
+              {/* Bandeiras aparecem ao passar mouse */}
+              <div className="absolute text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex gap-2">
+                <span className="animate-bounce" style={{ animationDelay: '0s' }}>💰</span>
+                <span className="animate-bounce" style={{ animationDelay: '0.1s' }}>💳</span>
+                <span className="animate-bounce" style={{ animationDelay: '0.2s' }}>📱</span>
               </div>
-              <h3 className="font-semibold text-base md:text-lg mb-2 text-foreground">Retirada Rápida</h3>
+            </div>
+
+            {/* Retirada Rápida - Com Animação de Velocidade */}
+            <div className="text-center flex flex-col items-center group">
+              <div className="inline-block p-4 rounded-full bg-primary/15 mb-4 transition-all duration-300 group-hover:bg-primary/25">
+                <MapPin className="h-7 w-7 text-primary transition-transform duration-500 group-hover:animate-pulse" />
+              </div>
+              <h3 className="font-semibold text-base md:text-lg mb-2 text-foreground group-hover:text-primary transition-colors duration-300">Retirada Rápida</h3>
               <p className="text-sm text-muted-foreground">Rua Antonio Giarola, 30</p>
+              
+              {/* Linha de velocidade */}
+              <div className="mt-2 h-1 w-12 bg-gradient-to-r from-primary/0 via-primary to-primary/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse"></div>
             </div>
-            <div className="text-center flex flex-col items-center">
-              <div className="inline-block p-4 rounded-full bg-primary/15 mb-4 hover-elevate">
-                <Lock className="h-7 w-7 text-primary" />
+
+            {/* Premium - Com Animação de Brilho */}
+            <div className="text-center flex flex-col items-center group">
+              <div className="inline-block p-4 rounded-full bg-primary/15 mb-4 transition-all duration-300 group-hover:bg-yellow-200/30 relative">
+                <Lock className="h-7 w-7 text-primary transition-all duration-300 group-hover:text-yellow-500" />
+                {/* Brilho ao fundo */}
+                <div className="absolute inset-0 rounded-full bg-yellow-300/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse"></div>
               </div>
-              <h3 className="font-semibold text-base md:text-lg mb-2 text-foreground">Premium</h3>
+              <h3 className="font-semibold text-base md:text-lg mb-2 text-foreground group-hover:text-yellow-600 transition-colors duration-300">Premium</h3>
               <p className="text-sm text-muted-foreground">Ingredientes selecionados</p>
-            </div>
-            <div className="text-center flex flex-col items-center">
-              <div className="inline-block p-4 rounded-full bg-primary/15 mb-4 hover-elevate">
-                <Phone className="h-7 w-7 text-primary" />
+              
+              {/* Estrelas aparecem */}
+              <div className="mt-2 text-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex gap-1">
+                <span className="animate-bounce" style={{ animationDelay: '0s' }}>⭐</span>
+                <span className="animate-bounce" style={{ animationDelay: '0.1s' }}>⭐</span>
+                <span className="animate-bounce" style={{ animationDelay: '0.2s' }}>⭐</span>
               </div>
-              <h3 className="font-semibold text-base md:text-lg mb-2 text-foreground">Suporte via WhatsApp</h3>
+            </div>
+
+            {/* Suporte via WhatsApp - Com Animação de Pulso */}
+            <div className="text-center flex flex-col items-center group">
+              <div className="inline-block p-4 rounded-full bg-green-500/15 mb-4 transition-all duration-300 group-hover:bg-green-500/25 relative">
+                <Phone className="h-7 w-7 text-green-600 transition-all duration-300 group-hover:text-green-500" />
+                {/* Pulso de radiação */}
+                <div className="absolute inset-0 rounded-full border-2 border-green-500/0 group-hover:border-green-500/50 animate-pulse"></div>
+              </div>
+              <h3 className="font-semibold text-base md:text-lg mb-2 text-foreground group-hover:text-green-600 transition-colors duration-300">Suporte via WhatsApp</h3>
               <p className="text-sm text-muted-foreground">Rápido e fácil</p>
+              
+              {/* Mensagem flutuante */}
+              <div className="mt-2 text-sm font-medium text-green-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-bounce">
+                💬 Sempre online!
+              </div>
             </div>
           </div>
         </div>
