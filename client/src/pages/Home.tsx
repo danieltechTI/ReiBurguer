@@ -28,18 +28,19 @@ export function Home({ products, onAddToCart }: HomeProps) {
     <div className="min-h-screen pt-20 md:pt-24">
       {/* Hero with Background */}
       <section 
-        className="relative py-20 md:py-32 overflow-hidden bg-gradient-to-br from-primary/20 via-background to-secondary/10"
+        className="relative py-20 md:py-32 overflow-hidden bg-gradient-to-br from-primary/30 via-background to-secondary/15 border-b-2 border-primary/20"
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/85 to-background/90"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/90 to-primary/5"></div>
+        <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_20%_50%,hsl(0_100%_45%),transparent_50%)] animate-vibrant-pulse"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="font-serif text-5xl md:text-6xl font-light mb-4 animate-slideInLeft text-foreground drop-shadow-lg">
+          <h1 className="font-serif text-5xl md:text-6xl font-light mb-4 animate-bounce-in text-transparent bg-clip-text bg-gradient-to-r from-primary via-red-600 to-primary drop-shadow-2xl">
             ReiBurguer
           </h1>
           <p className="text-foreground/90 max-w-2xl mx-auto mb-8 text-lg animate-slideInRight">
             Hambúrgueres deliciosos, bebidas refrescantes e muito sabor!
           </p>
           <Link href="/colecao">
-            <Button size="lg" className="animate-float hover-elevate" data-testid="button-hero-collection">
+            <Button size="lg" className="animate-vibrant-pulse hover-elevate bg-primary text-primary-foreground shadow-lg shadow-primary/50" data-testid="button-hero-collection">
               Ver Cardápio
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
@@ -48,35 +49,35 @@ export function Home({ products, onAddToCart }: HomeProps) {
       </section>
 
       {/* Benefícios */}
-      <section className="bg-gradient-to-r from-primary/5 to-primary/10 py-8 md:py-12 border-b border-border">
+      <section className="bg-gradient-to-r from-primary/10 to-primary/15 py-8 md:py-12 border-b-2 border-primary/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
-            <div className="text-center p-4 rounded-lg hover:bg-background/50 transition-all duration-300 animate-rotateIn">
-              <div className="inline-block p-3 rounded-full bg-primary/10 mb-3">
+            <div className="text-center p-4 rounded-lg bg-gradient-to-br from-primary/5 to-transparent hover:bg-primary/10 transition-all duration-300 animate-rotateIn border border-primary/20 shadow-sm shadow-primary/10">
+              <div className="inline-block p-3 rounded-full bg-primary/20 mb-3 animate-vibrant-pulse">
                 <CreditCard className="h-8 w-8 text-primary" />
               </div>
-              <h3 className="font-medium text-sm md:text-base mb-1">Fácil de Pedir</h3>
+              <h3 className="font-medium text-sm md:text-base mb-1 text-foreground">Fácil de Pedir</h3>
               <p className="text-xs md:text-sm text-muted-foreground">Pelo WhatsApp</p>
             </div>
-            <div className="text-center p-4 rounded-lg hover:bg-background/50 transition-all duration-300 animate-rotateIn" style={{ animationDelay: "0.1s" }}>
-              <div className="inline-block p-3 rounded-full bg-primary/10 mb-3">
+            <div className="text-center p-4 rounded-lg bg-gradient-to-br from-primary/5 to-transparent hover:bg-primary/10 transition-all duration-300 animate-rotateIn border border-primary/20 shadow-sm shadow-primary/10" style={{ animationDelay: "0.1s" }}>
+              <div className="inline-block p-3 rounded-full bg-primary/20 mb-3 animate-vibrant-pulse" style={{ animationDelay: "0.2s" }}>
                 <MapPin className="h-8 w-8 text-primary" />
               </div>
-              <h3 className="font-medium text-sm md:text-base mb-1">Retirada na Loja</h3>
+              <h3 className="font-medium text-sm md:text-base mb-1 text-foreground">Retirada na Loja</h3>
               <p className="text-xs md:text-sm text-muted-foreground">Rua Antonio Giarola, 30</p>
             </div>
-            <div className="text-center p-4 rounded-lg hover:bg-background/50 transition-all duration-300 animate-rotateIn" style={{ animationDelay: "0.2s" }}>
-              <div className="inline-block p-3 rounded-full bg-primary/10 mb-3">
+            <div className="text-center p-4 rounded-lg bg-gradient-to-br from-primary/5 to-transparent hover:bg-primary/10 transition-all duration-300 animate-rotateIn border border-primary/20 shadow-sm shadow-primary/10" style={{ animationDelay: "0.2s" }}>
+              <div className="inline-block p-3 rounded-full bg-primary/20 mb-3 animate-vibrant-pulse" style={{ animationDelay: "0.4s" }}>
                 <Lock className="h-8 w-8 text-primary" />
               </div>
               <h3 className="font-medium text-sm md:text-base mb-1">Qualidade</h3>
               <p className="text-xs md:text-sm text-muted-foreground">Ingredientes frescos</p>
             </div>
-            <div className="text-center p-4 rounded-lg hover:bg-background/50 transition-all duration-300 animate-rotateIn" style={{ animationDelay: "0.3s" }}>
-              <div className="inline-block p-3 rounded-full bg-primary/10 mb-3">
+            <div className="text-center p-4 rounded-lg bg-gradient-to-br from-primary/5 to-transparent hover:bg-primary/10 transition-all duration-300 animate-rotateIn border border-primary/20 shadow-sm shadow-primary/10" style={{ animationDelay: "0.3s" }}>
+              <div className="inline-block p-3 rounded-full bg-primary/20 mb-3 animate-vibrant-pulse" style={{ animationDelay: "0.6s" }}>
                 <Phone className="h-8 w-8 text-primary" />
               </div>
-              <h3 className="font-medium text-sm md:text-base mb-1">Atendimento</h3>
+              <h3 className="font-medium text-sm md:text-base mb-1 text-foreground">Atendimento</h3>
               <p className="text-xs md:text-sm text-muted-foreground">Via WhatsApp</p>
             </div>
           </div>
