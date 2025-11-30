@@ -17,6 +17,8 @@ import { Collection } from "@/pages/Collection";
 import { Category } from "@/pages/Category";
 import { ProductDetail } from "@/pages/ProductDetail";
 import { Contact } from "@/pages/Contact";
+import { Delivery } from "@/pages/Delivery";
+import { Videos } from "@/pages/Videos";
 import { Checkout } from "@/pages/Checkout";
 import { Login } from "@/pages/Login";
 import { Register } from "@/pages/Register";
@@ -148,6 +150,12 @@ function AppContent() {
               onSubmit={handleContactSubmit}
               isSubmitting={contactMutation.isPending}
             />
+          </Route>
+          <Route path="/delivery">
+            <Delivery />
+          </Route>
+          <Route path="/videos">
+            <Videos />
           </Route>
           <Route path="/checkout">
             <Checkout cartItems={cartItems} subtotal={cartItems.reduce((sum, item) => sum + item.product.price * item.quantity, 0)} />

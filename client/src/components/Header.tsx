@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
-import { ShoppingBag, Menu, X, LogIn, LogOut } from "lucide-react";
+import { ShoppingBag, Menu, LogIn, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Badge } from "@/components/ui/badge";
@@ -13,12 +13,10 @@ interface HeaderProps {
 
 const navLinks = [
   { href: "/", label: "Início" },
+  { href: "/delivery", label: "Delivery" },
   { href: "/colecao", label: "Cardápio" },
-  { href: "/categorias/hamburguer", label: "Hambúrgueres" },
-  { href: "/categorias/bebidas", label: "Bebidas" },
-  { href: "/categorias/acompanhamentos", label: "Acompanhamentos" },
-  { href: "/categorias/sobremesas", label: "Sobremesas" },
-  { href: "/categorias/combos", label: "Combos" },
+  { href: "/videos", label: "Vídeos" },
+  { href: "/contato", label: "Contato" },
 ];
 
 export function Header({ cartItemCount, onCartClick }: HeaderProps) {
@@ -103,13 +101,13 @@ export function Header({ cartItemCount, onCartClick }: HeaderProps) {
             </SheetContent>
           </Sheet>
 
-          <nav className="hidden md:flex items-center gap-8">
-            {navLinks.slice(0, 3).map((link) => (
+          <nav className="hidden md:flex items-center gap-6">
+            {navLinks.map((link) => (
               <Link key={link.href} href={link.href} data-testid={`link-nav-${link.label.toLowerCase()}`}>
                 <span
-                  className={`text-sm uppercase tracking-widest font-light transition-all duration-300 hover:text-primary relative group ${
+                  className={`text-sm font-medium transition-all duration-300 hover:text-primary relative group ${
                     location === link.href
-                      ? "text-primary font-medium"
+                      ? "text-primary"
                       : "text-foreground/70"
                   }`}
                 >
@@ -127,23 +125,6 @@ export function Header({ cartItemCount, onCartClick }: HeaderProps) {
           </Link>
 
           <div className="flex items-center gap-2 md:gap-4">
-            <nav className="hidden md:flex items-center gap-8 mr-4">
-              {navLinks.slice(3).map((link) => (
-                <Link key={link.href} href={link.href} data-testid={`link-nav-${link.label.toLowerCase()}`}>
-                  <span
-                    className={`text-sm uppercase tracking-widest font-light transition-all duration-300 hover:text-primary relative group ${
-                      location === link.href
-                        ? "text-primary font-medium"
-                        : "text-foreground/70"
-                    }`}
-                  >
-                    {link.label}
-                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
-                  </span>
-                </Link>
-              ))}
-            </nav>
-
             {customer && (
               <div className="hidden md:flex items-center gap-2 text-sm font-light">
                 <span className="text-foreground/70">Olá, {customer.name}</span>
