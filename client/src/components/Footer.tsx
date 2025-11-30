@@ -96,7 +96,7 @@ export function Footer() {
                 data-testid="link-whatsapp"
               >
                 <MessageCircle className="h-4 w-4" />
-                WhatsApp: (33) 98706-2406
+                WhatsApp: +55 31 99503-0612
               </a>
               <a
                 href="tel:+5531995030612"
@@ -104,7 +104,7 @@ export function Footer() {
                 data-testid="link-phone"
               >
                 <Phone className="h-4 w-4" />
-                (33) 98706-2406
+                +55 31 99503-0612
               </a>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <MapPin className="h-4 w-4" />

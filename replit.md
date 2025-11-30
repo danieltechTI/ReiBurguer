@@ -112,7 +112,7 @@ interface Order {
   subtotal: number;
   shippingCost: number;          // Sempre 0 (pickup)
   total: number;
-  status: "confirmado" | "preparando" | "pronto" | "finalizado";
+  status: "confirmado" | "preparando" | "pronto" | "finalizado" | "recusado";
   paymentMethod?: string;        // "dinheiro", "cartao", "pix"
   notes?: string;                // Observações do cliente
   createdAt: string;
@@ -151,11 +151,14 @@ A aplicação roda na porta 5000 com `npm run dev`.
 - ✅ **[DATABASE]** Migrado para PostgreSQL com Drizzle ORM - dados persistem ao reiniciar!
 - ✅ **[DATABASE]** Tabelas: orders, order_counter, contact_messages
 - ✅ **[DATABASE]** Contador sequencial (00001-99999) persistido no banco
+- ✅ **[VISUAL]** Improved hero section with larger, bold fonts
+- ✅ **[VISUAL]** Reorganized page layout with "Destaques do Dia" at the end
+- ✅ **[NUMERO]** Corrigido número de WhatsApp: +55 31 99503-0612
 
 ## Configurações da Loja
 - **Nome**: ReiBurguer
 - **Endereço Retirada**: Rua Antonio Giarola, 30 - Governador Valadares, MG
-- **WhatsApp**: (33) 98706-2406 (+55 33 98706-2406)
+- **WhatsApp**: +55 31 99503-0612
 - **Instagram**: @glamgear5
 - **Horário**: Segunda a Domingo, 11h-22h (sugestão)
 
