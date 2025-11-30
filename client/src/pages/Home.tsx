@@ -117,79 +117,36 @@ export function Home({ products, onAddToCart }: HomeProps) {
         </div>
       </section>
 
-      {/* DESTAQUES - VÍDEOS VIRAIS */}
+      {/* DESTAQUES - PRODUTOS EM DESTAQUE */}
       <section className="py-12 md:py-16 bg-background">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="font-serif text-2xl md:text-3xl font-light text-foreground mb-8">
-            Destaques do Dia
-          </h2>
-          
-          {/* VÍDEOS DO INSTAGRAM */}
-          <div className="mb-12">
-            <h3 className="text-base font-medium mb-6">Confira nossos vídeos virais!</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Vídeo 1 */}
-              <div className="relative overflow-hidden rounded-md border border-border hover-elevate">
-                <div className="aspect-video bg-black">
-                  <iframe
-                    width="100%"
-                    height="100%"
-                    src="https://www.instagram.com/reel/DN6gITtEuxD/embed"
-                    frameBorder="0"
-                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                    allowFullScreen
-                    data-testid="video-instagram-1"
-                  ></iframe>
-                </div>
-              </div>
-
-              {/* Vídeo 2 */}
-              <div className="relative overflow-hidden rounded-md border border-border hover-elevate">
-                <div className="aspect-video bg-black">
-                  <iframe
-                    width="100%"
-                    height="100%"
-                    src="https://www.instagram.com/reel/DNLXNOox2qj/embed"
-                    frameBorder="0"
-                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                    allowFullScreen
-                    data-testid="video-instagram-2"
-                  ></iframe>
-                </div>
-              </div>
-            </div>
+          <div className="flex items-center justify-between mb-8">
+            <h2 className="font-serif text-2xl md:text-3xl font-light text-foreground">
+              Destaques do Dia
+            </h2>
+            <a href="/colecao">
+              <Button variant="outline" size="sm" data-testid="button-see-all-new">
+                Ver Todos
+              </Button>
+            </a>
           </div>
-
-          <Separator className="my-8" />
-
-          {/* PRODUTOS EM DESTAQUE */}
-          <div className="mt-8">
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-lg font-medium">Produtos em Destaque</h3>
-              <Link href="/colecao">
-                <Button variant="outline" size="sm" data-testid="button-see-all-new">
-                  Ver Todos
-                </Button>
-              </Link>
-            </div>
             
-            {featuredProducts.length > 0 ? (
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                {featuredProducts.map((product) => (
-                  <div key={product.id}>
-                    <ProductCard
-                      product={product}
-                      onAddToCart={onAddToCart}
-                    />
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="text-center py-8 text-muted-foreground">
-                Carregando produtos...
-              </div>
-            )}
-          </div>
+          {featuredProducts.length > 0 ? (
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {featuredProducts.map((product) => (
+                <div key={product.id}>
+                  <ProductCard
+                    product={product}
+                    onAddToCart={onAddToCart}
+                  />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-8 text-muted-foreground">
+              Carregando produtos...
+            </div>
+          )}
         </div>
       </section>
 
@@ -200,11 +157,11 @@ export function Home({ products, onAddToCart }: HomeProps) {
             <h2 className="font-serif text-2xl md:text-3xl font-light">
               Mais Vendidos
             </h2>
-            <Link href="/colecao">
+            <a href="/colecao">
               <Button variant="outline" size="sm" data-testid="button-see-all-viewed">
                 Ver Todos
               </Button>
-            </Link>
+            </a>
           </div>
           
           {mostViewed.length > 0 ? (
