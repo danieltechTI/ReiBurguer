@@ -172,7 +172,7 @@ export function Footer() {
           size="lg"
           className="rounded-full h-14 w-14 shadow-lg bg-green-500 hover:bg-green-600"
         >
-          <MessageCircle className="h-6 w-6" />
+          <Send className="h-6 w-6" />
         </Button>
       </a>
     </footer>
