@@ -148,6 +148,9 @@ A aplicação roda na porta 5000 com `npm run dev`.
 - ✅ **[NOVO]** Notificação popup com som sonoro ao chegar novo pedido
 - ✅ **[NOVO]** Botões para aceitar (→ preparando) ou rejeitar pedido
 - ✅ **[NOVO]** Som toca repetidamente a cada 2 segundos até aceitar/rejeitar
+- ✅ **[DATABASE]** Migrado para PostgreSQL com Drizzle ORM - dados persistem ao reiniciar!
+- ✅ **[DATABASE]** Tabelas: orders, order_counter, contact_messages
+- ✅ **[DATABASE]** Contador sequencial (00001-99999) persistido no banco
 
 ## Configurações da Loja
 - **Nome**: ReiBurguer

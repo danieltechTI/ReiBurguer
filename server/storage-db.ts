@@ -247,11 +247,14 @@ export class DatabaseStorage implements IStorage {
 
   async getNextOrderNumber(): Promise<string> {
     try {
-      let counter = await db.query.orderCounterTable.findFirst();
+      const counters = await db.select().from(orderCounterTable);
+      let counter = counters[0];
+      
       if (!counter) {
         await db.insert(orderCounterTable).values({ counter: 1 });
-        counter = { id: 1, counter: 1 };
+        return "00001";
       }
+      
       const nextCounter = (counter.counter % 100000) + 1;
       await db.update(orderCounterTable).set({ counter: nextCounter }).where(eq(orderCounterTable.id, counter.id));
       return String(nextCounter).padStart(5, "0");
@@ -386,9 +389,9 @@ export class DatabaseStorage implements IStorage {
 
   async getOrder(id: string): Promise<Order | undefined> {
     try {
-      const row = await db.query.ordersTable.findFirst({ where: eq(ordersTable.id, id) });
-      if (!row) return undefined;
-      return this.rowToOrder(row);
+      const rows = await db.select().from(ordersTable).where(eq(ordersTable.id, id));
+      if (!rows || rows.length === 0) return undefined;
+      return this.rowToOrder(rows[0]);
     } catch (e) {
       console.error("Error getting order:", e);
       return undefined;
@@ -397,9 +400,9 @@ export class DatabaseStorage implements IStorage {
 
   async getOrderByNumber(orderNumber: string): Promise<Order | undefined> {
     try {
-      const row = await db.query.ordersTable.findFirst({ where: eq(ordersTable.orderNumber, orderNumber) });
-      if (!row) return undefined;
-      return this.rowToOrder(row);
+      const rows = await db.select().from(ordersTable).where(eq(ordersTable.orderNumber, orderNumber));
+      if (!rows || rows.length === 0) return undefined;
+      return this.rowToOrder(rows[0]);
     } catch (e) {
       console.error("Error getting order by number:", e);
       return undefined;
@@ -408,7 +411,7 @@ export class DatabaseStorage implements IStorage {
 
   async getOrdersByCustomerId(customerId: string): Promise<Order[]> {
     try {
-      const rows = await db.query.ordersTable.findMany({ where: eq(ordersTable.customerId, customerId) });
+      const rows = await db.select().from(ordersTable).where(eq(ordersTable.customerId, customerId));
       return rows.map(r => this.rowToOrder(r)).filter(o => o !== undefined) as Order[];
     } catch (e) {
       console.error("Error getting orders by customer:", e);
@@ -428,7 +431,7 @@ export class DatabaseStorage implements IStorage {
 
   async getAllOrders(): Promise<Order[]> {
     try {
-      const rows = await db.query.ordersTable.findMany({ orderBy: desc(ordersTable.createdAt) });
+      const rows = await db.select().from(ordersTable).orderBy(desc(ordersTable.createdAt));
       return rows.map(r => this.rowToOrder(r)).filter(o => o !== undefined) as Order[];
     } catch (e) {
       console.error("Error getting all orders:", e);
