@@ -34,11 +34,16 @@ export function Admin() {
     setLocation("/admin-login");
   };
   const [newOrderNotification, setNewOrderNotification] = useState<Order | null>(null);
+  const [playingNotificationSound, setPlayingNotificationSound] = useState(false);
   const lastOrderCountRef = useRef<number>(0);
   const audioIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   // Play continuous notification sound
   function startNotificationSound() {
+    if (playingNotificationSound) return; // Already playing
+    
+    setPlayingNotificationSound(true);
+    
     // Stop any existing interval
     if (audioIntervalRef.current) {
       clearInterval(audioIntervalRef.current);
@@ -89,6 +94,7 @@ export function Admin() {
   }
 
   function stopNotificationSound() {
+    setPlayingNotificationSound(false);
     if (audioIntervalRef.current) {
       clearInterval(audioIntervalRef.current);
       audioIntervalRef.current = null;
@@ -172,6 +178,7 @@ export function Admin() {
 
   const handleAcceptOrder = () => {
     stopNotificationSound();
+    setNewOrderNotification(null);
     if (newOrderNotification) {
       // Accept the order by moving to "preparando" status
       updateStatusMutation.mutate({
@@ -179,7 +186,6 @@ export function Admin() {
         status: "preparando",
       });
     }
-    setNewOrderNotification(null);
   };
 
   const handleRejectOrder = () => {
@@ -190,7 +196,12 @@ export function Admin() {
   return (
     <div className="min-h-screen bg-background p-4">
       {/* New Order Notification Dialog */}
-      <AlertDialog open={!!newOrderNotification} onOpenChange={() => {}}>
+      <AlertDialog open={!!newOrderNotification} onOpenChange={(open) => {
+        if (!open) {
+          stopNotificationSound();
+          setNewOrderNotification(null);
+        }
+      }}>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle className="text-2xl">Novo Pedido!</AlertDialogTitle>
