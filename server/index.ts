@@ -36,6 +36,12 @@ app.use(
 
 app.use(express.urlencoded({ extended: false }));
 
+// Serve public static files
+app.use(express.static("public", { 
+  maxAge: "1d",
+  etag: false
+}));
+
 export function log(message: string, source = "express") {
   const formattedTime = new Date().toLocaleTimeString("en-US", {
     hour: "numeric",
