@@ -589,17 +589,9 @@ export async function registerRoutes(
       // Generate WhatsApp message
       const itemList = cartItems
         .map(item => `${item.quantity}x ${item.product?.name || 'Produto'}`)
-        .join("\n");
+        .join(" | ");
 
-      const whatsappMessage = `Olá! Seu pedido #${order.orderNumber} foi recebido!
-
-Itens:
-${itemList}
-
-Total: R$ ${total.toFixed(2)}
-
-${notes ? `Observações: ${notes}\n` : ''}
-Você receberá em breve uma confirmação!`;
+      const whatsappMessage = `Olá! Pedido #${order.orderNumber}. Itens: ${itemList}. Total: R$ ${total.toFixed(2)}${notes ? `. Obs: ${notes}` : ''}.`;
 
       // Generate WhatsApp link (user will need to click to send)
       const whatsappPhone = "5531995030612"; // ReiBurguer WhatsApp
