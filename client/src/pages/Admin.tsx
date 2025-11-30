@@ -1,17 +1,62 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { apiRequest } from "@/lib/queryClient";
 import { queryClient } from "@/lib/queryClient";
 import type { Order } from "@shared/schema";
 
+// Generate a beep sound
+function playNotificationSound() {
+  const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+  const oscillator = audioContext.createOscillator();
+  const gainNode = audioContext.createGain();
+  
+  oscillator.connect(gainNode);
+  gainNode.connect(audioContext.destination);
+  
+  oscillator.frequency.value = 800;
+  oscillator.type = "sine";
+  
+  gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+  gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+  
+  oscillator.start(audioContext.currentTime);
+  oscillator.stop(audioContext.currentTime + 0.5);
+}
+
 export function Admin() {
+  const [newOrderNotification, setNewOrderNotification] = useState<Order | null>(null);
+  const lastOrderCountRef = useRef<number>(0);
+
   const { data: orders = [], isLoading } = useQuery<Order[]>({
     queryKey: ["/api/admin/orders"],
-    refetchInterval: 5000,
+    refetchInterval: 2000, // Check every 2 seconds for new orders
   });
+
+  // Detect new orders and show notification
+  useEffect(() => {
+    if (orders.length > lastOrderCountRef.current) {
+      // Find the newest order that's "confirmado"
+      const newOrders = orders.filter(o => o.status === "confirmado");
+      if (newOrders.length > 0) {
+        const newestOrder = newOrders[newOrders.length - 1];
+        setNewOrderNotification(newestOrder);
+        playNotificationSound();
+      }
+    }
+    lastOrderCountRef.current = orders.length;
+  }, [orders]);
 
   const updateStatusMutation = useMutation({
     mutationFn: async ({ orderId, status }: { orderId: string; status: string }) => {
@@ -56,8 +101,65 @@ export function Admin() {
     return <div className="p-4">Carregando...</div>;
   }
 
+  const handleAcceptOrder = () => {
+    if (newOrderNotification) {
+      // Accept the order by moving to "preparando" status
+      updateStatusMutation.mutate({
+        orderId: newOrderNotification.id,
+        status: "preparando",
+      });
+    }
+    setNewOrderNotification(null);
+  };
+
+  const handleRejectOrder = () => {
+    setNewOrderNotification(null);
+  };
+
   return (
     <div className="min-h-screen bg-background p-4">
+      {/* New Order Notification Dialog */}
+      <AlertDialog open={!!newOrderNotification} onOpenChange={() => {}}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="text-2xl">Novo Pedido!</AlertDialogTitle>
+            <AlertDialogDescription>
+              {newOrderNotification && (
+                <div className="mt-4 space-y-2 text-foreground">
+                  <p>
+                    <strong>Pedido #{newOrderNotification.orderNumber}</strong>
+                  </p>
+                  <p>Cliente: {newOrderNotification.customerName}</p>
+                  <p>Telefone: {newOrderNotification.customerPhone}</p>
+                  <p>Itens: {newOrderNotification.items.length}</p>
+                  <p className="text-lg font-bold">
+                    Total: R$ {newOrderNotification.total.toFixed(2)}
+                  </p>
+                  {newOrderNotification.notes && (
+                    <p>Obs: {newOrderNotification.notes}</p>
+                  )}
+                </div>
+              )}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <div className="flex gap-2 justify-end">
+            <AlertDialogCancel
+              onClick={handleRejectOrder}
+              data-testid="button-reject-order"
+            >
+              Rejeitar
+            </AlertDialogCancel>
+            <AlertDialogAction
+              onClick={handleAcceptOrder}
+              className="bg-green-600 hover:bg-green-700"
+              data-testid="button-accept-order"
+            >
+              Aceitar Pedido
+            </AlertDialogAction>
+          </div>
+        </AlertDialogContent>
+      </AlertDialog>
+
       <div className="container max-w-4xl mx-auto">
         <h1 className="text-3xl font-bold mb-6">Painel Admin - Pedidos</h1>
 
