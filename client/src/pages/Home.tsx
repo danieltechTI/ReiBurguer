@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { ArrowRight, MapPin, Lock, CreditCard, Phone } from "lucide-react";
+import { ArrowRight, MapPin, Lock, CreditCard, Phone, Instagram } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -117,36 +117,83 @@ export function Home({ products, onAddToCart }: HomeProps) {
         </div>
       </section>
 
-      {/* DESTAQUES - PRODUTOS EM DESTAQUE */}
+      {/* DESTAQUES - VÍDEOS VIRAIS */}
       <section className="py-12 md:py-16 bg-background">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="font-serif text-2xl md:text-3xl font-light text-foreground">
-              Destaques do Dia
-            </h2>
-            <a href="/colecao">
-              <Button variant="outline" size="sm" data-testid="button-see-all-new">
-                Ver Todos
-              </Button>
-            </a>
-          </div>
-            
-          {featuredProducts.length > 0 ? (
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {featuredProducts.map((product) => (
-                <div key={product.id}>
-                  <ProductCard
-                    product={product}
-                    onAddToCart={onAddToCart}
-                  />
+          <h2 className="font-serif text-2xl md:text-3xl font-light text-foreground mb-8">
+            Destaques do Dia
+          </h2>
+          
+          {/* VÍDEOS DO INSTAGRAM */}
+          <div className="mb-12">
+            <h3 className="text-base font-medium mb-6">Confira nossos vídeos virais!</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Vídeo 1 */}
+              <a 
+                href="https://www.instagram.com/reel/DN6gITtEuxD/"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-testid="link-instagram-1"
+              >
+                <div className="relative overflow-hidden rounded-md border border-border hover-elevate cursor-pointer">
+                  <div className="aspect-video bg-black flex items-center justify-center">
+                    <div className="text-center">
+                      <Instagram className="h-12 w-12 text-primary mb-2 mx-auto" />
+                      <p className="text-white text-sm">Clique para ver no Instagram</p>
+                    </div>
+                  </div>
                 </div>
-              ))}
+              </a>
+
+              {/* Vídeo 2 */}
+              <a 
+                href="https://www.instagram.com/reel/DNLXNOox2qj/"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-testid="link-instagram-2"
+              >
+                <div className="relative overflow-hidden rounded-md border border-border hover-elevate cursor-pointer">
+                  <div className="aspect-video bg-black flex items-center justify-center">
+                    <div className="text-center">
+                      <Instagram className="h-12 w-12 text-primary mb-2 mx-auto" />
+                      <p className="text-white text-sm">Clique para ver no Instagram</p>
+                    </div>
+                  </div>
+                </div>
+              </a>
             </div>
-          ) : (
-            <div className="text-center py-8 text-muted-foreground">
-              Carregando produtos...
+          </div>
+
+          <Separator className="my-8" />
+
+          {/* PRODUTOS EM DESTAQUE */}
+          <div className="mt-8">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-lg font-medium">Produtos em Destaque</h3>
+              <a href="/colecao">
+                <Button variant="outline" size="sm" data-testid="button-see-all-new">
+                  Ver Todos
+                </Button>
+              </a>
             </div>
-          )}
+            
+            {featuredProducts.length > 0 ? (
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {featuredProducts.map((product) => (
+                  <div key={product.id}>
+                    <ProductCard
+                      product={product}
+                      onAddToCart={onAddToCart}
+                    />
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-8 text-muted-foreground">
+                Carregando produtos...
+              </div>
+            )}
+          </div>
         </div>
       </section>
 
