@@ -254,5 +254,17 @@ export const contactMessagesTable = pgTable("contact_messages", {
   createdAt: timestamp().notNull(),
 });
 
+export const orderStatusUpdatesTable = pgTable("order_status_updates", {
+  id: text().primaryKey(),
+  orderId: text().notNull(),
+  orderNumber: text().notNull(),
+  customerPhone: text().notNull(),
+  oldStatus: text().notNull(),
+  newStatus: text().notNull(),
+  messageSent: text(), // "confirmado" | "preparando" | "pronto" | "finalizado"
+  sentAt: timestamp(),
+  createdAt: timestamp().notNull(),
+});
+
 export type OrderRow = typeof ordersTable.$inferSelect;
 export type InsertOrderRow = typeof ordersTable.$inferInsert;

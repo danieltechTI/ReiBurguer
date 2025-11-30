@@ -8,12 +8,61 @@ import crypto, { randomUUID } from "crypto";
 // @ts-ignore - pdfkit types not available
 import PDFDocument from "pdfkit";
 import type { SessionData } from "express-session";
+import twilio from "twilio";
 
 declare global {
   namespace Express {
     interface SessionData {
       customerId?: string;
     }
+  }
+}
+
+// Initialize Twilio client
+let twilioClient: any = null;
+try {
+  twilioClient = twilio(
+    process.env.TWILIO_ACCOUNT_SID,
+    process.env.TWILIO_AUTH_TOKEN
+  );
+} catch (e) {
+  console.warn("Twilio initialization warning:", (e as any).message);
+  // Fallback if Twilio credentials are invalid
+}
+const TWILIO_PHONE_NUMBER = process.env.TWILIO_PHONE_NUMBER || "+5531993471856";
+
+// Status messages for WhatsApp
+const statusMessages: Record<string, string> = {
+  confirmado: "✅ Seu pedido foi confirmado! Começamos a preparar. Tempo estimado: 20-30 minutos.",
+  preparando: "👨‍🍳 Seu pedido está sendo preparado com carinho. Fique ligado!",
+  pronto: "🎉 Seu pedido está PRONTO! Venha retirar em: R. Antônio Giarola, 30 - Céu Azul, Belo Horizonte - MG",
+  finalizado: "🙏 Obrigado por sua compra! Volte sempre ao ReiBurguer!",
+  recusado: "❌ Desculpe, seu pedido foi recusado. Entre em contato conosco pelo WhatsApp.",
+};
+
+// Function to send WhatsApp message via Twilio
+async function sendWhatsAppMessage(
+  phoneNumber: string,
+  message: string,
+  orderNumber: string
+): Promise<boolean> {
+  try {
+    if (!twilioClient || !process.env.TWILIO_ACCOUNT_SID || !process.env.TWILIO_AUTH_TOKEN) {
+      console.log(`[Demo] WhatsApp message to ${phoneNumber}: ${message}`);
+      return true; // In demo mode, just log
+    }
+
+    await twilioClient.messages.create({
+      from: `whatsapp:${TWILIO_PHONE_NUMBER}`,
+      to: `whatsapp:${phoneNumber}`,
+      body: message,
+    });
+    
+    console.log(`WhatsApp message sent to ${phoneNumber} for order #${orderNumber}`);
+    return true;
+  } catch (error) {
+    console.error(`Failed to send WhatsApp message:`, error);
+    return false;
   }
 }
 
@@ -589,7 +638,11 @@ export async function registerRoutes(
 
       const whatsappMessage = `Olá! Pedido #${order.orderNumber}. Itens: ${itemList}. Total: R$ ${total.toFixed(2)}${notes ? `. Obs: ${notes}` : ''}.`;
 
-      // Generate WhatsApp link (user will need to click to send)
+      // Send initial WhatsApp confirmation message
+      const confirmationMessage = `Pedido #${order.orderNumber} recebido!\n\n${itemList}\n\nTotal: R$ ${total.toFixed(2)}\n\n${statusMessages.confirmado}`;
+      await sendWhatsAppMessage(customerPhone, confirmationMessage, order.orderNumber);
+
+      // Generate WhatsApp link (backup)
       const whatsappPhone = "5531993471856"; // ReiBurguer WhatsApp
       const whatsappLink = `https://wa.me/${whatsappPhone}?text=${encodeURIComponent(whatsappMessage)}`;
 
@@ -642,7 +695,15 @@ export async function registerRoutes(
         return res.status(404).json({ message: "Pedido não encontrado" });
       }
 
+      const oldStatus = order.status;
       const updatedOrder = await storage.updateOrderStatus(req.params.orderId, status);
+
+      // Send automatic WhatsApp message when status changes
+      if (oldStatus !== status && statusMessages[status]) {
+        const statusMessage = `Pedido #${order.orderNumber}\n\n${statusMessages[status]}`;
+        await sendWhatsAppMessage(order.customerPhone, statusMessage, order.orderNumber);
+      }
+
       res.json(updatedOrder);
     } catch (error) {
       console.error("Update order error:", error);
