@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { Instagram, Facebook, Mail, Phone, MapPin, MessageCircle } from "lucide-react";
+import { Instagram, Facebook, Mail, Phone, MapPin, MessageCircle, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
@@ -140,9 +140,21 @@ export function Footer() {
         <Separator className="my-8" />
 
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-muted-foreground">
-            {currentYear} ReiBurguer. Todos os direitos reservados.
-          </p>
+          <div className="flex items-center gap-2">
+            <p className="text-sm text-muted-foreground">
+              {currentYear} ReiBurguer. Todos os direitos reservados.
+            </p>
+            <Link href="/admin-login" data-testid="link-admin-secret" className="ml-auto md:ml-0">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-4 w-4 opacity-0 hover:opacity-100 transition-opacity"
+                title="Admin"
+              >
+                <Settings className="h-3 w-3 text-muted-foreground" />
+              </Button>
+            </Link>
+          </div>
           <div className="flex items-center gap-4">
             <Link href="/termos" data-testid="link-terms">
               <span className="text-sm text-muted-foreground hover:text-foreground transition-colors">
