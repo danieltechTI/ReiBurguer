@@ -9,6 +9,7 @@ import { useAuth } from "@/lib/authContext";
 interface HeaderProps {
   cartItemCount: number;
   onCartClick: () => void;
+  hideNav?: boolean;
 }
 
 const navLinks = [
@@ -19,7 +20,7 @@ const navLinks = [
   { href: "/contato", label: "Contato" },
 ];
 
-export function Header({ cartItemCount, onCartClick }: HeaderProps) {
+export function Header({ cartItemCount, onCartClick, hideNav = false }: HeaderProps) {
   const [location] = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { customer, logout } = useAuth();
@@ -28,31 +29,32 @@ export function Header({ cartItemCount, onCartClick }: HeaderProps) {
     <header className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-background via-background/95 to-primary/20 backdrop-blur-md border-b-2 border-primary/40 shadow-lg shadow-primary/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
-          <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
-            <SheetTrigger asChild className="md:hidden">
-              <Button variant="ghost" size="icon" data-testid="button-mobile-menu">
-                <Menu className="h-5 w-5" />
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="left" className="w-72">
-              <nav className="flex flex-col gap-4 mt-8">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    data-testid={`link-nav-mobile-${link.label.toLowerCase()}`}
-                  >
-                    <span
-                      className={`text-lg font-light tracking-wide transition-colors hover-elevate px-3 py-2 rounded-md block ${
-                        location === link.href
-                          ? "text-primary font-medium"
-                          : "text-foreground/80"
-                      }`}
+          {!hideNav && (
+            <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+              <SheetTrigger asChild className="md:hidden">
+                <Button variant="ghost" size="icon" data-testid="button-mobile-menu">
+                  <Menu className="h-5 w-5" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="left" className="w-72">
+                <nav className="flex flex-col gap-4 mt-8">
+                  {navLinks.map((link) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      data-testid={`link-nav-mobile-${link.label.toLowerCase()}`}
                     >
-                      {link.label}
-                    </span>
-                  </Link>
+                      <span
+                        className={`text-lg font-light tracking-wide transition-colors hover-elevate px-3 py-2 rounded-md block ${
+                          location === link.href
+                            ? "text-primary font-medium"
+                            : "text-foreground/80"
+                        }`}
+                      >
+                        {link.label}
+                      </span>
+                    </Link>
                 ))}
                 <div className="border-t border-border mt-4 pt-4">
                   {customer ? (
@@ -99,24 +101,27 @@ export function Header({ cartItemCount, onCartClick }: HeaderProps) {
                 </div>
               </nav>
             </SheetContent>
-          </Sheet>
+            </Sheet>
+          )}
 
-          <nav className="hidden md:flex items-center gap-6">
-            {navLinks.map((link) => (
-              <Link key={link.href} href={link.href} data-testid={`link-nav-${link.label.toLowerCase()}`}>
-                <span
-                  className={`text-sm font-medium transition-all duration-300 hover:text-primary relative group ${
-                    location === link.href
-                      ? "text-primary"
-                      : "text-foreground/70"
-                  }`}
-                >
-                  {link.label}
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
-                </span>
-              </Link>
-            ))}
-          </nav>
+          {!hideNav && (
+            <nav className="hidden md:flex items-center gap-6">
+              {navLinks.map((link) => (
+                <Link key={link.href} href={link.href} data-testid={`link-nav-${link.label.toLowerCase()}`}>
+                  <span
+                    className={`text-sm font-medium transition-all duration-300 hover:text-primary relative group ${
+                      location === link.href
+                        ? "text-primary"
+                        : "text-foreground/70"
+                    }`}
+                  >
+                    {link.label}
+                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                  </span>
+                </Link>
+              ))}
+            </nav>
+          )}
 
           <Link href="/" data-testid="link-logo">
             <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground" style={{ fontFamily: "'Space Mono', monospace", letterSpacing: '-0.02em' }}>

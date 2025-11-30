@@ -121,7 +121,7 @@ function AppContent() {
 
   return (
     <div className="min-h-screen bg-background">
-      {!isAdminPage && <Header cartItemCount={cartItemCount} onCartClick={() => setCartOpen(true)} />}
+      <Header cartItemCount={cartItemCount} onCartClick={() => setCartOpen(true)} hideNav={isAdminPage} />
       
       <main>
         <Switch>
@@ -177,17 +177,17 @@ function AppContent() {
         </Switch>
       </main>
 
-      {!isAdminPage && <Footer />}
+      <Footer />
 
-      {!isAdminPage && <CartDrawer
+      <CartDrawer
         open={cartOpen}
         onClose={() => setCartOpen(false)}
         items={cartItems}
         onUpdateQuantity={handleUpdateQuantity}
         onRemoveItem={handleRemoveItem}
-      />}
+      />
 
-      {!isAdminPage && <WhatsAppButton />}
+      <WhatsAppButton />
     </div>
   );
 }
