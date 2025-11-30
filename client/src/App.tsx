@@ -23,6 +23,7 @@ import { Videos } from "@/pages/Videos";
 import { Checkout } from "@/pages/Checkout";
 import { Login } from "@/pages/Login";
 import { Register } from "@/pages/Register";
+import { Admin } from "@/pages/Admin";
 import type { Product, CartItem, InsertContact } from "@shared/schema";
 
 function AppContent() {
@@ -166,6 +167,9 @@ function AppContent() {
           </Route>
           <Route path="/registro">
             <Register />
+          </Route>
+          <Route path="/admin">
+            <Admin />
           </Route>
           <Route component={NotFound} />
         </Switch>

@@ -620,5 +620,35 @@ export async function registerRoutes(
     }
   });
 
+  // Admin endpoints
+  app.get("/api/admin/orders", async (req, res) => {
+    try {
+      const orders = await storage.getAllOrders();
+      res.json(orders);
+    } catch (error) {
+      res.status(500).json({ message: "Erro ao buscar pedidos" });
+    }
+  });
+
+  app.patch("/api/admin/orders/:orderId", async (req, res) => {
+    try {
+      const { status } = req.body;
+      if (!status) {
+        return res.status(400).json({ message: "Status obrigatório" });
+      }
+
+      const order = await storage.getOrder(req.params.orderId);
+      if (!order) {
+        return res.status(404).json({ message: "Pedido não encontrado" });
+      }
+
+      const updatedOrder = await storage.updateOrderStatus(req.params.orderId, status);
+      res.json(updatedOrder);
+    } catch (error) {
+      console.error("Update order error:", error);
+      res.status(500).json({ message: "Erro ao atualizar pedido" });
+    }
+  });
+
   return httpServer;
 }
