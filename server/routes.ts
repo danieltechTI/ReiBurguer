@@ -552,16 +552,10 @@ export async function registerRoutes(
         return res.status(401).json({ message: "Not authenticated" });
       }
 
-      const parsed = insertOrderSchema.safeParse({
-        ...req.body,
-        customerId,
-      });
+      const { customerName, customerPhone, paymentMethod, notes } = req.body;
       
-      if (!parsed.success) {
-        return res.status(400).json({ 
-          message: "Invalid order data",
-          errors: parsed.error.flatten().fieldErrors 
-        });
+      if (!customerName || !customerPhone) {
+        return res.status(400).json({ message: "Nome e telefone obrigatórios" });
       }
 
       // Get cart items and calculate total
@@ -570,21 +564,71 @@ export async function registerRoutes(
         return res.status(400).json({ message: "Carrinho vazio" });
       }
 
+      // Calculate total
+      let total = 0;
+      cartItems.forEach(item => {
+        if (item.product) {
+          total += item.product.price * item.quantity;
+        }
+      });
+
       // Create order
       const order = await storage.createOrder({
-        ...parsed.data,
+        customerId,
+        customerName,
+        customerPhone,
         items: cartItems,
+        total,
+        paymentMethod: paymentMethod || "pendente",
+        notes,
       });
+
+      // Clear cart after successful order
+      await storage.clearCart();
+
+      // Generate WhatsApp message
+      const itemList = cartItems
+        .map(item => `${item.quantity}x ${item.product?.name || 'Produto'}`)
+        .join("\n");
+
+      const whatsappMessage = `Olá! Seu pedido #${order.orderNumber} foi recebido!
+
+Itens:
+${itemList}
+
+Total: R$ ${total.toFixed(2)}
+
+${notes ? `Observações: ${notes}\n` : ''}
+Você receberá em breve uma confirmação!`;
+
+      // Generate WhatsApp link (user will need to click to send)
+      const whatsappPhone = "5533987062406"; // ReiBurguer WhatsApp
+      const whatsappLink = `https://wa.me/${whatsappPhone}?text=${encodeURIComponent(whatsappMessage)}`;
 
       res.status(201).json({
         id: order.id,
         orderNumber: order.orderNumber,
         total: order.total,
         status: order.status,
+        whatsappLink,
+        message: whatsappMessage,
       });
     } catch (error) {
       console.error("Checkout error:", error);
       res.status(500).json({ message: "Erro ao criar pedido" });
+    }
+  });
+
+  // Get order by number
+  app.get("/api/orders/:orderNumber", async (req, res) => {
+    try {
+      const order = await storage.getOrderByNumber(req.params.orderNumber);
+      if (!order) {
+        return res.status(404).json({ message: "Pedido não encontrado" });
+      }
+      res.json(order);
+    } catch (error) {
+      res.status(500).json({ message: "Erro ao buscar pedido" });
     }
   });
 

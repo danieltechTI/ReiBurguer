@@ -1,7 +1,7 @@
 # ReiBurguer - Hamburgueria Online
 
 ## Overview
-Hamburgueria completa com sistema de pedidos online. Clientes montam seu pedido com hambúrgueres, bebidas, acompanhamentos e combos, finalizando a compra via WhatsApp e escolhendo a forma de pagamento com a loja.
+Hamburgueria completa com sistema de pedidos online para PICKUP. Clientes montam pedidos via carrinho, finalizam com WhatsApp, e retiram na loja.
 
 ## Tech Stack
 - **Frontend**: React + TypeScript + Vite
@@ -10,33 +10,20 @@ Hamburgueria completa com sistema de pedidos online. Clientes montam seu pedido 
 - **State Management**: TanStack Query (React Query)
 - **Routing**: Wouter
 - **Authentication**: Express Session com senha SHA256
+- **Email**: Resend
+- **PDF**: PDFKit
 
 ## Project Structure
 ```
 ├── client/               # Frontend React application
 │   ├── src/
 │   │   ├── components/   # Reusable UI components
-│   │   │   ├── Header.tsx (com botões de auth)
-│   │   │   ├── Footer.tsx
-│   │   │   ├── ProductCard.tsx
-│   │   │   ├── CartDrawer.tsx
-│   │   │   └── ProductFilters.tsx
-│   │   ├── lib/
-│   │   │   └── authContext.tsx (Context de autenticação)
+│   │   ├── lib/          # Utilities
 │   │   ├── pages/        # Page components
-│   │   │   ├── Home.tsx
-│   │   │   ├── Collection.tsx
-│   │   │   ├── Category.tsx
-│   │   │   ├── ProductDetail.tsx
-│   │   │   ├── Contact.tsx
-│   │   │   ├── Checkout.tsx
-│   │   │   ├── Login.tsx
-│   │   │   ├── Register.tsx
-│   │   │   └── not-found.tsx
-│   │   ├── App.tsx       # Main app com rotas auth
+│   │   ├── App.tsx       # Main app com rotas
 │   │   └── index.css     # Global styles
 ├── server/               # Backend Express application
-│   ├── routes.ts         # API endpoints (com auth)
+│   ├── routes.ts         # API endpoints
 │   ├── storage.ts        # In-memory data storage
 │   └── index.ts          # Express com session middleware
 ├── shared/               # Shared types and schemas
@@ -46,23 +33,24 @@ Hamburgueria completa com sistema de pedidos online. Clientes montam seu pedido 
 ```
 
 ## Features
-- **Homepage**: Hero section, categorias em grid, produtos em destaque
-- **Collection Page**: Catálogo completo com filtros e ordenação
-- **Category Pages**: Produtos filtrados por categoria (Hambúrgueres, Bebidas, Acompanhamentos, Sobremesas, Combos)
-- **Product Detail**: Galeria de imagens, ingredientes, descrição, adicionar ao carrinho
-- **Shopping Cart**: Carrinho slide-out com controle de quantidade
-- **Authentication**: ✅ Sistema de registro e login para clientes
-- **WhatsApp Checkout**: Finalizar pedido via WhatsApp com items, valor final e opções de pagamento
-- **Contact**: Formulário de contato para atendimento
-- **WhatsApp**: Botão flutuante para contato rápido
-- **Email**: Boas-vindas automática com PDF ao registrar
-- **Frete**: Cálculo de frete dos Correios
+- ✅ **Homepage**: Hero section, categorias em grid, produtos em destaque
+- ✅ **Collection Page**: Catálogo completo com filtros
+- ✅ **Category Pages**: Produtos filtrados por categoria
+- ✅ **Product Detail**: Galeria de imagens, ingredientes, descrição
+- ✅ **Shopping Cart**: Carrinho slide-out com controle de quantidade
+- ✅ **Authentication**: Sistema de registro e login para clientes
+- ✅ **Checkout (PICKUP)**: Finalizar pedido com nome, telefone, forma de pagamento
+- ✅ **WhatsApp Checkout**: Gerar mensagem e link para confirmar pedido via WhatsApp
+- ✅ **Order Management**: Contador sequencial (00001-99999), status tracking
+- ✅ **Contact**: Formulário de contato
+- ✅ **Email**: Boas-vindas com PDF ao registrar
+- ⏳ **Admin Panel**: Gerenciar pedidos (não pronto ainda)
 
 ## Categorias de Produtos
 1. **Hambúrgueres** - Clássico, Bacon Premium, Frango, Vegetariano
-2. **Bebidas** - Refrigerantes, Milk Shakes, Bebidas diversas
-3. **Acompanhamentos** - Batata Frita, Anéis de Cebola, etc
-4. **Sobremesas** - Sorvetes, Sundaes, Doces
+2. **Bebidas** - Refrigerantes, Milk Shakes
+3. **Acompanhamentos** - Batata Frita, Anéis de Cebola
+4. **Sobremesas** - Sorvetes, Sundaes
 5. **Combos** - Promoções com hambúrguer + bebida + acompanhamento
 
 ## API Endpoints
@@ -79,8 +67,11 @@ Hamburgueria completa com sistema de pedidos online. Clientes montam seu pedido 
 - `DELETE /api/cart/:id` - Remover item
 - `DELETE /api/cart` - Limpar carrinho
 
-### Contato
-- `POST /api/contact` - Enviar mensagem de contato
+### Pedidos (NOVO)
+- `POST /api/orders/checkout` - Criar pedido (requer autenticação)
+  - Body: `{ customerName, customerPhone, paymentMethod?, notes? }`
+  - Return: `{ id, orderNumber, total, status, whatsappLink, message }`
+- `GET /api/orders/:orderNumber` - Buscar pedido por número
 
 ### Autenticação
 - `POST /api/auth/register` - Registrar novo cliente
@@ -88,15 +79,41 @@ Hamburgueria completa com sistema de pedidos online. Clientes montam seu pedido 
 - `POST /api/auth/logout` - Logout de cliente
 - `GET /api/auth/me` - Verificar se está autenticado
 
+### Contato
+- `POST /api/contact` - Enviar mensagem de contato
+
 ## Fluxo de Compra
 1. Cliente se registra ou faz login
 2. Navega pelos hambúrgueres e categorias
 3. Adiciona itens ao carrinho
-4. Abre o carrinho via ícone ou botão
-5. Clica em "Finalizar via WhatsApp"
-6. É direcionado para conversa com a loja no WhatsApp
-7. Mensagem inclui: items, quantidades, valor total
-8. Loja confirma o pedido e propõe formas de pagamento
+4. Clica em "Finalizar Compra"
+5. Preenche nome, telefone, forma de pagamento
+6. Sistema gera número de pedido (00001-99999)
+7. Recebe link WhatsApp com resumo do pedido
+8. Confirma no WhatsApp
+9. Loja recebe notificação e prepara pedido
+10. Cliente recebe no WhatsApp: "Pedido Confirmado", "Preparando", "Pronto para Retirada"
+11. Retira na loja: Rua Antonio Giarola, 30
+
+## Modelo de Order
+```typescript
+interface Order {
+  id: string;                    // UUID
+  orderNumber: string;           // 00001-99999 (sequencial)
+  customerId: string;            // ID do cliente
+  customerName: string;
+  customerPhone: string;
+  items: CartItem[];             // Items do pedido
+  subtotal: number;
+  shippingCost: number;          // Sempre 0 (pickup)
+  total: number;
+  status: "confirmado" | "preparando" | "pronto" | "finalizado";
+  paymentMethod?: string;        // "dinheiro", "cartao", "pix"
+  notes?: string;                // Observações do cliente
+  createdAt: string;
+  updatedAt: string;
+}
+```
 
 ## Autenticação
 - **Registro**: Página em `/registro` com formulário de criação de conta
@@ -114,23 +131,25 @@ A aplicação roda na porta 5000 com `npm run dev`.
 
 ## Recent Updates
 - ✅ Transformado de Glam Gear para ReiBurguer
-- ✅ Categorias alteradas para Hambúrgueres, Bebidas, Acompanhamentos, Sobremesas, Combos
-- ✅ Produtos atualizados para menu de hamburgueria
-- ✅ Cores alteradas para vermelho/amarelo/marrom (identidade ReiBurguer)
+- ✅ Categorias alteradas para hamburgueria
+- ✅ Cores: vermelho/amarelo/marrom
 - ✅ Sistema de autenticação completo
 - ✅ Email de boas-vindas com PDF
-- ✅ Frete dos Correios integrado
+- ✅ **[NOVO]** Modelo de Order com contador sequencial (00001-99999)
+- ✅ **[NOVO]** Endpoint /api/orders/checkout para criar pedidos
+- ✅ **[NOVO]** Geração automática de link WhatsApp com mensagem do pedido
+- ✅ **[NOVO]** Página de Checkout (PICKUP) com forma de pagamento
 
 ## Configurações da Loja
 - **Nome**: ReiBurguer
-- **Endereço**: Rua Décima Segunda, 200 - Governador Valadares, MG
-- **CEP**: 35052090
-- **WhatsApp**: (33) 98706-2406
-- **Instagram**: @reiBurguer
+- **Endereço Retirada**: Rua Antonio Giarola, 30 - Governador Valadares, MG
+- **WhatsApp**: (33) 98706-2406 (+55 33 98706-2406)
+- **Instagram**: @glamgear5
+- **Horário**: Segunda a Domingo, 11h-22h (sugestão)
 
-## Próximos Passos (Sugestões)
-- Adicionar mais hambúrgueres e bebidas
-- Configurar horário de funcionamento
-- Enviar email após pedido
-- Histórico de pedidos para clientes
-- Painel de admin para gerenciar pedidos
+## Próximos Passos Sugeridos
+- Adicionar admin panel para gerenciar pedidos
+- Implementar automação de 3 mensagens WhatsApp (confirmado → preparando → pronto)
+- Adicionar histórico de pedidos para clientes
+- Implementar sistema de horário de funcionamento
+- Enviar email após pedido confirmado
