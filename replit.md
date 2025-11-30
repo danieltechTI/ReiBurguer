@@ -149,11 +149,16 @@ A aplicação roda na porta 5000 com `npm run dev`.
 - ✅ **[NOVO]** Botões para aceitar (→ preparando) ou rejeitar pedido
 - ✅ **[NOVO]** Som toca repetidamente a cada 2 segundos até aceitar/rejeitar
 - ✅ **[DATABASE]** Migrado para PostgreSQL com Drizzle ORM - dados persistem ao reiniciar!
-- ✅ **[DATABASE]** Tabelas: orders, order_counter, contact_messages
+- ✅ **[DATABASE]** Tabelas: orders, order_counter, contact_messages, order_status_updates
 - ✅ **[DATABASE]** Contador sequencial (00001-99999) persistido no banco
 - ✅ **[VISUAL]** Improved hero section with larger, bold fonts
 - ✅ **[VISUAL]** Reorganized page layout with "Destaques do Dia" at the end
 - ✅ **[NUMERO]** Corrigido número de WhatsApp: +55 31 99503-0612
+- ✅ **[TWILIO]** Integração Twilio para mensagens automáticas WhatsApp
+- ✅ **[TWILIO]** Mensagem automática de confirmação quando pedido é criado
+- ✅ **[TWILIO]** Mensagens automáticas quando admin atualiza status: preparando → pronto → finalizado
+- ✅ **[ADMIN]** Fluxo passo a passo: confirmado → preparando → pronto → finalizado
+- ✅ **[ADMIN]** Botões mostram claramente próximo status: "→ Preparando", "→ Pronto", "→ Finalizado"
 
 ## Configurações da Loja
 - **Nome**: ReiBurguer
@@ -170,9 +175,28 @@ A aplicação roda na porta 5000 com `npm run dev`.
 5. Admin clica novamente para "pronto" quando pedido está pronto
 6. Depois "finalizado" quando cliente retira
 
+## Sistema de Automação WhatsApp
+
+### Fluxo Automático de Mensagens
+1. **Pedido Criado** (cliente finaliza checkout)
+   - Cliente recebe: "Pedido #XXXXX recebido! ✅ Seu pedido foi confirmado! Começamos a preparar. Tempo estimado: 20-30 minutos."
+
+2. **Admin clica → Preparando** (status muda)
+   - Cliente recebe: "Pedido #XXXXX - 👨‍🍳 Seu pedido está sendo preparado com carinho. Fique ligado!"
+
+3. **Admin clica → Pronto** (status muda)
+   - Cliente recebe: "Pedido #XXXXX - 🎉 Seu pedido está PRONTO! Venha retirar em: R. Antônio Giarola, 30 - Céu Azul, Belo Horizonte - MG"
+
+4. **Admin clica → Finalizado** (status muda)
+   - Cliente recebe: "Pedido #XXXXX - 🙏 Obrigado por sua compra! Volte sempre ao ReiBurguer!"
+
+### Modo Demo
+- Se variáveis TWILIO não estão configuradas, mensagens aparecem no console (modo demo)
+- Pronto para usar com credenciais Twilio reais quando fornecidas
+
 ## Próximos Passos Sugeridos
-- Implementar automação de 3 mensagens WhatsApp (confirmado → preparando → pronto)
 - Adicionar histórico de pedidos para clientes
 - Implementar sistema de horário de funcionamento
 - Enviar email após pedido confirmado
 - Adicionar filtro de datas/horas no admin panel
+- Gráficos de vendas em tempo real

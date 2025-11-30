@@ -331,7 +331,7 @@ export function Admin() {
                       </Badge>
                     </div>
 
-                    {order.status !== "finalizado" && (
+                    {order.status !== "finalizado" && order.status !== "recusado" && (
                       <Button
                         onClick={() => {
                           const nextStatus = getNextStatus(order.status);
@@ -341,7 +341,9 @@ export function Admin() {
                         className="bg-red-600 hover:bg-red-700"
                         data-testid={`button-next-status-${order.id}`}
                       >
-                        {order.status === "pronto" ? "Marcar como Finalizado" : "Próximo Status"}
+                        {order.status === "confirmado" && "→ Preparando"}
+                        {order.status === "preparando" && "→ Pronto"}
+                        {order.status === "pronto" && "→ Finalizado"}
                       </Button>
                     )}
                   </div>
