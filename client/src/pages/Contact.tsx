@@ -105,9 +105,11 @@ export function Contact({ onSubmit, isSubmitting }: ContactProps) {
                   <div>
                     <h3 className="font-medium mb-1">Endereço</h3>
                     <p className="text-sm text-muted-foreground">
-                      Rua Antonio Giarola, 30
+                      R. Antônio Giarola, 30
                       <br />
-                      Céu Azul - MG
+                      Céu Azul, Belo Horizonte - MG
+                      <br />
+                      31580-200
                     </p>
                   </div>
                 </div>

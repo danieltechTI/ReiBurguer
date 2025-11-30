@@ -303,8 +303,9 @@ export function Checkout({ cartItems, subtotal }: CheckoutProps) {
         {/* Location Info */}
         <Card className="p-4 mt-6 bg-secondary/5">
           <p className="text-sm font-bold mb-2">📍 Retirada em:</p>
-          <p className="text-sm">Rua Antonio Giarola, 30</p>
-          <p className="text-sm">Governador Valadares, MG</p>
+          <p className="text-sm">R. Antônio Giarola, 30</p>
+          <p className="text-sm">Céu Azul, Belo Horizonte - MG</p>
+          <p className="text-sm">31580-200</p>
         </Card>
       </div>
     </div>

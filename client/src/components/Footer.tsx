@@ -109,7 +109,7 @@ export function Footer() {
               </a>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <MapPin className="h-4 w-4" />
-                Rua Antonio Giarola, 30 - Céu Azul
+                R. Antônio Giarola, 30 - Céu Azul, Belo Horizonte - MG, 31580-200
               </div>
               <div className="text-xs text-muted-foreground">
                 Aberto todos os dias

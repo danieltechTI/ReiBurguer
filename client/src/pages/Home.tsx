@@ -83,7 +83,7 @@ export function Home({ products, onAddToCart }: HomeProps) {
                 <MapPin className="h-7 w-7 text-primary transition-transform duration-500 group-hover:animate-pulse" />
               </div>
               <h3 className="font-semibold text-base md:text-lg mb-2 text-foreground group-hover:text-primary transition-colors duration-300">Retirada Rápida</h3>
-              <p className="text-sm text-muted-foreground">Rua Antonio Giarola, 30</p>
+              <p className="text-sm text-muted-foreground">R. Antônio Giarola, 30</p>
               
               {/* Linha de velocidade */}
               <div className="mt-2 h-1 w-12 bg-gradient-to-r from-primary/0 via-primary to-primary/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse"></div>

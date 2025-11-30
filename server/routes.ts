@@ -65,7 +65,7 @@ async function generateWelcomePDF(customerName: string): Promise<Buffer> {
     doc.text("1. Explore nosso cardápio completo", { align: "center" });
     doc.text("2. Adicione seus hambúrgueres favoritos ao carrinho", { align: "center" });
     doc.text("3. Finalize seu pedido", { align: "center" });
-    doc.text("4. Retire na loja em Rua Antonio Giarola, 30", { align: "center" });
+    doc.text("4. Retire na loja em R. Antônio Giarola, 30 - Céu Azul, Belo Horizonte - MG, 31580-200", { align: "center" });
     doc.moveDown(2);
 
     // Contact

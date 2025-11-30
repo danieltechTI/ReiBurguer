@@ -9,8 +9,8 @@ export function Map() {
           <MapPin className="h-5 w-5 text-primary flex-shrink-0" />
           <div>
             <h3 className="font-medium text-foreground">Endereço</h3>
-            <p className="text-sm text-muted-foreground">Rua Antonio Giarola, 30 - Céu Azul</p>
-            <p className="text-xs text-muted-foreground">Governador Valadares, MG</p>
+            <p className="text-sm text-muted-foreground">R. Antônio Giarola, 30 - Céu Azul</p>
+            <p className="text-xs text-muted-foreground">Belo Horizonte - MG, 31580-200</p>
           </div>
         </div>
         
@@ -23,7 +23,7 @@ export function Map() {
         </div>
 
         <a
-          href="https://maps.google.com/?q=Rua+Antonio+Giarola+30+Governador+Valadares+MG"
+          href="https://maps.google.com/?q=R.+Antônio+Giarola+30+Céu+Azul+Belo+Horizonte+MG"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-block mt-2"
