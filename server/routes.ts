@@ -36,7 +36,7 @@ const statusMessages: Record<string, string> = {
   confirmado: "✅ Seu pedido foi confirmado! Começamos a preparar. Tempo estimado: 20-30 minutos.",
   preparando: "👨‍🍳 Seu pedido está sendo preparado com carinho. Fique ligado!",
   pronto: "🎉 Seu pedido está PRONTO! Venha retirar em: R. Antônio Giarola, 30 - Céu Azul, Belo Horizonte - MG",
-  finalizado: "🙏 Obrigado por sua compra! Volte sempre ao ReiBurguer!",
+  finalizado: "🙏 Obrigado por sua compra! Volte sempre ao Rei Burguer!",
   recusado: "❌ Desculpe, seu pedido foi recusado. Entre em contato conosco pelo WhatsApp.",
 };
 
@@ -77,7 +77,7 @@ async function generateWelcomePDF(customerName: string): Promise<Buffer> {
     doc.on("error", reject);
 
     // Header
-    doc.fontSize(24).font("Helvetica-Bold").text("ReiBurguer", { align: "center" });
+    doc.fontSize(24).font("Helvetica-Bold").text("Rei Burguer", { align: "center" });
     doc.fontSize(10).text("Hambúrgueres, Bebidas e Acompanhamentos", { align: "center" });
     doc.fontSize(9).text("WhatsApp: +55 31 99347-1856", { align: "center" });
     doc.text("Instagram: @glamgear5", { align: "center" });
@@ -87,14 +87,14 @@ async function generateWelcomePDF(customerName: string): Promise<Buffer> {
 
     // Title
     doc.fontSize(18).font("Helvetica-Bold").text("BEM-VINDO!", { align: "center" });
-    doc.fontSize(14).text("à Glam Gear", { align: "center" });
+    doc.fontSize(14).text("à Rei Burguer", { align: "center" });
     doc.moveDown(1);
 
     // Welcome message
     doc.fontSize(11).font("Helvetica");
     doc.text(`Olá ${customerName},`, { align: "center" });
     doc.moveDown(0.5);
-    doc.text("Obrigado por se cadastrar na ReiBurguer!", { align: "center" });
+    doc.text("Obrigado por se cadastrar na Rei Burguer!", { align: "center" });
     doc.moveDown(1);
 
     // Content
@@ -128,7 +128,7 @@ async function generateWelcomePDF(customerName: string): Promise<Buffer> {
     doc.moveTo(50, doc.y).lineTo(550, doc.y).stroke();
     doc.moveDown(1);
     doc.fontSize(9).text("Com carinho,", { align: "center" });
-    doc.fontSize(11).font("Helvetica-Bold").text("ReiBurguer", { align: "center" });
+    doc.fontSize(11).font("Helvetica-Bold").text("Rei Burguer", { align: "center" });
     doc.fontSize(8).font("Helvetica").text("Os melhores hambúrgueres da região", { align: "center" });
 
     doc.end();
@@ -288,21 +288,21 @@ export async function registerRoutes(
                 "Content-Type": "application/json"
               },
               body: JSON.stringify({
-                from: "Glam Gear <noreply@glamgear.com.br>",
+                from: "Rei Burguer <noreply@reiburguer.com.br>",
                 to: parsed.data.email,
-                subject: `Bem-vindo à Glam Gear, ${parsed.data.name}! 🎉`,
+                subject: `Bem-vindo ao Rei Burguer, ${parsed.data.name}! 🎉`,
                 html: `
-                  <h1>Bem-vindo à Glam Gear!</h1>
+                  <h1>Bem-vindo ao Rei Burguer!</h1>
                   <p>Olá ${parsed.data.name},</p>
-                  <p>Obrigado por se cadastrar na Glam Gear! Você agora tem acesso a nossa coleção exclusiva de joias, semi-joias, aço inoxidável, bijuterias e bolsas.</p>
+                  <p>Obrigado por se cadastrar no Rei Burguer! Aqui você encontra os melhores hambúrgueres, bebidas refrescantes e acompanhamentos crocantes!</p>
                   <p>Em anexo, você encontra um recibo de boas-vindas com mais informações sobre nossa loja.</p>
                   <p><strong>Entre em contato:</strong></p>
-                  <p>WhatsApp: +55 31 99347-1856<br>Instagram: @glamgear5</p>
-                  <p>Com carinho,<br><strong>GLAM GEAR</strong></p>
+                  <p>WhatsApp: +55 31 99347-1856<br>Instagram: @reiburguer</p>
+                  <p>Com carinho,<br><strong>REI BURGUER</strong></p>
                 `,
                 attachments: [
                   {
-                    filename: "bem-vindo-glam-gear.pdf",
+                    filename: "bem-vindo-rei-burguer.pdf",
                     content: base64Pdf
                   }
                 ]

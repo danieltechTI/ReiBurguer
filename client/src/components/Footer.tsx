@@ -21,7 +21,7 @@ export function Footer() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           <div className="space-y-4">
-            <h3 className="font-serif text-2xl font-light">ReiBurguer 🍔</h3>
+            <h3 className="font-serif text-2xl font-light">Rei Burguer 🍔</h3>
             <p className="text-sm text-muted-foreground leading-relaxed">
               Hambúrgueres deliciosos, bebidas refrescantes e acompanhamentos crocantes feitos com ingredientes frescos e de qualidade!
             </p>
