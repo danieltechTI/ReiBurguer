@@ -129,28 +129,28 @@ export function Home({ products, onAddToCart }: HomeProps) {
             <h3 className="text-base font-medium mb-6">Confira nossos vídeos virais!</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Vídeo 1 */}
-              <div className="relative overflow-hidden rounded-md border border-border">
+              <div className="relative overflow-hidden rounded-md border border-border bg-black">
                 <video
-                  className="w-full h-full aspect-video object-cover"
+                  width="100%"
+                  height="auto"
                   controls
-                  poster="/videos/thumb1.jpg"
+                  style={{ display: "block", aspectRatio: "16/9" }}
                   data-testid="video-player-1"
                 >
                   <source src="/videos/video1.mp4" type="video/mp4" />
-                  Seu navegador não suporta a tag de vídeo.
                 </video>
               </div>
 
               {/* Vídeo 2 */}
-              <div className="relative overflow-hidden rounded-md border border-border">
+              <div className="relative overflow-hidden rounded-md border border-border bg-black">
                 <video
-                  className="w-full h-full aspect-video object-cover"
+                  width="100%"
+                  height="auto"
                   controls
-                  poster="/videos/thumb2.jpg"
+                  style={{ display: "block", aspectRatio: "16/9" }}
                   data-testid="video-player-2"
                 >
                   <source src="/videos/video2.mp4" type="video/mp4" />
-                  Seu navegador não suporta a tag de vídeo.
                 </video>
               </div>
             </div>
