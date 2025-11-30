@@ -40,12 +40,12 @@ export function Home({ products, onAddToCart }: HomeProps) {
           maxHeight: '650px',
         }}
       >
-        <div className="text-center px-4 max-w-3xl">
+        <div className="text-left px-4 md:px-12 max-w-2xl">
           <p className="text-primary font-medium text-sm mb-4 uppercase tracking-wide">A Melhor Hamburgueria da Região</p>
-          <h1 className="font-serif text-5xl md:text-7xl font-light mb-6 text-white drop-shadow-lg">
+          <h1 className="font-serif text-5xl md:text-6xl font-light mb-6 text-white drop-shadow-lg">
             ReiBurguer
           </h1>
-          <p className="text-white/90 max-w-2xl mx-auto mb-8 text-lg md:text-xl drop-shadow-md leading-relaxed">
+          <p className="text-white/90 mb-8 text-lg md:text-xl drop-shadow-md leading-relaxed">
             Hambúrgueres artesanais, bebidas geladas e muito sabor. Feita com amor em cada detalhe!
           </p>
           <Link href="/colecao">
