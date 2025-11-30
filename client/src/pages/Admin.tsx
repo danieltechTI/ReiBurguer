@@ -37,49 +37,38 @@ export function Admin() {
   const lastOrderCountRef = useRef<number>(0);
   const audioIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Play continuous notification sound (bell like iFood)
+  // Play continuous notification sound
   function startNotificationSound() {
     // Stop any existing interval
     if (audioIntervalRef.current) {
       clearInterval(audioIntervalRef.current);
     }
 
-    const playBellSound = () => {
+    const playBeep = () => {
       try {
         const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
-        const now = audioContext.currentTime;
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
         
-        // Create bell sound with multiple tones
-        const playTone = (frequency: number, startTime: number, duration: number) => {
-          const osc = audioContext.createOscillator();
-          const gain = audioContext.createGain();
-          
-          osc.connect(gain);
-          gain.connect(audioContext.destination);
-          
-          osc.frequency.value = frequency;
-          osc.type = "sine";
-          
-          gain.gain.setValueAtTime(0.4, startTime);
-          gain.gain.exponentialRampToValueAtTime(0.01, startTime + duration);
-          
-          osc.start(startTime);
-          osc.stop(startTime + duration);
-        };
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
         
-        // Bell pattern: quick succession of tones
-        const toneSpacing = 0.08; // 80ms between tones
-        playTone(1000, now, 0.15);           // First tone
-        playTone(1200, now + toneSpacing, 0.12);     // Second tone
-        playTone(900, now + toneSpacing * 2, 0.2);   // Third tone (lower)
+        oscillator.frequency.value = 800;
+        oscillator.type = "sine";
+        
+        gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+        
+        oscillator.start(audioContext.currentTime);
+        oscillator.stop(audioContext.currentTime + 0.3);
       } catch (e) {
         console.error("Error playing sound:", e);
       }
     };
 
     // Play immediately and then every 2 seconds
-    playBellSound();
-    audioIntervalRef.current = setInterval(playBellSound, 2000);
+    playBeep();
+    audioIntervalRef.current = setInterval(playBeep, 2000);
   }
 
   function stopNotificationSound() {
