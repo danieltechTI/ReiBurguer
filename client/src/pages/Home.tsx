@@ -29,13 +29,15 @@ export function Home({ products, onAddToCart }: HomeProps) {
     <div>
       {/* Hero Section - Premium */}
       <div 
-        className="w-full h-screen flex items-center justify-center relative"
+        className="w-full flex items-center justify-center relative"
         style={{
           backgroundImage: "url('/hero-background.png?v=1')",
-          backgroundSize: 'cover',
+          backgroundSize: 'contain',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
           backgroundAttachment: 'fixed',
+          minHeight: '500px',
+          maxHeight: '600px',
         }}
       >
         <div className="text-center px-4 max-w-3xl">
