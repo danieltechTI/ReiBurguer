@@ -11,6 +11,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { useToast } from "@/hooks/use-toast";
 import { z } from "zod";
 import type { CartItem } from "@shared/schema";
+import whatsappIcon from "@assets/icons8-whatsapp-96_1764516128170.png";
 
 const checkoutSchema = z.object({
   customerName: z.string().min(2, "Nome obrigatório"),
@@ -127,7 +128,7 @@ export function Checkout({ cartItems, subtotal }: CheckoutProps) {
               className="flex items-center justify-center gap-2"
               data-testid="button-confirm-whatsapp"
             >
-              <img width="20" height="20" src="https://img.icons8.com/material/24/ffffff/whatsapp--v1.png" alt="whatsapp" />
+              <img width="20" height="20" src={whatsappIcon} alt="whatsapp" />
               Confirmar no WhatsApp
             </a>
           </Button>

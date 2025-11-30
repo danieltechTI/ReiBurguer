@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Map } from "./Map";
+import whatsappIcon from "@assets/icons8-whatsapp-96_1764516128170.png";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -95,7 +96,7 @@ export function Footer() {
                 className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
                 data-testid="link-whatsapp"
               >
-                <img width="16" height="16" src="https://img.icons8.com/material/24/whatsapp--v1.png" alt="whatsapp" />
+                <img width="16" height="16" src={whatsappIcon} alt="whatsapp" />
                 WhatsApp: +55 31 99347-1856
               </a>
               <a
@@ -172,7 +173,7 @@ export function Footer() {
           size="lg"
           className="rounded-full h-14 w-14 shadow-lg bg-green-500 hover:bg-green-600"
         >
-          <img width="24" height="24" src="https://img.icons8.com/material/24/whatsapp--v1.png" alt="whatsapp" />
+          <img width="24" height="24" src={whatsappIcon} alt="whatsapp" />
         </Button>
       </a>
     </footer>

@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
 import { insertContactSchema, type InsertContact } from "@shared/schema";
+import whatsappIcon from "@assets/icons8-whatsapp-96_1764516128170.png";
 
 interface ContactProps {
   onSubmit: (data: InsertContact) => Promise<void>;
@@ -132,7 +133,7 @@ export function Contact({ onSubmit, isSubmitting }: ContactProps) {
             <Card className="p-6 border-0 bg-green-500/10">
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0">
-                  <img width="24" height="24" src="https://img.icons8.com/material/24/ffffff/whatsapp--v1.png" alt="whatsapp" />
+                  <img width="24" height="24" src={whatsappIcon} alt="whatsapp" />
                 </div>
                 <div className="flex-1">
                   <h3 className="font-medium mb-1">WhatsApp</h3>
@@ -145,7 +146,7 @@ export function Contact({ onSubmit, isSubmitting }: ContactProps) {
                     rel="noopener noreferrer"
                   >
                     <Button className="bg-green-500 hover:bg-green-600" data-testid="button-whatsapp">
-                      <img width="16" height="16" src="https://img.icons8.com/material/24/ffffff/whatsapp--v1.png" alt="whatsapp" className="mr-2" />
+                      <img width="16" height="16" src={whatsappIcon} alt="whatsapp" className="mr-2" />
                       Falar no WhatsApp
                     </Button>
                   </a>
