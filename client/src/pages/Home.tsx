@@ -30,14 +30,12 @@ export function Home({ products, onAddToCart }: HomeProps) {
       <section 
         className="relative py-20 md:py-32 overflow-hidden border-b-2 border-primary/40"
         style={{
-          backgroundImage: 'url(/rei-burger-hero.png)',
+          backgroundImage: 'url(/hero-background.png)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundAttachment: 'fixed',
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-background/85 via-background/70 to-background/75"></div>
-        <div className="absolute inset-0 opacity-40 bg-[radial-gradient(circle_at_20%_50%,hsl(0_100%_52%),transparent_50%)] animate-vibrant-pulse"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="font-serif text-5xl md:text-6xl font-light mb-4 animate-bounce-in text-white drop-shadow-2xl">
             ReiBurguer
