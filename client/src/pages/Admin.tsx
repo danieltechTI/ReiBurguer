@@ -44,29 +44,46 @@ export function Admin() {
       clearInterval(audioIntervalRef.current);
     }
 
+    let audioContext: any = null;
+
     const playBeep = () => {
       try {
-        const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+        // Create or get existing audio context
+        if (!audioContext) {
+          audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+        }
+        
+        // Resume context if suspended
+        if (audioContext.state === 'suspended') {
+          audioContext.resume();
+        }
+
+        const now = audioContext.currentTime;
+        
+        // Create oscillator
         const oscillator = audioContext.createOscillator();
         const gainNode = audioContext.createGain();
         
         oscillator.connect(gainNode);
         gainNode.connect(audioContext.destination);
         
-        oscillator.frequency.value = 800;
+        oscillator.frequency.value = 900;
         oscillator.type = "sine";
         
-        gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+        gainNode.gain.setValueAtTime(0.5, now);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
         
-        oscillator.start(audioContext.currentTime);
-        oscillator.stop(audioContext.currentTime + 0.3);
+        oscillator.start(now);
+        oscillator.stop(now + 0.4);
+        
+        console.log("🔔 Som tocando!");
       } catch (e) {
         console.error("Error playing sound:", e);
       }
     };
 
     // Play immediately and then every 2 seconds
+    console.log("🔔 Iniciando som de notificação...");
     playBeep();
     audioIntervalRef.current = setInterval(playBeep, 2000);
   }
