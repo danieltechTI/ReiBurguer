@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { Instagram, Facebook, Mail, Phone, MapPin, MessageCircle, Settings } from "lucide-react";
+import { Instagram, Facebook, Mail, Phone, MapPin, Send, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
@@ -95,7 +95,7 @@ export function Footer() {
                 className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
                 data-testid="link-whatsapp"
               >
-                <MessageCircle className="h-4 w-4" />
+                <Send className="h-4 w-4" />
                 WhatsApp: +55 31 99347-1856
               </a>
               <a

@@ -1,4 +1,4 @@
-import { MessageCircle } from "lucide-react";
+import { Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { WHATSAPP_NUMBER } from "@shared/schema";
 
@@ -14,12 +14,12 @@ export function WhatsAppButton() {
   return (
     <Button
       size="icon"
-      className="fixed bottom-6 right-6 rounded-full h-14 w-14 shadow-lg hover:shadow-xl transition-shadow duration-300 animate-pulse-glow z-40"
+      className="fixed bottom-6 right-6 rounded-full h-14 w-14 shadow-lg hover:shadow-xl transition-shadow duration-300 animate-pulse-glow z-40 bg-green-500 hover:bg-green-600"
       onClick={handleClick}
       data-testid="button-whatsapp-floating"
-      title="Fale conosco no WhatsApp"
+      title="Envie uma mensagem no WhatsApp"
     >
-      <MessageCircle className="h-6 w-6" />
+      <Send className="h-6 w-6" />
     </Button>
   );
 }
