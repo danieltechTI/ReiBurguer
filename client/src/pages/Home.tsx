@@ -122,6 +122,60 @@ export function Home({ products, onAddToCart }: HomeProps) {
         </div>
       </section>
 
+      {/* MAIS VENDIDOS */}
+      <section className="py-12 md:py-16 bg-white border-t border-border">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between mb-8">
+            <h2 className="font-serif text-2xl md:text-3xl font-light">
+              Mais Vendidos
+            </h2>
+            <a href="/colecao">
+              <Button variant="outline" size="sm" data-testid="button-see-all-viewed">
+                Ver Todos
+              </Button>
+            </a>
+          </div>
+          
+          {mostViewed.length > 0 ? (
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {mostViewed.map((product) => (
+                <div key={product.id}>
+                  <ProductCard
+                    product={product}
+                    onAddToCart={onAddToCart}
+                  />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-8 text-muted-foreground">
+              Carregando produtos...
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* CTA Final */}
+      <section className="py-12 md:py-16 bg-white border-t border-border">
+        <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="font-serif text-3xl md:text-4xl font-light mb-4">
+            Tem dúvidas?
+          </h2>
+          <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
+            Entre em contato conosco pelo WhatsApp e nossa equipe estará pronta para ajudar!
+          </p>
+          <a
+            href="https://wa.me/5531995030612?text=Olá%2C%20estou%20navegando%20no%20cardápio%20da%20ReiBurguer%20e%20gostaria%20de%20fazer%20um%20pedido%21"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Button size="lg" data-testid="button-hero-whatsapp">
+              Pedir Agora
+            </Button>
+          </a>
+        </div>
+      </section>
+
       {/* DESTAQUES - VÍDEOS VIRAIS */}
       <section className="py-12 md:py-16 bg-background">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -191,60 +245,6 @@ export function Home({ products, onAddToCart }: HomeProps) {
               </div>
             )}
           </div>
-        </div>
-      </section>
-
-      {/* MAIS VENDIDOS */}
-      <section className="py-12 md:py-16 bg-white border-t border-border">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="font-serif text-2xl md:text-3xl font-light">
-              Mais Vendidos
-            </h2>
-            <a href="/colecao">
-              <Button variant="outline" size="sm" data-testid="button-see-all-viewed">
-                Ver Todos
-              </Button>
-            </a>
-          </div>
-          
-          {mostViewed.length > 0 ? (
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {mostViewed.map((product) => (
-                <div key={product.id}>
-                  <ProductCard
-                    product={product}
-                    onAddToCart={onAddToCart}
-                  />
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-8 text-muted-foreground">
-              Carregando produtos...
-            </div>
-          )}
-        </div>
-      </section>
-
-      {/* CTA Final */}
-      <section className="py-12 md:py-16 bg-white border-t border-border">
-        <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="font-serif text-3xl md:text-4xl font-light mb-4">
-            Tem dúvidas?
-          </h2>
-          <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
-            Entre em contato conosco pelo WhatsApp e nossa equipe estará pronta para ajudar!
-          </p>
-          <a
-            href="https://wa.me/5531995030612?text=Olá%2C%20estou%20navegando%20no%20cardápio%20da%20ReiBurguer%20e%20gostaria%20de%20fazer%20um%20pedido%21"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Button size="lg" data-testid="button-hero-whatsapp">
-              Pedir Agora
-            </Button>
-          </a>
         </div>
       </section>
     </div>
