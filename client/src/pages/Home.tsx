@@ -25,21 +25,18 @@ export function Home({ products, onAddToCart }: HomeProps) {
   const mostViewed = products.slice(0, 8);
 
   return (
-    <div className="min-h-screen pt-20 md:pt-24">
+    <div>
       {/* Hero with Background Image */}
-      <section 
-        className="relative overflow-hidden w-full"
+      <div 
+        className="w-full h-screen pt-20 flex items-center justify-center"
         style={{
-          backgroundImage: 'url(/hero-background.png)',
+          backgroundImage: "url('/hero-background.png')",
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          minHeight: '400px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
+          backgroundRepeat: 'no-repeat',
         }}
       >
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-20">
+        <div className="text-center px-4">
           <h1 className="font-serif text-5xl md:text-6xl font-light mb-4 text-white drop-shadow-lg">
             ReiBurguer
           </h1>
@@ -53,7 +50,7 @@ export function Home({ products, onAddToCart }: HomeProps) {
             </Button>
           </Link>
         </div>
-      </section>
+      </div>
 
       {/* Benefícios */}
       <section className="bg-white py-12 md:py-16 border-b border-border">
