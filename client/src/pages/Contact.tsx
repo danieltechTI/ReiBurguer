@@ -8,7 +8,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
 import { insertContactSchema, type InsertContact } from "@shared/schema";
-import { Map } from "@/components/Map";
 
 interface ContactProps {
   onSubmit: (data: InsertContact) => Promise<void>;
@@ -153,11 +152,6 @@ export function Contact({ onSubmit, isSubmitting }: ContactProps) {
                 </div>
               </div>
             </Card>
-
-            <div className="mt-6">
-              <h3 className="font-medium mb-4">Nossa Localização</h3>
-              <Map />
-            </div>
           </div>
 
           <Card className="p-6 md:p-8 border-0 bg-card">
