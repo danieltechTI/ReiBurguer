@@ -2,7 +2,7 @@ import type { Express, Request } from "express";
 import { createServer, type Server } from "http";
 import express from "express";
 import path from "path";
-import { storage } from "./storage";
+import { storage } from "./storage-db";
 import { insertCartItemSchema, insertContactSchema, registerSchema, loginSchema, insertOrderSchema } from "@shared/schema";
 import crypto, { randomUUID } from "crypto";
 // @ts-ignore - pdfkit types not available

@@ -1,4 +1,6 @@
 import { z } from "zod";
+import { pgTable, text, integer, numeric, timestamp, json, serial } from "drizzle-orm/pg-core";
+import { createInsertSchema } from "drizzle-zod";
 
 export const categories = ["hamburguer", "bebidas", "acompanhamentos", "sobremesas", "combos"] as const;
 export type Category = typeof categories[number];
@@ -219,3 +221,38 @@ export const insertOrderSchema = z.object({
 });
 
 export type InsertOrderData = z.infer<typeof insertOrderSchema>;
+
+// Drizzle ORM Tables for PostgreSQL Persistence
+export const ordersTable = pgTable("orders", {
+  id: text().primaryKey(),
+  orderNumber: text().notNull().unique(),
+  customerId: text().notNull(),
+  customerName: text().notNull(),
+  customerPhone: text().notNull(),
+  items: json().notNull(),
+  subtotal: numeric({ precision: 10, scale: 2 }).notNull(),
+  shippingCost: numeric({ precision: 10, scale: 2 }).notNull().default("0"),
+  total: numeric({ precision: 10, scale: 2 }).notNull(),
+  status: text().notNull().default("confirmado"),
+  paymentMethod: text(),
+  notes: text(),
+  createdAt: timestamp().notNull(),
+  updatedAt: timestamp().notNull(),
+});
+
+export const orderCounterTable = pgTable("order_counter", {
+  id: serial().primaryKey(),
+  counter: integer().notNull().default(0),
+});
+
+export const contactMessagesTable = pgTable("contact_messages", {
+  id: text().primaryKey(),
+  name: text().notNull(),
+  email: text().notNull(),
+  phone: text().notNull(),
+  message: text().notNull(),
+  createdAt: timestamp().notNull(),
+});
+
+export type OrderRow = typeof ordersTable.$inferSelect;
+export type InsertOrderRow = typeof ordersTable.$inferInsert;
