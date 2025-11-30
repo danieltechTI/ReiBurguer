@@ -2,6 +2,7 @@ import { Link } from "wouter";
 import { ArrowRight, MapPin, Lock, CreditCard, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 import { ProductCard } from "@/components/ProductCard";
 import type { Product } from "@shared/schema";
 import { categoryLabels, type Category } from "@shared/schema";
@@ -114,36 +115,79 @@ export function Home({ products, onAddToCart }: HomeProps) {
         </div>
       </section>
 
-      {/* DESTAQUES */}
+      {/* DESTAQUES - VÍDEOS VIRAIS */}
       <section className="py-12 md:py-16 relative overflow-hidden bg-gradient-to-r from-primary/5 via-transparent to-secondary/5">
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="font-serif text-2xl md:text-3xl font-light animate-slideInLeft text-foreground drop-shadow">
-              DESTAQUES DO DIA
-            </h2>
-            <Link href="/colecao">
-              <Button variant="outline" size="sm" className="animate-float" data-testid="button-see-all-new">
-                Ver Todos
-              </Button>
-            </Link>
-          </div>
+          <h2 className="font-serif text-2xl md:text-3xl font-light animate-slideInLeft text-foreground drop-shadow mb-8">
+            DESTAQUES DO DIA
+          </h2>
           
-          {featuredProducts.length > 0 ? (
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {featuredProducts.map((product, idx) => (
-                <div key={product.id} style={{ animation: `fadeInDown 0.6s ease-out ${idx * 0.1}s both` }}>
-                  <ProductCard
-                    product={product}
-                    onAddToCart={onAddToCart}
-                  />
+          {/* VÍDEOS DO INSTAGRAM */}
+          <div className="mb-12">
+            <h3 className="text-lg font-medium mb-6">Confira nossos vídeos virais!</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Vídeo 1 */}
+              <div className="relative overflow-hidden rounded-lg shadow-lg hover-elevate transition-all duration-300" style={{ animation: "fadeInDown 0.6s ease-out 0s both" }}>
+                <div className="aspect-video bg-black">
+                  <iframe
+                    width="100%"
+                    height="100%"
+                    src="https://www.instagram.com/reel/DN6gITtEuxD/embed"
+                    frameBorder="0"
+                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                    allowFullScreen
+                    data-testid="video-instagram-1"
+                  ></iframe>
                 </div>
-              ))}
+              </div>
+
+              {/* Vídeo 2 */}
+              <div className="relative overflow-hidden rounded-lg shadow-lg hover-elevate transition-all duration-300" style={{ animation: "fadeInDown 0.6s ease-out 0.1s both" }}>
+                <div className="aspect-video bg-black">
+                  <iframe
+                    width="100%"
+                    height="100%"
+                    src="https://www.instagram.com/reel/DNLXNOox2qj/embed"
+                    frameBorder="0"
+                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                    allowFullScreen
+                    data-testid="video-instagram-2"
+                  ></iframe>
+                </div>
+              </div>
             </div>
-          ) : (
-            <div className="text-center py-8 text-muted-foreground">
-              Carregando produtos...
+          </div>
+
+          <Separator className="my-8" />
+
+          {/* PRODUTOS EM DESTAQUE */}
+          <div className="mt-8">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-lg font-medium">Produtos em Destaque</h3>
+              <Link href="/colecao">
+                <Button variant="outline" size="sm" className="animate-float" data-testid="button-see-all-new">
+                  Ver Todos
+                </Button>
+              </Link>
             </div>
-          )}
+            
+            {featuredProducts.length > 0 ? (
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {featuredProducts.map((product, idx) => (
+                  <div key={product.id} style={{ animation: `fadeInDown 0.6s ease-out ${idx * 0.1}s both` }}>
+                    <ProductCard
+                      product={product}
+                      onAddToCart={onAddToCart}
+                    />
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-8 text-muted-foreground">
+                Carregando produtos...
+              </div>
+            )}
+          </div>
         </div>
       </section>
 
