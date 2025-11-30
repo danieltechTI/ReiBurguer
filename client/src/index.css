@@ -2,13 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-/* LIGHT MODE - ReiBurguer Colors (Red, Yellow, Brown) */
+/* LIGHT MODE - ReiBurguer Colors (Vibrant Red, Yellow, Brown) */
 :root {
-  --button-outline: rgba(220, 53, 23, .10);
-  --badge-outline: rgba(220, 53, 23, .05);
+  --button-outline: rgba(239, 68, 68, .10);
+  --badge-outline: rgba(239, 68, 68, .05);
   --opaque-button-border-intensity: -8;
-  --elevate-1: rgba(220, 53, 23, .03);
-  --elevate-2: rgba(220, 53, 23, .08);
+  --elevate-1: rgba(239, 68, 68, .03);
+  --elevate-2: rgba(239, 68, 68, .08);
   --background: 15 90% 96%;
   --foreground: 0 0% 9%;
   --border: 15 85% 88%;
@@ -26,7 +26,7 @@
   --popover: 15 85% 91%;
   --popover-foreground: 0 0% 9%;
   --popover-border: 15 80% 88%;
-  --primary: 15 100% 50%;
+  --primary: 0 100% 45%;
   --primary-foreground: 0 0% 100%;
   --secondary: 38 92% 50%;
   --secondary-foreground: 0 0% 9%;
@@ -38,13 +38,13 @@
   --destructive-foreground: 0 20% 98%;
   --input: 0 0% 78%;
   --ring: 45 100% 50%;
-  --chart-1: 15 100% 50%;
+  --chart-1: 0 100% 45%;
   --chart-2: 38 92% 50%;
   --chart-3: 25 80% 55%;
   --chart-4: 40 100% 45%;
   --chart-5: 20 90% 45%;
-  --font-sans: Inter, sans-serif;
-  --font-serif: Cormorant Garamond, Georgia, serif;
+  --font-sans: Poppins, Inter, sans-serif;
+  --font-serif: Playfair Display, Georgia, serif;
   --font-mono: Menlo, monospace;
   --radius: .5rem;
   --shadow-2xs: 0px 2px 0px 0px hsl(0 0% 0% / 0.00);
@@ -88,11 +88,11 @@
 }
 
 .dark {
-  --button-outline: rgba(220, 53, 23, .10);
-  --badge-outline: rgba(220, 53, 23, .05);
+  --button-outline: rgba(239, 68, 68, .10);
+  --badge-outline: rgba(239, 68, 68, .05);
   --opaque-button-border-intensity: 9;
-  --elevate-1: rgba(220, 53, 23, .04);
-  --elevate-2: rgba(220, 53, 23, .09);
+  --elevate-1: rgba(239, 68, 68, .04);
+  --elevate-2: rgba(239, 68, 68, .09);
   --background: 15 60% 10%;
   --foreground: 0 0% 96%;
   --border: 15 75% 22%;
@@ -110,7 +110,7 @@
   --popover: 15 60% 18%;
   --popover-foreground: 0 0% 96%;
   --popover-border: 15 65% 24%;
-  --primary: 15 100% 50%;
+  --primary: 0 100% 55%;
   --primary-foreground: 0 0% 100%;
   --secondary: 38 92% 55%;
   --secondary-foreground: 0 0% 9%;
@@ -122,7 +122,7 @@
   --destructive-foreground: 0 20% 98%;
   --input: 0 0% 28%;
   --ring: 45 100% 50%;
-  --chart-1: 15 100% 60%;
+  --chart-1: 0 100% 60%;
   --chart-2: 38 92% 65%;
   --chart-3: 25 80% 65%;
   --chart-4: 40 100% 60%;
