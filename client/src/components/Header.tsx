@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
-import { ShoppingBag, Menu } from "lucide-react";
+import { ShoppingBag, Menu, History } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Badge } from "@/components/ui/badge";
 import logoUrl from "@assets/Gemini_Generated_Image_hm3t66hm3t66hm3t_1764511817843.png";
 import burgerIconUrl from "@assets/Gemini_Generated_Image_hm3t66hm3t66hm3t_1764516570041.png";
+import { useQuery } from "@tanstack/react-query";
 
 interface HeaderProps {
   cartItemCount: number;
@@ -24,6 +25,9 @@ const navLinks = [
 export function Header({ cartItemCount, onCartClick, hideNav = false }: HeaderProps) {
   const [location] = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { data: authData } = useQuery<{ customerId?: string } | undefined>({
+    queryKey: ["/api/auth/me"],
+  });
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-background via-background/95 to-primary/20 backdrop-blur-md border-b-2 border-primary/40 shadow-lg shadow-primary/10">
@@ -88,6 +92,18 @@ export function Header({ cartItemCount, onCartClick, hideNav = false }: HeaderPr
           </Link>
 
           {!hideNav && <div className="flex items-center gap-2 md:gap-4">
+            {authData?.customerId && (
+              <Link href="/meus-pedidos" data-testid="link-order-history">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  title="Meus Pedidos"
+                  className="hover-elevate"
+                >
+                  <History className="h-5 w-5" />
+                </Button>
+              </Link>
+            )}
             <Button
               variant="ghost"
               size="icon"

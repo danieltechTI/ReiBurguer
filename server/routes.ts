@@ -673,6 +673,25 @@ export async function registerRoutes(
     }
   });
 
+  // Get customer orders - for order history
+  app.get("/api/customer/orders", async (req, res) => {
+    try {
+      const customerId = (req.session as any)?.customerId;
+      if (!customerId) {
+        return res.status(401).json({ message: "Not authenticated" });
+      }
+
+      const orders = await storage.getOrdersByCustomerId(customerId);
+      // Sort by date descending (newest first)
+      const sorted = orders.sort((a, b) => 
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      );
+      res.json(sorted);
+    } catch (error) {
+      res.status(500).json({ message: "Erro ao buscar pedidos" });
+    }
+  });
+
   // Admin endpoints
   app.get("/api/admin/orders", async (req, res) => {
     try {

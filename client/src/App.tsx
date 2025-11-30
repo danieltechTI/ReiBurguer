@@ -20,6 +20,7 @@ import { Contact } from "@/pages/Contact";
 import { Delivery } from "@/pages/Delivery";
 import { Videos } from "@/pages/Videos";
 import { Checkout } from "@/pages/Checkout";
+import { OrderHistory } from "@/pages/OrderHistory";
 import { Admin } from "@/pages/Admin";
 import { AdminLogin } from "@/pages/AdminLogin";
 import type { Product, CartItem, InsertContact } from "@shared/schema";
@@ -161,6 +162,9 @@ function AppContent() {
           </Route>
           <Route path="/checkout">
             <Checkout cartItems={cartItems} subtotal={cartItems.reduce((sum, item) => sum + item.product.price * item.quantity, 0)} />
+          </Route>
+          <Route path="/meus-pedidos">
+            <OrderHistory />
           </Route>
           <Route path="/admin-login">
             <AdminLogin />
