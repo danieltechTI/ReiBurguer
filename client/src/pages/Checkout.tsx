@@ -11,7 +11,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { useToast } from "@/hooks/use-toast";
 import { z } from "zod";
 import type { CartItem } from "@shared/schema";
-import whatsappIcon from "@assets/image_1764516346577.png";
+import whatsappIcon from "@assets/icons8-whatsapp-96_1764516128170.png";
 
 const checkoutSchema = z.object({
   customerName: z.string().min(2, "Nome obrigatório"),
