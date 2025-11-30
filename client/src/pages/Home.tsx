@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { ArrowRight, Truck, Lock, CreditCard, Phone } from "lucide-react";
+import { ArrowRight, MapPin, Lock, CreditCard, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ProductCard } from "@/components/ProductCard";
@@ -59,10 +59,10 @@ export function Home({ products, onAddToCart }: HomeProps) {
             </div>
             <div className="text-center p-4 rounded-lg hover:bg-background/50 transition-all duration-300 animate-rotateIn" style={{ animationDelay: "0.1s" }}>
               <div className="inline-block p-3 rounded-full bg-primary/10 mb-3">
-                <Truck className="h-8 w-8 text-primary" />
+                <MapPin className="h-8 w-8 text-primary" />
               </div>
-              <h3 className="font-medium text-sm md:text-base mb-1">Entrega Rápida</h3>
-              <p className="text-xs md:text-sm text-muted-foreground">Em Governador Valadares</p>
+              <h3 className="font-medium text-sm md:text-base mb-1">Retirada na Loja</h3>
+              <p className="text-xs md:text-sm text-muted-foreground">Rua Antonio Giarola, 30</p>
             </div>
             <div className="text-center p-4 rounded-lg hover:bg-background/50 transition-all duration-300 animate-rotateIn" style={{ animationDelay: "0.2s" }}>
               <div className="inline-block p-3 rounded-full bg-primary/10 mb-3">
