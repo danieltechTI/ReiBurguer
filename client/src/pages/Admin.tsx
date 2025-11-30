@@ -126,6 +126,12 @@ export function Admin() {
   };
 
   const pendingOrders = orders.filter(o => o.status !== "finalizado");
+  const allOrders = orders;
+  
+  // Calculate stats
+  const totalRevenue = allOrders.reduce((sum, order) => sum + order.total, 0);
+  const totalOrders = allOrders.length;
+  const completedOrders = allOrders.filter(o => o.status === "finalizado").length;
 
   if (isLoading) {
     return <div className="p-4">Carregando...</div>;
@@ -192,16 +198,35 @@ export function Admin() {
         </AlertDialogContent>
       </AlertDialog>
 
-      <div className="container max-w-4xl mx-auto">
-        <h1 className="text-3xl font-bold mb-6">Painel Admin - Pedidos</h1>
+      <div className="container max-w-6xl mx-auto">
+        <h1 className="text-3xl font-bold mb-6">Painel Admin - Controle de Pedidos</h1>
 
-        {pendingOrders.length === 0 ? (
-          <Card className="p-6 text-center">
-            <p className="text-secondary">Nenhum pedido pendente</p>
+        {/* Dashboard Stats */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+          <Card className="p-6 bg-gradient-to-br from-primary/10 to-primary/5">
+            <p className="text-sm text-secondary mb-2">Faturamento Total</p>
+            <p className="text-3xl font-bold text-primary">R$ {totalRevenue.toFixed(2)}</p>
           </Card>
-        ) : (
-          <div className="space-y-4">
-            {pendingOrders.map((order) => (
+          <Card className="p-6 bg-gradient-to-br from-blue-500/10 to-blue-500/5">
+            <p className="text-sm text-secondary mb-2">Total de Pedidos</p>
+            <p className="text-3xl font-bold text-blue-600">{totalOrders}</p>
+          </Card>
+          <Card className="p-6 bg-gradient-to-br from-green-500/10 to-green-500/5">
+            <p className="text-sm text-secondary mb-2">Pedidos Finalizados</p>
+            <p className="text-3xl font-bold text-green-600">{completedOrders}</p>
+          </Card>
+        </div>
+
+        {/* Pending Orders Section */}
+        <div className="mb-8">
+          <h2 className="text-xl font-bold mb-4">Pedidos Pendentes ({pendingOrders.length})</h2>
+          {pendingOrders.length === 0 ? (
+            <Card className="p-6 text-center">
+              <p className="text-secondary">Nenhum pedido pendente</p>
+            </Card>
+          ) : (
+            <div className="space-y-4">
+              {pendingOrders.map((order) => (
               <Card key={order.id} className="p-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
@@ -246,19 +271,44 @@ export function Admin() {
                   </div>
                 </div>
               </Card>
-            ))}
-          </div>
-        )}
+              ))}
+            </div>
+          )}
+        </div>
 
-        <div className="mt-8 p-4 bg-secondary/10 rounded-lg text-sm">
-          <p className="font-bold mb-2">Como usar:</p>
-          <ol className="list-decimal list-inside space-y-1 text-secondary">
-            <li>Cliente cria pedido online</li>
-            <li>Aparece aqui em "CONFIRMADO"</li>
-            <li>Clique "Próximo Status" para "PREPARANDO"</li>
-            <li>Quando pronto, clique novamente para "PRONTO"</li>
-            <li>Sistema envia WhatsApp para cliente automaticamente</li>
-          </ol>
+        {/* Order History Section */}
+        <div>
+          <h2 className="text-xl font-bold mb-4">Histórico Completo de Pedidos ({allOrders.length})</h2>
+          {allOrders.length === 0 ? (
+            <Card className="p-6 text-center">
+              <p className="text-secondary">Nenhum pedido ainda</p>
+            </Card>
+          ) : (
+            <div className="space-y-2 max-h-96 overflow-y-auto">
+              {allOrders
+                .sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime())
+                .map((order) => (
+                  <Card key={order.id} className="p-3 flex justify-between items-center">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2">
+                        <p className="font-bold">Pedido #{order.orderNumber}</p>
+                        <Badge className={`${getStatusColor(order.status)}`}>
+                          {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                        </Badge>
+                      </div>
+                      <p className="text-sm text-secondary">
+                        {order.customerName} • R$ {order.total.toFixed(2)} • {order.items.length} itens
+                      </p>
+                      {order.createdAt && (
+                        <p className="text-xs text-secondary/60">
+                          {new Date(order.createdAt).toLocaleString("pt-BR")}
+                        </p>
+                      )}
+                    </div>
+                  </Card>
+                ))}
+            </div>
+          )}
         </div>
       </div>
     </div>
