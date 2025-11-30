@@ -175,7 +175,7 @@ export const insertAddressSchema = z.object({
   state: z.string().length(2, "Estado inválido"),
 });
 
-export const insertOrderSchema = z.object({
+export const insertOldOrderSchema = z.object({
   name: z.string().min(2, "Nome deve ter pelo menos 2 caracteres"),
   email: z.string().email("Email inválido"),
   phone: z.string().min(10, "Telefone inválido"),
@@ -183,7 +183,7 @@ export const insertOrderSchema = z.object({
   address: insertAddressSchema,
 });
 
-export type InsertOrder = z.infer<typeof insertOrderSchema>;
+export type InsertOldOrder = z.infer<typeof insertOldOrderSchema>;
 
 // Order types for ReiBurguer (Pickup only)
 export type OrderStatus = "confirmado" | "preparando" | "pronto" | "finalizado";

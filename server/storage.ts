@@ -1,5 +1,5 @@
 import { randomUUID } from "crypto";
-import type { Product, CartItem, ContactMessage, InsertCartItem, InsertContact, Customer } from "@shared/schema";
+import type { Product, CartItem, ContactMessage, InsertCartItem, InsertContact, Customer, Order, InsertOrderData } from "@shared/schema";
 
 export interface IStorage {
   getProducts(): Promise<Product[]>;
@@ -17,6 +17,13 @@ export interface IStorage {
   
   createCustomer(email: string, passwordHash: string, name: string): Promise<Customer>;
   getCustomerByEmail(email: string): Promise<Customer | undefined>;
+  
+  createOrder(data: InsertOrderData): Promise<Order>;
+  getOrder(id: string): Promise<Order | undefined>;
+  getOrderByNumber(orderNumber: string): Promise<Order | undefined>;
+  getOrdersByCustomerId(customerId: string): Promise<Order[]>;
+  updateOrderStatus(id: string, status: string): Promise<Order | undefined>;
+  getAllOrders(): Promise<Order[]>;
 }
 
 const initialProducts: Product[] = [
@@ -233,16 +240,24 @@ export class MemStorage implements IStorage {
   private cartItems: Map<string, CartItem>;
   private contactMessages: Map<string, ContactMessage>;
   private customers: Map<string, Customer>;
+  private orders: Map<string, Order>;
+  private orderCounter: number = 0; // Global sequential counter for order numbers
 
   constructor() {
     this.products = new Map();
     this.cartItems = new Map();
     this.contactMessages = new Map();
     this.customers = new Map();
+    this.orders = new Map();
 
     initialProducts.forEach((product) => {
       this.products.set(product.id, product);
     });
+  }
+
+  private getNextOrderNumber(): string {
+    this.orderCounter = (this.orderCounter % 100000) + 1; // Wraps at 100000
+    return String(this.orderCounter).padStart(5, "0");
   }
 
   async getProducts(): Promise<Product[]> {
@@ -345,6 +360,57 @@ export class MemStorage implements IStorage {
 
   async getCustomerByEmail(email: string): Promise<Customer | undefined> {
     return Array.from(this.customers.values()).find(c => c.email === email);
+  }
+
+  async createOrder(data: InsertOrderData): Promise<Order> {
+    const id = randomUUID();
+    const orderNumber = this.getNextOrderNumber();
+    const now = new Date().toISOString();
+
+    const order: Order = {
+      id,
+      orderNumber,
+      customerId: data.customerId,
+      customerName: data.customerName,
+      customerPhone: data.customerPhone,
+      items: data.items as CartItem[],
+      subtotal: data.total,
+      shippingCost: 0,
+      total: data.total,
+      status: "confirmado",
+      paymentMethod: data.paymentMethod,
+      notes: data.notes,
+      createdAt: now,
+      updatedAt: now,
+    };
+
+    this.orders.set(id, order);
+    return order;
+  }
+
+  async getOrder(id: string): Promise<Order | undefined> {
+    return this.orders.get(id);
+  }
+
+  async getOrderByNumber(orderNumber: string): Promise<Order | undefined> {
+    return Array.from(this.orders.values()).find(o => o.orderNumber === orderNumber);
+  }
+
+  async getOrdersByCustomerId(customerId: string): Promise<Order[]> {
+    return Array.from(this.orders.values()).filter(o => o.customerId === customerId);
+  }
+
+  async updateOrderStatus(id: string, status: string): Promise<Order | undefined> {
+    const order = this.orders.get(id);
+    if (!order) return undefined;
+
+    const updated: Order = { ...order, status: status as any, updatedAt: new Date().toISOString() };
+    this.orders.set(id, updated);
+    return updated;
+  }
+
+  async getAllOrders(): Promise<Order[]> {
+    return Array.from(this.orders.values());
   }
 }
 

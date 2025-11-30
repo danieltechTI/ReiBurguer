@@ -3,7 +3,7 @@ import { createServer, type Server } from "http";
 import express from "express";
 import path from "path";
 import { storage } from "./storage";
-import { insertCartItemSchema, insertContactSchema, registerSchema, loginSchema } from "@shared/schema";
+import { insertCartItemSchema, insertContactSchema, registerSchema, loginSchema, insertOrderSchema } from "@shared/schema";
 import crypto from "crypto";
 // @ts-ignore - pdfkit types not available
 import PDFDocument from "pdfkit";
@@ -541,6 +541,50 @@ export async function registerRoutes(
       }
     } catch (error) {
       res.status(500).json({ message: "Error calculating shipping" });
+    }
+  });
+
+  // Order checkout endpoint
+  app.post("/api/orders/checkout", async (req, res) => {
+    try {
+      const customerId = (req.session as any)?.customerId;
+      if (!customerId) {
+        return res.status(401).json({ message: "Not authenticated" });
+      }
+
+      const parsed = insertOrderSchema.safeParse({
+        ...req.body,
+        customerId,
+      });
+      
+      if (!parsed.success) {
+        return res.status(400).json({ 
+          message: "Invalid order data",
+          errors: parsed.error.flatten().fieldErrors 
+        });
+      }
+
+      // Get cart items and calculate total
+      const cartItems = await storage.getCartItems();
+      if (cartItems.length === 0) {
+        return res.status(400).json({ message: "Carrinho vazio" });
+      }
+
+      // Create order
+      const order = await storage.createOrder({
+        ...parsed.data,
+        items: cartItems,
+      });
+
+      res.status(201).json({
+        id: order.id,
+        orderNumber: order.orderNumber,
+        total: order.total,
+        status: order.status,
+      });
+    } catch (error) {
+      console.error("Checkout error:", error);
+      res.status(500).json({ message: "Erro ao criar pedido" });
     }
   });
 
