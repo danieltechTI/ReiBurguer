@@ -28,31 +28,27 @@ export function Home({ products, onAddToCart }: HomeProps) {
     <div>
       {/* Hero Section - Premium */}
       <div 
-        className="w-full min-h-screen pt-20 pb-12 flex items-center justify-center relative overflow-hidden"
+        className="w-full h-[600px] md:h-screen flex items-center justify-center relative"
         style={{
-          backgroundImage: "url('/hero-background.png')",
+          backgroundImage: "linear-gradient(135deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.3) 100%), url('/hero-background.png')",
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
+          backgroundAttachment: 'fixed',
         }}
       >
-        {/* Gradient Overlay for better text readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/30"></div>
-        
-        <div className="relative z-10 text-center px-4 max-w-3xl">
-          <div className="mb-4 inline-block px-4 py-2 rounded-full bg-primary/20 backdrop-blur-sm border border-primary/30">
-            <span className="text-primary font-medium text-sm">A Melhor Hamburgueria da Região</span>
-          </div>
-          <h1 className="font-serif text-6xl md:text-7xl font-light mb-6 text-white drop-shadow-2xl tracking-tight">
+        <div className="text-center px-4 max-w-3xl">
+          <p className="text-primary font-medium text-sm mb-4 uppercase tracking-wide">A Melhor Hamburgueria da Região</p>
+          <h1 className="font-serif text-5xl md:text-7xl font-light mb-6 text-white drop-shadow-lg">
             ReiBurguer
           </h1>
-          <p className="text-white/95 max-w-2xl mx-auto mb-10 text-lg md:text-xl drop-shadow-lg leading-relaxed">
-            Hambúrgueres artesanais, bebidas geladas e muito sabor. Purgua feita com amor em cada detalhe!
+          <p className="text-white/90 max-w-2xl mx-auto mb-8 text-lg md:text-xl drop-shadow-md leading-relaxed">
+            Hambúrgueres artesanais, bebidas geladas e muito sabor. Feita com amor em cada detalhe!
           </p>
           <Link href="/colecao">
-            <Button size="lg" className="hover-elevate bg-primary text-primary-foreground font-semibold gap-2 px-8 py-6 text-base" data-testid="button-hero-collection">
+            <Button size="lg" className="bg-primary text-primary-foreground font-semibold gap-2" data-testid="button-hero-collection">
               Explorar Cardápio
-              <ArrowRight className="w-5 h-5" />
+              <ArrowRight className="w-4 h-4" />
             </Button>
           </Link>
         </div>
