@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
 import { insertContactSchema, type InsertContact } from "@shared/schema";
+import { Map } from "@/components/Map";
 
 interface ContactProps {
   onSubmit: (data: InsertContact) => Promise<void>;
@@ -52,7 +53,7 @@ export function Contact({ onSubmit, isSubmitting }: ContactProps) {
             Entre em Contato
           </h1>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Estamos aqui para ajudá-la a encontrar a joia perfeita. 
+            Estamos aqui para ajudá-lo! 
             Entre em contato conosco por qualquer um dos canais abaixo.
           </p>
         </div>
@@ -68,11 +69,11 @@ export function Contact({ onSubmit, isSubmitting }: ContactProps) {
                   <div>
                     <h3 className="font-medium mb-1">Telefone</h3>
                     <a
-                      href="tel:+5511999999999"
+                      href="tel:+5533987062406"
                       className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                       data-testid="link-contact-phone"
                     >
-                      (11) 99999-9999
+                      (33) 98706-2406
                     </a>
                   </div>
                 </div>
@@ -86,11 +87,11 @@ export function Contact({ onSubmit, isSubmitting }: ContactProps) {
                   <div>
                     <h3 className="font-medium mb-1">Email</h3>
                     <a
-                      href="mailto:contato@glamgear.com.br"
+                      href="mailto:contato@reiburguer.com.br"
                       className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                       data-testid="link-contact-email"
                     >
-                      contato@glamgear.com.br
+                      contato@reiburguer.com.br
                     </a>
                   </div>
                 </div>
@@ -104,9 +105,9 @@ export function Contact({ onSubmit, isSubmitting }: ContactProps) {
                   <div>
                     <h3 className="font-medium mb-1">Endereço</h3>
                     <p className="text-sm text-muted-foreground">
-                      Rua das Joias, 123
+                      Rua Antonio Giarola, 30
                       <br />
-                      São Paulo - SP
+                      Céu Azul - MG
                     </p>
                   </div>
                 </div>
@@ -120,9 +121,9 @@ export function Contact({ onSubmit, isSubmitting }: ContactProps) {
                   <div>
                     <h3 className="font-medium mb-1">Horário</h3>
                     <p className="text-sm text-muted-foreground">
-                      Seg - Sex: 9h às 18h
+                      Aberto todos os dias
                       <br />
-                      Sáb: 9h às 13h
+                      Apenas retirada na loja
                     </p>
                   </div>
                 </div>
@@ -140,7 +141,7 @@ export function Contact({ onSubmit, isSubmitting }: ContactProps) {
                     Atendimento rápido e personalizado
                   </p>
                   <a
-                    href="https://wa.me/5511999999999"
+                    href="https://wa.me/5533987062406"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -152,6 +153,11 @@ export function Contact({ onSubmit, isSubmitting }: ContactProps) {
                 </div>
               </div>
             </Card>
+
+            <div className="mt-6">
+              <h3 className="font-medium mb-4">Nossa Localização</h3>
+              <Map />
+            </div>
           </div>
 
           <Card className="p-6 md:p-8 border-0 bg-card">
