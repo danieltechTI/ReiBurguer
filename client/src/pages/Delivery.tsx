@@ -74,7 +74,7 @@ export function Delivery() {
           </p>
           <div className="flex gap-4 justify-center flex-wrap">
             <a
-              href="https://wa.me/31995030612?text=Olá%2C%20gostaria%20de%20fazer%20um%20pedido%20para%20delivery%21"
+              href="https://wa.me/5531995030612?text=Olá%2C%20gostaria%20de%20fazer%20um%20pedido%20para%20delivery%21"
               target="_blank"
               rel="noopener noreferrer"
             >

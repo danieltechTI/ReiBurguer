@@ -232,7 +232,7 @@ export function Home({ products, onAddToCart }: HomeProps) {
             Entre em contato conosco pelo WhatsApp e nossa equipe estará pronta para ajudar!
           </p>
           <a
-            href="https://wa.me/31995030612?text=Olá%2C%20estou%20navegando%20no%20cardápio%20da%20ReiBurguer%20e%20gostaria%20de%20fazer%20um%20pedido%21"
+            href="https://wa.me/5531995030612?text=Olá%2C%20estou%20navegando%20no%20cardápio%20da%20ReiBurguer%20e%20gostaria%20de%20fazer%20um%20pedido%21"
             target="_blank"
             rel="noopener noreferrer"
           >
