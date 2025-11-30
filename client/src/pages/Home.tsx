@@ -248,36 +248,6 @@ export function Home({ products, onAddToCart }: HomeProps) {
             </div>
           </div>
 
-          <Separator className="my-8" />
-
-          {/* PRODUTOS EM DESTAQUE */}
-          <div className="mt-8">
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-lg font-medium">Produtos em Destaque</h3>
-              <a href="/colecao">
-                <Button variant="outline" size="sm" data-testid="button-see-all-new">
-                  Ver Todos
-                </Button>
-              </a>
-            </div>
-            
-            {featuredProducts.length > 0 ? (
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                {featuredProducts.map((product) => (
-                  <div key={product.id}>
-                    <ProductCard
-                      product={product}
-                      onAddToCart={onAddToCart}
-                    />
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="text-center py-8 text-muted-foreground">
-                Carregando produtos...
-              </div>
-            )}
-          </div>
         </div>
       </section>
     </div>
