@@ -124,43 +124,35 @@ export function Home({ products, onAddToCart }: HomeProps) {
             Destaques do Dia
           </h2>
           
-          {/* VÍDEOS DO INSTAGRAM */}
+          {/* VÍDEOS LOCAIS */}
           <div className="mb-12">
             <h3 className="text-base font-medium mb-6">Confira nossos vídeos virais!</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Vídeo 1 */}
-              <a 
-                href="https://www.instagram.com/reel/DN6gITtEuxD/"
-                target="_blank"
-                rel="noopener noreferrer"
-                data-testid="link-instagram-1"
-              >
-                <div className="relative overflow-hidden rounded-md border border-border hover-elevate cursor-pointer">
-                  <div className="aspect-video bg-black flex items-center justify-center">
-                    <div className="text-center">
-                      <Instagram className="h-12 w-12 text-primary mb-2 mx-auto" />
-                      <p className="text-white text-sm">Clique para ver no Instagram</p>
-                    </div>
-                  </div>
-                </div>
-              </a>
+              <div className="relative overflow-hidden rounded-md border border-border">
+                <video
+                  className="w-full h-full aspect-video object-cover"
+                  controls
+                  poster="/videos/thumb1.jpg"
+                  data-testid="video-player-1"
+                >
+                  <source src="/videos/video1.mp4" type="video/mp4" />
+                  Seu navegador não suporta a tag de vídeo.
+                </video>
+              </div>
 
               {/* Vídeo 2 */}
-              <a 
-                href="https://www.instagram.com/reel/DNLXNOox2qj/"
-                target="_blank"
-                rel="noopener noreferrer"
-                data-testid="link-instagram-2"
-              >
-                <div className="relative overflow-hidden rounded-md border border-border hover-elevate cursor-pointer">
-                  <div className="aspect-video bg-black flex items-center justify-center">
-                    <div className="text-center">
-                      <Instagram className="h-12 w-12 text-primary mb-2 mx-auto" />
-                      <p className="text-white text-sm">Clique para ver no Instagram</p>
-                    </div>
-                  </div>
-                </div>
-              </a>
+              <div className="relative overflow-hidden rounded-md border border-border">
+                <video
+                  className="w-full h-full aspect-video object-cover"
+                  controls
+                  poster="/videos/thumb2.jpg"
+                  data-testid="video-player-2"
+                >
+                  <source src="/videos/video2.mp4" type="video/mp4" />
+                  Seu navegador não suporta a tag de vídeo.
+                </video>
+              </div>
             </div>
           </div>
 
