@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { Switch, Route } from "wouter";
+import { Switch, Route, useLocation } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider, useQuery, useMutation } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -116,10 +116,12 @@ function AppContent() {
   );
 
   const cartItemCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+  const [location] = useLocation();
+  const isAdminPage = location === "/admin";
 
   return (
     <div className="min-h-screen bg-background">
-      <Header cartItemCount={cartItemCount} onCartClick={() => setCartOpen(true)} />
+      {!isAdminPage && <Header cartItemCount={cartItemCount} onCartClick={() => setCartOpen(true)} />}
       
       <main>
         <Switch>
@@ -175,17 +177,17 @@ function AppContent() {
         </Switch>
       </main>
 
-      <Footer />
+      {!isAdminPage && <Footer />}
 
-      <CartDrawer
+      {!isAdminPage && <CartDrawer
         open={cartOpen}
         onClose={() => setCartOpen(false)}
         items={cartItems}
         onUpdateQuantity={handleUpdateQuantity}
         onRemoveItem={handleRemoveItem}
-      />
+      />}
 
-      <WhatsAppButton />
+      {!isAdminPage && <WhatsAppButton />}
     </div>
   );
 }
