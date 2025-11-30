@@ -547,11 +547,7 @@ export async function registerRoutes(
   // Order checkout endpoint
   app.post("/api/orders/checkout", async (req, res) => {
     try {
-      const customerId = (req.session as any)?.customerId;
-      if (!customerId) {
-        return res.status(401).json({ message: "Not authenticated" });
-      }
-
+      const customerId = (req.session as any)?.customerId || randomUUID(); // Allow guest checkout
       const { customerName, customerPhone, paymentMethod, notes } = req.body;
       
       if (!customerName || !customerPhone) {
