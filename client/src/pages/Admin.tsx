@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { LogOut } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -20,6 +21,7 @@ import type { Order } from "@shared/schema";
 
 export function Admin() {
   const [, setLocation] = useLocation();
+  const { toast } = useToast();
   
   // Check if admin is logged in
   useEffect(() => {
@@ -35,6 +37,7 @@ export function Admin() {
   };
   const [newOrderNotification, setNewOrderNotification] = useState<Order | null>(null);
   const [playingNotificationSound, setPlayingNotificationSound] = useState(false);
+  const [shownNotificationIds, setShownNotificationIds] = useState<Set<string>>(new Set());
   const lastOrderCountRef = useRef<number>(0);
   const audioIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -109,16 +112,17 @@ export function Admin() {
   // Detect new orders and show notification
   useEffect(() => {
     if (orders.length > lastOrderCountRef.current) {
-      // Find the newest order that's "confirmado"
-      const newOrders = orders.filter(o => o.status === "confirmado");
+      // Find the newest order that's "confirmado" and hasn't been shown yet
+      const newOrders = orders.filter(o => o.status === "confirmado" && !shownNotificationIds.has(o.id));
       if (newOrders.length > 0) {
         const newestOrder = newOrders[newOrders.length - 1];
         setNewOrderNotification(newestOrder);
+        setShownNotificationIds(prev => new Set([...prev, newestOrder.id]));
         startNotificationSound();
       }
     }
     lastOrderCountRef.current = orders.length;
-  }, [orders]);
+  }, [orders, shownNotificationIds]);
 
   // Clean up sound on unmount
   useEffect(() => {
@@ -190,6 +194,11 @@ export function Admin() {
 
   const handleRejectOrder = () => {
     stopNotificationSound();
+    toast({
+      title: "Pedido ignorado",
+      description: "O pedido continua na fila com status 'Confirmado'. Você pode aceitar depois.",
+      duration: 3000,
+    });
     setNewOrderNotification(null);
   };
 
