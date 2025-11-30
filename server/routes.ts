@@ -30,7 +30,7 @@ async function generateWelcomePDF(customerName: string): Promise<Buffer> {
     // Header
     doc.fontSize(24).font("Helvetica-Bold").text("ReiBurguer", { align: "center" });
     doc.fontSize(10).text("Hambúrgueres, Bebidas e Acompanhamentos", { align: "center" });
-    doc.fontSize(9).text("WhatsApp: +55 31 99503-0612", { align: "center" });
+    doc.fontSize(9).text("WhatsApp: +55 31 99347-1856", { align: "center" });
     doc.text("Instagram: @glamgear5", { align: "center" });
     
     doc.moveTo(50, doc.y + 5).lineTo(550, doc.y).stroke();
@@ -71,7 +71,7 @@ async function generateWelcomePDF(customerName: string): Promise<Buffer> {
     // Contact
     doc.fontSize(10).font("Helvetica-Bold").text("ENTRE EM CONTATO:");
     doc.font("Helvetica").fontSize(9);
-    doc.text("WhatsApp: +55 31 99503-0612", { indent: 20 });
+    doc.text("WhatsApp: +55 31 99347-1856", { indent: 20 });
     doc.text("Instagram: @glamgear5", { indent: 20 });
     doc.moveDown(2);
 
@@ -248,7 +248,7 @@ export async function registerRoutes(
                   <p>Obrigado por se cadastrar na Glam Gear! Você agora tem acesso a nossa coleção exclusiva de joias, semi-joias, aço inoxidável, bijuterias e bolsas.</p>
                   <p>Em anexo, você encontra um recibo de boas-vindas com mais informações sobre nossa loja.</p>
                   <p><strong>Entre em contato:</strong></p>
-                  <p>WhatsApp: (33) 98706-2406<br>Instagram: @glamgear5</p>
+                  <p>WhatsApp: +55 31 99347-1856<br>Instagram: @glamgear5</p>
                   <p>Com carinho,<br><strong>GLAM GEAR</strong></p>
                 `,
                 attachments: [
@@ -590,7 +590,7 @@ export async function registerRoutes(
       const whatsappMessage = `Olá! Pedido #${order.orderNumber}. Itens: ${itemList}. Total: R$ ${total.toFixed(2)}${notes ? `. Obs: ${notes}` : ''}.`;
 
       // Generate WhatsApp link (user will need to click to send)
-      const whatsappPhone = "5531995030612"; // ReiBurguer WhatsApp
+      const whatsappPhone = "5531993471856"; // ReiBurguer WhatsApp
       const whatsappLink = `https://wa.me/${whatsappPhone}?text=${encodeURIComponent(whatsappMessage)}`;
 
       res.status(201).json({

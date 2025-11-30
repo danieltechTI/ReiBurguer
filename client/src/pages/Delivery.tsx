@@ -47,7 +47,7 @@ export function Delivery() {
               </div>
               <div>
                 <h3 className="font-semibold text-lg mb-2">Entre em Contato</h3>
-                <p className="text-muted-foreground">WhatsApp: +55 31 99503-0612</p>
+                <p className="text-muted-foreground">WhatsApp: +55 31 99347-1856</p>
               </div>
             </div>
           </Card>
@@ -74,7 +74,7 @@ export function Delivery() {
           </p>
           <div className="flex gap-4 justify-center flex-wrap">
             <a
-              href="https://wa.me/5531995030612?text=Olá%2C%20gostaria%20de%20fazer%20um%20pedido%20para%20delivery%21"
+              href="https://wa.me/5531993471856?text=Olá%2C%20gostaria%20de%20fazer%20um%20pedido%20para%20delivery%21"
               target="_blank"
               rel="noopener noreferrer"
             >

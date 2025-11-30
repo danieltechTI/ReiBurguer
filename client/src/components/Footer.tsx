@@ -89,22 +89,22 @@ export function Footer() {
             </h4>
             <div className="flex flex-col gap-3">
               <a
-                href="https://wa.me/5531995030612?text=Olá%2C%20estou%20navegando%20no%20cardápio%20da%20ReiBurguer%20e%20gostaria%20de%20fazer%20um%20pedido%21"
+                href="https://wa.me/5531993471856?text=Olá%2C%20estou%20navegando%20no%20cardápio%20da%20ReiBurguer%20e%20gostaria%20de%20fazer%20um%20pedido%21"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
                 data-testid="link-whatsapp"
               >
                 <MessageCircle className="h-4 w-4" />
-                WhatsApp: +55 31 99503-0612
+                WhatsApp: +55 31 99347-1856
               </a>
               <a
-                href="tel:+5531995030612"
+                href="tel:+5531993471856"
                 className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
                 data-testid="link-phone"
               >
                 <Phone className="h-4 w-4" />
-                +55 31 99503-0612
+                +55 31 99347-1856
               </a>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <MapPin className="h-4 w-4" />
@@ -162,7 +162,7 @@ export function Footer() {
       </div>
 
       <a
-        href="https://wa.me/5531995030612"
+        href="https://wa.me/5531993471856"
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-6 right-6 z-50"

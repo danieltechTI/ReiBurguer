@@ -68,11 +68,11 @@ export function Contact({ onSubmit, isSubmitting }: ContactProps) {
                   <div>
                     <h3 className="font-medium mb-1">Telefone</h3>
                     <a
-                      href="tel:+5531995030612"
+                      href="tel:+5531993471856"
                       className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                       data-testid="link-contact-phone"
                     >
-                      +55 31 99503-0612
+                      +55 31 99347-1856
                     </a>
                   </div>
                 </div>
@@ -140,7 +140,7 @@ export function Contact({ onSubmit, isSubmitting }: ContactProps) {
                     Atendimento rápido e personalizado
                   </p>
                   <a
-                    href="https://wa.me/5531995030612"
+                    href="https://wa.me/5531993471856"
                     target="_blank"
                     rel="noopener noreferrer"
                   >

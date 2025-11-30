@@ -158,7 +158,7 @@ A aplicação roda na porta 5000 com `npm run dev`.
 ## Configurações da Loja
 - **Nome**: ReiBurguer
 - **Endereço Retirada**: Rua Antonio Giarola, 30 - Governador Valadares, MG
-- **WhatsApp**: +55 31 99503-0612
+- **WhatsApp**: +55 31 99347-1856
 - **Instagram**: @glamgear5
 - **Horário**: Segunda a Domingo, 11h-22h (sugestão)
 
