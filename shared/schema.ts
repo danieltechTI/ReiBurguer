@@ -188,7 +188,7 @@ export const insertOldOrderSchema = z.object({
 export type InsertOldOrder = z.infer<typeof insertOldOrderSchema>;
 
 // Order types for ReiBurguer (Pickup only)
-export type OrderStatus = "confirmado" | "preparando" | "pronto" | "finalizado";
+export type OrderStatus = "confirmado" | "preparando" | "pronto" | "finalizado" | "recusado";
 
 export interface Order {
   id: string;

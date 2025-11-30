@@ -150,6 +150,8 @@ export function Admin() {
         return "bg-green-100 text-green-800";
       case "finalizado":
         return "bg-gray-100 text-gray-800";
+      case "recusado":
+        return "bg-red-100 text-red-800";
       default:
         return "bg-gray-100 text-gray-800";
     }
@@ -168,13 +170,14 @@ export function Admin() {
     }
   };
 
-  const pendingOrders = orders.filter(o => o.status !== "finalizado");
+  const pendingOrders = orders.filter(o => o.status !== "finalizado" && o.status !== "recusado");
   const allOrders = orders;
   
-  // Calculate stats
-  const totalRevenue = allOrders.reduce((sum, order) => sum + order.total, 0);
-  const totalOrders = allOrders.length;
-  const completedOrders = allOrders.filter(o => o.status === "finalizado").length;
+  // Calculate stats (exclude recusado from revenue and counts)
+  const acceptedOrders = allOrders.filter(o => o.status !== "recusado");
+  const totalRevenue = acceptedOrders.reduce((sum, order) => sum + order.total, 0);
+  const totalOrders = acceptedOrders.length;
+  const completedOrders = acceptedOrders.filter(o => o.status === "finalizado").length;
 
   if (isLoading) {
     return <div className="p-4">Carregando...</div>;
@@ -194,11 +197,17 @@ export function Admin() {
 
   const handleRejectOrder = () => {
     stopNotificationSound();
-    toast({
-      title: "Pedido ignorado",
-      description: "O pedido continua na fila com status 'Confirmado'. Você pode aceitar depois.",
-      duration: 3000,
-    });
+    if (newOrderNotification) {
+      updateStatusMutation.mutate({
+        orderId: newOrderNotification.id,
+        status: "recusado",
+      });
+      toast({
+        title: "Pedido Recusado",
+        description: "O pedido foi marcado como recusado e não aparece no faturamento.",
+        duration: 3000,
+      });
+    }
     setNewOrderNotification(null);
   };
 
