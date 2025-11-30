@@ -4,7 +4,7 @@ import express from "express";
 import path from "path";
 import { storage } from "./storage";
 import { insertCartItemSchema, insertContactSchema, registerSchema, loginSchema, insertOrderSchema } from "@shared/schema";
-import crypto from "crypto";
+import crypto, { randomUUID } from "crypto";
 // @ts-ignore - pdfkit types not available
 import PDFDocument from "pdfkit";
 import type { SessionData } from "express-session";
