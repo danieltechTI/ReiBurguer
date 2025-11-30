@@ -1,8 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
+import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { LogOut } from "lucide-react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -17,6 +19,20 @@ import { queryClient } from "@/lib/queryClient";
 import type { Order } from "@shared/schema";
 
 export function Admin() {
+  const [, setLocation] = useLocation();
+  
+  // Check if admin is logged in
+  useEffect(() => {
+    const isAuthenticated = localStorage.getItem("adminAuth");
+    if (!isAuthenticated) {
+      setLocation("/admin-login");
+    }
+  }, [setLocation]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("adminAuth");
+    setLocation("/admin-login");
+  };
   const [newOrderNotification, setNewOrderNotification] = useState<Order | null>(null);
   const lastOrderCountRef = useRef<number>(0);
   const audioIntervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -199,7 +215,18 @@ export function Admin() {
       </AlertDialog>
 
       <div className="container max-w-6xl mx-auto">
-        <h1 className="text-3xl font-bold mb-6">Painel Admin - Controle de Pedidos</h1>
+        <div className="flex items-center justify-between mb-6">
+          <h1 className="text-3xl font-bold">Painel Admin - Controle de Pedidos</h1>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={handleLogout}
+            data-testid="button-admin-logout"
+          >
+            <LogOut className="h-4 w-4 mr-2" />
+            Sair
+          </Button>
+        </div>
 
         {/* Dashboard Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">

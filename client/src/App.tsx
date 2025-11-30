@@ -24,6 +24,7 @@ import { Checkout } from "@/pages/Checkout";
 import { Login } from "@/pages/Login";
 import { Register } from "@/pages/Register";
 import { Admin } from "@/pages/Admin";
+import { AdminLogin } from "@/pages/AdminLogin";
 import type { Product, CartItem, InsertContact } from "@shared/schema";
 
 function AppContent() {
@@ -169,6 +170,9 @@ function AppContent() {
           </Route>
           <Route path="/registro">
             <Register />
+          </Route>
+          <Route path="/admin-login">
+            <AdminLogin />
           </Route>
           <Route path="/admin">
             <Admin />
