@@ -58,7 +58,7 @@ export function Home({ products, onAddToCart }: HomeProps) {
       </div>
 
       {/* Benefícios - Premium Layout com Animações */}
-      <section className="bg-white py-16 md:py-20 border-b border-border">
+      <section className="bg-white pt-24 md:pt-32 pb-16 md:pb-20 border-b border-border">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-10">
             {/* Fácil de Pedir - Com Bandeiras de Pagamento */}
