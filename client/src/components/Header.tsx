@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
-import { ShoppingBag, Menu, LogIn, LogOut } from "lucide-react";
+import { ShoppingBag, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Badge } from "@/components/ui/badge";
-import { useAuth } from "@/lib/authContext";
 import logoUrl from "@assets/Gemini_Generated_Image_hm3t66hm3t66hm3t_1764511817843.png";
 
 interface HeaderProps {
@@ -24,7 +23,6 @@ const navLinks = [
 export function Header({ cartItemCount, onCartClick, hideNav = false }: HeaderProps) {
   const [location] = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { customer, logout } = useAuth();
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-background via-background/95 to-primary/20 backdrop-blur-md border-b-2 border-primary/40 shadow-lg shadow-primary/10">
@@ -58,49 +56,6 @@ export function Header({ cartItemCount, onCartClick, hideNav = false }: HeaderPr
                         </span>
                       </Link>
                     ))}
-                    <div className="border-t border-border mt-4 pt-4">
-                      {customer ? (
-                        <>
-                          <p className="text-sm font-light text-foreground/70 mb-3">
-                            Olá, {customer.name}
-                          </p>
-                          <Button
-                            variant="ghost"
-                            className="w-full justify-start"
-                            onClick={() => {
-                              logout();
-                              setMobileMenuOpen(false);
-                            }}
-                            data-testid="button-logout-mobile"
-                          >
-                            <LogOut className="h-4 w-4 mr-2" />
-                            Sair
-                          </Button>
-                        </>
-                      ) : (
-                        <>
-                          <Link
-                            href="/login"
-                            onClick={() => setMobileMenuOpen(false)}
-                            data-testid="link-login-mobile"
-                          >
-                            <Button variant="ghost" className="w-full justify-start">
-                              <LogIn className="h-4 w-4 mr-2" />
-                              Entrar
-                            </Button>
-                          </Link>
-                          <Link
-                            href="/registro"
-                            onClick={() => setMobileMenuOpen(false)}
-                            data-testid="link-register-mobile"
-                          >
-                            <Button variant="ghost" className="w-full justify-start">
-                              Registrar
-                            </Button>
-                          </Link>
-                        </>
-                      )}
-                    </div>
                   </nav>
                 </SheetContent>
               </Sheet>
@@ -132,37 +87,6 @@ export function Header({ cartItemCount, onCartClick, hideNav = false }: HeaderPr
           </Link>
 
           {!hideNav && <div className="flex items-center gap-2 md:gap-4">
-            {customer && (
-              <div className="hidden md:flex items-center gap-2 text-sm font-light">
-                <span className="text-foreground/70">Olá, {customer.name}</span>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={logout}
-                  data-testid="button-logout"
-                  title="Sair"
-                >
-                  <LogOut className="h-4 w-4" />
-                </Button>
-              </div>
-            )}
-
-            {!customer && (
-              <div className="hidden md:flex items-center gap-2">
-                <Link href="/login" data-testid="link-login">
-                  <Button variant="ghost" size="sm" data-testid="button-login">
-                    <LogIn className="h-4 w-4 mr-1" />
-                    Entrar
-                  </Button>
-                </Link>
-                <Link href="/registro" data-testid="link-register">
-                  <Button size="sm" data-testid="button-register">
-                    Registrar
-                  </Button>
-                </Link>
-              </div>
-            )}
-
             <Button
               variant="ghost"
               size="icon"
