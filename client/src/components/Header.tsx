@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
-import { ShoppingBag, Menu, History } from "lucide-react";
+import { ShoppingBag, Menu, History, Crown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Badge } from "@/components/ui/badge";
@@ -86,9 +86,12 @@ export function Header({ cartItemCount, onCartClick, hideNav = false }: HeaderPr
 
           <Link href="/" data-testid="link-logo" className="flex items-center gap-2 md:gap-3">
             <img src={burgerIconUrl} alt="Rei Burguer Logo" className="h-12 w-12 md:h-14 md:w-14 rounded-full" />
-            <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground" style={{ fontFamily: "'Space Mono', monospace", letterSpacing: '-0.02em' }}>
-              Rei <span style={{ color: '#D4AF37' }}>Burguer</span>
-            </h1>
+            <div className="flex items-center gap-1">
+              <Crown className="h-5 w-5 md:h-6 md:w-6 text-yellow-500 fill-yellow-500" />
+              <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground" style={{ fontFamily: "'Space Mono', monospace", letterSpacing: '-0.02em' }}>
+                Rei <span style={{ color: '#D4AF37' }}>Burguer</span>
+              </h1>
+            </div>
           </Link>
 
           {!hideNav && <div className="flex items-center gap-2 md:gap-4">
