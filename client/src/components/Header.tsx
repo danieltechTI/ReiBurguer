@@ -119,7 +119,7 @@ export function Header({ cartItemCount, onCartClick }: HeaderProps) {
           </nav>
 
           <Link href="/" data-testid="link-logo">
-            <h1 className="font-serif text-2xl md:text-3xl font-light tracking-tight text-primary">
+            <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground" style={{ fontFamily: "'Space Mono', monospace", letterSpacing: '-0.02em' }}>
               ReiBurguer
             </h1>
           </Link>
