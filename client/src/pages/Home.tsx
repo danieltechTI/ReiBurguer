@@ -31,10 +31,11 @@ export function Home({ products, onAddToCart }: HomeProps) {
       <div 
         className="w-full h-screen flex items-center justify-center relative"
         style={{
-          backgroundImage: "url('/hero-background.png')",
+          backgroundImage: "url('/hero-background.png?v=1')",
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
+          backgroundAttachment: 'fixed',
         }}
       >
         <div className="text-center px-4 max-w-3xl">
