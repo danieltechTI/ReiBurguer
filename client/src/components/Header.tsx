@@ -1,10 +1,17 @@
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
-import { ShoppingBag, Menu, LogIn, LogOut } from "lucide-react";
+import { ShoppingBag, Menu, LogIn, LogOut, Palette } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/lib/authContext";
+import { useColor } from "@/lib/colorContext";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu";
 
 interface HeaderProps {
   cartItemCount: number;
@@ -23,6 +30,17 @@ export function Header({ cartItemCount, onCartClick }: HeaderProps) {
   const [location] = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { customer, logout } = useAuth();
+  const { hue, setHue } = useColor();
+
+  const colorPresets = [
+    { name: "Vermelho", hue: 0 },
+    { name: "Laranja", hue: 30 },
+    { name: "Amarelo", hue: 45 },
+    { name: "Verde", hue: 120 },
+    { name: "Azul", hue: 220 },
+    { name: "Roxo", hue: 280 },
+    { name: "Rosa", hue: 330 },
+  ];
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-background via-background/95 to-primary/20 backdrop-blur-md border-b-2 border-primary/40 shadow-lg shadow-primary/10">
@@ -155,6 +173,83 @@ export function Header({ cartItemCount, onCartClick }: HeaderProps) {
                 </Link>
               </div>
             )}
+
+            <DropdownMenu>
+              <Button
+                variant="ghost"
+                size="icon"
+                data-testid="button-color-picker"
+                title="Mudar cor"
+              >
+                <Palette className="h-5 w-5" />
+              </Button>
+              <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuLabel>Escolha a cor</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <div className="grid grid-cols-2 gap-2 p-2">
+                  {colorPresets.map((preset) => (
+                    <button
+                      key={preset.hue}
+                      onClick={() => setHue(preset.hue)}
+                      className={`px-3 py-2 rounded-md text-sm font-medium transition-all ${
+                        hue === preset.hue
+                          ? "ring-2 ring-offset-2"
+                          : "hover:bg-accent"
+                      }`}
+                      style={{
+                        backgroundColor: `hsl(${preset.hue} 100% 52%)`,
+                        color: "white",
+                        opacity: hue === preset.hue ? 1 : 0.7,
+                      }}
+                      data-testid={`button-color-${preset.name.toLowerCase()}`}
+                    >
+                      {preset.name}
+                    </button>
+                  ))}
+                </div>
+                <DropdownMenuSeparator />
+                <div className="p-2 space-y-2">
+                  <label className="text-xs font-medium text-muted-foreground">
+                    Cor personalizada
+                  </label>
+                  <div className="flex gap-2">
+                    <input
+                      type="color"
+                      value={`hsl(${hue}, 100%, 52%)`}
+                      onChange={(e) => {
+                        const rgb = e.target.value;
+                        const hex = rgb.replace("#", "");
+                        const r = parseInt(hex.substr(0, 2), 16) / 255;
+                        const g = parseInt(hex.substr(2, 2), 16) / 255;
+                        const b = parseInt(hex.substr(4, 2), 16) / 255;
+                        const max = Math.max(r, g, b);
+                        const min = Math.min(r, g, b);
+                        let h = 0;
+                        if (max === r)
+                          h = ((g - b) / (max - min)) * 60;
+                        else if (max === g)
+                          h = 120 + ((b - r) / (max - min)) * 60;
+                        else h = 240 + ((r - g) / (max - min)) * 60;
+                        if (h < 0) h += 360;
+                        setHue(Math.round(h));
+                      }}
+                      data-testid="input-color-custom"
+                      className="w-12 h-10 rounded cursor-pointer"
+                    />
+                    <input
+                      type="number"
+                      min="0"
+                      max="359"
+                      value={hue}
+                      onChange={(e) => setHue(parseInt(e.target.value) || 0)}
+                      data-testid="input-hue-value"
+                      className="flex-1 px-2 py-1 border border-border rounded text-sm"
+                      placeholder="Hue (0-359)"
+                    />
+                  </div>
+                </div>
+              </DropdownMenuContent>
+            </DropdownMenu>
 
             <Button
               variant="ghost"

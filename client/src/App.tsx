@@ -7,6 +7,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import { AuthProvider } from "@/lib/authContext";
+import { ColorProvider } from "@/lib/colorContext";
 import NotFound from "@/pages/not-found";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -189,10 +190,12 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <AuthProvider>
-          <Toaster />
-          <AppContent />
-        </AuthProvider>
+        <ColorProvider>
+          <AuthProvider>
+            <Toaster />
+            <AppContent />
+          </AuthProvider>
+        </ColorProvider>
       </TooltipProvider>
     </QueryClientProvider>
   );
