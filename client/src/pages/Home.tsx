@@ -36,8 +36,8 @@ export function Home({ products, onAddToCart }: HomeProps) {
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
           backgroundAttachment: 'fixed',
-          minHeight: '500px',
-          maxHeight: '600px',
+          minHeight: '380px',
+          maxHeight: '450px',
         }}
       >
         <div className="text-center px-4 max-w-3xl">
