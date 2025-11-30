@@ -26,17 +26,23 @@ export function Home({ products, onAddToCart }: HomeProps) {
 
   return (
     <div className="min-h-screen pt-20 md:pt-24">
-      {/* Hero with Background */}
+      {/* Hero with Background Image */}
       <section 
-        className="relative py-20 md:py-32 overflow-hidden bg-gradient-to-br from-primary/40 via-background to-primary/5 border-b-2 border-primary/40"
+        className="relative py-20 md:py-32 overflow-hidden border-b-2 border-primary/40"
+        style={{
+          backgroundImage: 'url(/rei-burger-hero.png)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed',
+        }}
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/90 to-primary/10"></div>
-        <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_20%_50%,hsl(0_100%_52%),transparent_50%)] animate-vibrant-pulse"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-background/85 via-background/70 to-background/75"></div>
+        <div className="absolute inset-0 opacity-40 bg-[radial-gradient(circle_at_20%_50%,hsl(0_100%_52%),transparent_50%)] animate-vibrant-pulse"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="font-serif text-5xl md:text-6xl font-light mb-4 animate-bounce-in text-primary drop-shadow-2xl">
+          <h1 className="font-serif text-5xl md:text-6xl font-light mb-4 animate-bounce-in text-white drop-shadow-2xl">
             ReiBurguer
           </h1>
-          <p className="text-foreground/90 max-w-2xl mx-auto mb-8 text-lg animate-slideInRight">
+          <p className="text-white/90 max-w-2xl mx-auto mb-8 text-lg animate-slideInRight drop-shadow-lg">
             Hambúrgueres deliciosos, bebidas refrescantes e muito sabor!
           </p>
           <Link href="/colecao">
