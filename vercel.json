@@ -3,20 +3,5 @@
   "outputDirectory": "dist",
   "env": {
     "NODE_ENV": "production"
-  },
-  "functions": {
-    "server/index.ts": {
-      "runtime": "nodejs20.x"
-    }
-  },
-  "rewrites": [
-    {
-      "source": "/api/(.*)",
-      "destination": "/index.cjs"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ]
+  }
 }
